@@ -3,6 +3,11 @@ home: true
 heroImage: /logo.jpg
 actionText: 快速上手 →
 actionLink: /zh/guide/
+meta:
+  - name: description
+    content: hello
+  - name: keywords
+    content: super duper SEO
 features:
 - title: 简洁至上
   details: 以 Markdown 为中心的项目结构，以最少的配置帮助你专注于写作。
@@ -11,4 +16,10 @@ features:
 - title: 高性能
   details: VuePress 为每个页面预渲染生成静态的 HTML，同时在页面被加载的时候，将作为 SPA 运行。
 footer: MIT Licensed | Copyright © 2018-present Evan You
+
 ---
+
+::: tip
+This is a tip
+:tada: :100:
+:::

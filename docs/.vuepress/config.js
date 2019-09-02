@@ -1,5 +1,5 @@
 module.exports = {
-  title: '陈亚男的个人博客',
+  title: 'chenyanan の blog',
   description: '记录日常',
   // 注入到当前页面的 HTML <head> 中的标签
   head: [
@@ -13,16 +13,16 @@ module.exports = {
     sidebarDepth: 2, // e'b将同时提取markdown中h2 和 h3 标题，显示在侧边栏上。
     lastUpdated: 'Last Updated', // 文档更新时间：每个文件git最后提交的时间
 	nav:[
-      { text: '前端算法', link: '/algorithm/' }, // 内部链接 以docs为根目录
-      { text: '博客', link: 'http://obkoro1.com/' }, // 外部链接
+      { text: '前端算法', link: '/2019-09-02-我的第一篇博客.md' }, // 内部链接 以docs为根目录
+      { text: '博客', link: '#' }, // 外部链接
       // 下拉列表
       {
         text: 'GitHub',
         items: [
-          { text: 'GitHub地址', link: 'https://github.com/OBKoro1' },
+          { text: 'GitHub地址', link: 'https://github.com/ching7' },
           {
-            text: '算法仓库',
-            link: 'https://github.com/OBKoro1/Brush_algorithm'
+            text: '待添加',
+            link: 'https://github.com/ching7'
           }
         ]
       }        
