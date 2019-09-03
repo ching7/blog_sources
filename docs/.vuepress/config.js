@@ -12,18 +12,18 @@ module.exports = {
   themeConfig: {
     sidebarDepth: 2, // e'b将同时提取markdown中h2 和 h3 标题，显示在侧边栏上。
     lastUpdated: 'Last Updated', // 文档更新时间：每个文件git最后提交的时间
-	nav:[
-      { text: '后端', link: '/2019-09-02-我的第一篇博客.md' }, // 内部链接 以docs为根目录
-      { text: '微服务', link: '#' }, // 外部链接
-      { text: '架构', link: '#' }, // 外部链接
-      { text: '前端', link: '#' }, // 外部链接
-      { text: '读书', link: '#' }, // 外部链接
-      { text: '音乐', link: '#' }, // 外部链接
+	  nav:[
+      { text: '后端', link: '/blog/2019-09-03.md' }, // 内部链接 以docs为根目录
+      { text: '微服务', link: '/devnav/' }, 
+      { text: '架构', link: '#' }, 
+      { text: '前端', link: '/frontnav/' }, 
+      { text: '读书', link: '#' }, 
+      { text: '音乐', link: '#' }, 
       // 下拉列表
       {
         text: 'GitHub',
         items: [
-          { text: 'GitHub地址', link: 'https://github.com/ching7' },
+          { text: 'GitHub地址', link: 'https://github.com/ching7' },// 外部链接
           {
             text: '待添加',
             link: 'https://github.com/ching7'
@@ -31,29 +31,15 @@ module.exports = {
         ]
       }        
     ],
-	sidebar:{
-        // docs文件夹下面的accumulate文件夹 文档中md文件 书写的位置(命名随意)
-        '/devnav/': [
-            '/devnav/', // accumulate文件夹的README.md 不是下拉框形式
-            {
-              title: '侧边栏下拉框的标题1',
-              children: [
-                '/devnav/java/test', // 以docs为根目录来查找文件 
-                // 上面地址查找的是：docs>accumulate>JS>test.md 文件
-                // 自动加.md 每个子选项的标题 是该md文件中的第一个h1/h2/h3标题
-              ]
-            }
-          ],
-          // docs文件夹下面的algorithm文件夹 这是第二组侧边栏 跟第一组侧边栏没关系
-          '/frontnav/': [
-            '/frontnav/', 
-            {
-              title: '第二组侧边栏下拉框的标题1',
-              children: [
-                '/frontnav/js/test' 
-              ]
-            }
-          ]
-      }
-  }
+	  sidebar:{
+        '/devnav/': [ 
+          'one',
+          'two',  
+        ],
+        '/frontnav/': [
+          'one',  
+          'two',  
+        ]
+    }
+  },
 };
