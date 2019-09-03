@@ -32,4 +32,5 @@ footer: MIT Licensed | Copyright © 2019-chenyanan
 > * 文章3
 
 ## :raised_hands:联系我
-> **qq：**<775608698@qq.com>
+> - **qq：**<775608698@qq.com>
+> - **wechat: ching_vip**
