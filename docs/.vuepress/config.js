@@ -13,10 +13,10 @@ module.exports = {
     sidebarDepth: 2, // e'b将同时提取markdown中h2 和 h3 标题，显示在侧边栏上。
     lastUpdated: 'Last Updated', // 文档更新时间：每个文件git最后提交的时间
 	  nav:[
-      { text: '后端', link: '/blog/2019-09-03.md' }, // 内部链接 以docs为根目录
-      { text: '微服务', link: '/devnav/' }, 
+      { text: '后端', link: '/dev/' }, // 内部链接 以docs为根目录
+      { text: '前端', link: '/front/' }, 
+      { text: '微服务', link: '#' }, 
       { text: '架构', link: '#' }, 
-      { text: '前端', link: '/frontnav/' }, 
       { text: '读书', link: '#' }, 
       { text: '音乐', link: '#' }, 
       // 下拉列表
@@ -32,11 +32,11 @@ module.exports = {
       }        
     ],
 	  sidebar:{
-        '/devnav/': [ 
+        '/dev/': [ 
           'one',
           'two',  
         ],
-        '/frontnav/': [
+        '/front/': [
           'one',  
           'two',  
         ]
