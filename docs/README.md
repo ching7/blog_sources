@@ -32,4 +32,5 @@ footer: MIT Licensed | Copyright © 2019-author
 > * 文章3
 
 ## :raised_hands:联系我
-> **qq：**<[已删除]>
+> - **qq：**<[已删除]>
+> - **wechat: [已删除]**
