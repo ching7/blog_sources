@@ -7,7 +7,7 @@ footer: MIT Licensed | Copyright © 2019-chenyanan
 ---
 
 ## :new:最新
-> - [基于vue和WEBRTC的图片采集处理demo](https://baidu.com)
+> - [基于vue和WEBRTC的图片采集处理demo](https://github.com/ching7/imageCaptureDemo/blob/master/imageCapture.html)
 
 ## :key:后端 
 > - 施工中
