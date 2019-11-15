@@ -15,7 +15,7 @@ module.exports = {
 	  nav:[
       { text: '后端', link: '/dev/' }, // 内部链接 以docs为根目录
       { text: '前端', link: '/front/' }, 
-      { text: '微服务', link: '/videoDemo.html' }, 
+      { text: '微服务', link: '#' }, 
       { text: '架构', link: '#' }, 
       { text: '读书', link: '#' }, 
       { text: '音乐', link: '#' }, 
@@ -28,6 +28,14 @@ module.exports = {
       }        
     ],
 	  sidebar:{
+        '/dev/': [
+          {
+            title:'nginx基础入门',
+            children:[
+              '/dev/nginx/nginxstudy'
+            ]
+          }
+        ],
         '/front/': [
           {
             title:'玩转vuepress',
