@@ -24,21 +24,17 @@ module.exports = {
         text: 'GitHub',
         items: [
           { text: 'GitHub地址', link: 'https://github.com/ching7' },// 外部链接
-          {
-            text: '待添加',
-            link: 'https://github.com/ching7'
-          }
         ]
       }        
     ],
 	  sidebar:{
-        '/dev/': [ 
-          'one',
-          'two',  
-        ],
         '/front/': [
-          'one',  
-          'two',  
+          {
+            title:'玩转vuepress',
+            children:[
+              '/front/markdown/manual'
+            ]
+          }
         ]
     }
   },
