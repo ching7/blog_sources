@@ -1,7 +1,5 @@
 # nginx
 
----
-
 ## 1、nginx安装（linux）
 
 * 安装nginx环境依赖
@@ -228,9 +226,9 @@ nginx [-?hvVtq] [-s signal] [-c filename] [-p prefix] [-g directives]
 
 ## 9 、nginx原理
 
-![运行原理](/nginx.jpg)
+![运行原理](/image/nginx.jpg)
 
-![工作原理](/nginx2.jpg)
+![工作原理](/image/nginx2.jpg)
 
 ~~~properties
 master-workers 的机制的好处

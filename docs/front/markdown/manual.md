@@ -1,6 +1,4 @@
-## 如何使用vuepress玩转blog
-
----
+# 如何使用vuepress玩转blog
 
 环境：`node.js`  编码工具：`vscode`  [vuepress官网](https://vuepress.vuejs.org/)
 
@@ -91,7 +89,7 @@ mkdir public
 ~~~properties
 ---
 home: true
-heroImage: /logo.jpg
+heroImage: /image/logo.jpg
 actionText: 快速上手 →
 actionLink: /zh/guide/
 features:
@@ -169,7 +167,7 @@ module.exports = {
 
 ### 2）导航栏配置
 
-![](/bar-example.jpg)
+![](/image/bar-example.jpg)
 
 ~~~js
 themeConfig: {
@@ -193,7 +191,7 @@ themeConfig: {
 
 ### 3）侧边栏配置
 
-![](/bar-example2.jpg)
+![](/image/bar-example2.jpg)
 
 ~~~js
 module.exports = {
@@ -297,7 +295,7 @@ cd -
 
 > 参考资料:
 >
-> [[VuePress 手摸手教你搭建一个类Vue文档风格的技术文档/博客](https://segmentfault.com/a/1190000016333850)]
+> [VuePress 手摸手教你搭建一个类Vue文档风格的技术文档/博客](https://segmentfault.com/a/1190000016333850)
 >
 > [VuePress + GitHub Pages 搭建个人博客](https://www.jianshu.com/p/6e8c608f24c8)
 >

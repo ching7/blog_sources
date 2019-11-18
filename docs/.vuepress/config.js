@@ -3,7 +3,7 @@ module.exports = {
   description: '学习最好的时间就是现在',
   // 注入到当前页面的 HTML <head> 中的标签
   head: [
-    ['link', { rel: 'icon', href: '/ico-pig.png' }], // 增加一个自定义的 favicon(网页标签的图标)
+    ['link', { rel: 'icon', href: '/icon/ico-pig.png' }], // 增加一个自定义的 favicon(网页标签的图标)
   ],
   //base: '/vuepress-blog/', // 这是部署到github相关的配置 下面会讲
   markdown: {
@@ -15,7 +15,7 @@ module.exports = {
 	  nav:[
       { text: '后端', link: '/dev/' }, // 内部链接 以docs为根目录
       { text: '前端', link: '/front/' }, 
-      { text: '微服务', link: '#' }, 
+      { text: '微服务', link: '/dev/' }, 
       { text: '架构', link: '#' }, 
       { text: '读书', link: '#' }, 
       { text: '音乐', link: '#' }, 
@@ -34,7 +34,13 @@ module.exports = {
             children:[
               '/dev/nginx/nginxstudy'
             ]
-          }
+          },
+          {
+            title:'FastDFS安装和使用',
+            children:[
+              '/dev/fastdfs/fastdfsStudy'
+            ]
+          },
         ],
         '/front/': [
           {
