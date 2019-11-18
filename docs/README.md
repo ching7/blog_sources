@@ -1,6 +1,6 @@
 ﻿---
 home: true
-heroImage: /logo.jpg
+heroImage: /image/logo.jpg
 actionText: get start →
 actionLink: /front/
 footer: MIT Licensed | Copyright © 2019-chenyanan
