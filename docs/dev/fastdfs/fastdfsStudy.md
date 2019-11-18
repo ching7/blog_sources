@@ -51,10 +51,11 @@
 group1/M00/00/00/wKjRgF3PPvOAOF7HAAFl33KnvNs832.jpg
 ~~~
 
-* 组名：文件上传后所在的storage组名称，在文件上传成功后有storage服务器返回，需要客户端自行保存。
-* 虚拟磁盘路径：storage配置的虚拟路径，与磁盘选项store_path*对应。如果配置了store_path0则是M00，如果配置了store_path1则是M01，以此类推。
-* 数据两级目录：storage服务器在每个虚拟磁盘路径下创建的两级目录，用于存储数据文件
-* 文件名：与文件上传时不同。是由存储服务器根据特
+* 组名：文件上传后所在的`storage`组名称，在文件上传成功后有`storage`服务器返回，需要客户端自行保存。
+* 虚拟磁盘路径：`storage`配置的虚拟路径，与磁盘选项`store_path*`对应。如果配置了`store_path0`则是`M00`，如果配置了`store_path1`则是`M01`，以此类推。
+* 数据两级目录：`storage`服务器在每个虚拟磁盘路径下创建的两级目录，用于存储数据文件
+* 文件名：与文件上传时不同。是由存储服务器根据特定信息生成，文件名包含：源存储服务器IP地址、文件创
+  建时间戳、文件大小、随机数和文件拓展名等信息。
 
 #### 1.2.3 文件下载流程
 
@@ -68,17 +69,327 @@ tracker根据请求的文件路径即文件ID 来快速定义文件。
 group1/M00/00/00/wKjRgF3PPvOAOF7HAAFl33KnvNs832.jpg
 ~~~
 
-* 通过组名tracker能够很快的定位到客户端需要访问的存储服务器组是group1，并选择合适的存储服务器提供客户端访问。
+* 通过组名`tracker`能够很快的定位到客户端需要访问的存储服务器组是`group1`，并选择合适的存储服务器提供客户端访问。
 * 存储服务器根据“文件存储虚拟磁盘路径”和“数据文件两级目录”可以很快定位到文件所在目录，并根据文件名找到
   客户端需要访问的文件。
 
 ## 2 FastDFS入门
 
-### 2.1 FastDFS安装配置
+### 2.1 FastDFS安装配置(tracker)
 
-参考网上教程
+注：本次之安装一台tracker、storage,且都在同一台机器上、方便调试。有兴趣的可以拓展成分布式
 
-### 2.2 Trakcer配置
+#### 2.1.1 安装条件
 
-### 2.3 Storage配置
+* 需要一台`CentOS7`虚拟机
+* 下载`FastDFS`安装包，地址：https://github.com/happyfish100/FastDFS ，本文档使用`FastDFS_v5.05.tar.gz`
+
+#### 2.1.2 准备安装环境
+
+* `FastDFS`是`C语言`开发，编译依赖`gcc`环境，安装 `gcc`
+
+  ~~~cmake 
+  yum -y install gcc-c++
+  ~~~
+
+* 依赖依赖`libevent`库
+
+  ~~~cmake
+  yum -y install libevent
+  ~~~
+
+* `libfastcommon`是`FastDFS`官方提供的，`libfastcommon`包含了`FastDFS`运行所需要的一些基础库。本文档使用的是`libfastcommonV1.0.7.tar.gz`,下载地址：https://github.com/happyfish100/libfastcommon/releases
+
+  ~~~cmake
+  # 将libfastcommonV1.0.7.tar.gz拷贝至/usr/local/下
+  cd /usr/local
+  tar -zxvf libfastcommonV1.0.7.tar.gz
+  cd libfastcommon-1.0.7
+  ./make.sh
+  ./make.sh install
+  ~~~
+
+* **注意：`libfastcommon`安装好后会自动将库文件拷贝至`/usr/lib64`下，由于`FastDFS`程序引用`usr/lib`目录所以需要将`/usr/lib64`下的库文件拷贝至/`usr/lib`下。**
+
+  ~~~cmake
+  cp /usr/lib64/libfastcommon.so /usr/lib/libfastcommon.so
+  ~~~
+
+  
+
+#### 2.1.3 安装FastDFS
+
+~~~cmake
+# 将FastDFS_v5.05.tar.gz拷贝至/usr/local/下
+tar -zxvf FastDFS_v5.05.tar.gz
+
+cd FastDFS
+
+./make.sh
+./make.sh install
+
+# 安装成功将安装目录下的conf下的文件拷贝到/etc/fdfs/下。
+~~~
+
+#### 2.1.4 配置FastDFS(tracker)
+
+安装成功后进入`/etc/fdfs`目录
+
+~~~cmake
+# 拷贝一份新的tracker配置文件：
+cp tracker.conf.sample tracker.conf
+
+# 修改tracker.conf
+vi tracker.conf
+# base_path=/home/yuqing/FastDFS   
+# 改为：（根据个人具体情况调整）
+# base_path=/home/FastDFS
+# 配置http端口：
+http.server_port=80
+
+~~~
+
+#### 2.1.5 启动Tracker
+
+~~~cmake
+# 注意控制台的打印信息
+/usr/bin/fdfs_trackerd /etc/fdfs/tracker.conf restart
+~~~
+
+### 2.2 FastDFS安装配置(storage)
+
+#### 2.2.1 安装过程
+
+同 `Tracker`
+
+#### 2.2.2 配置FastDFS(Storage)
+
+安装成功后进入`/etc/fdfs`目录
+
+~~~cmake
+# 拷贝一份新的storage配置文件：
+cp storage.conf.sample storage.conf
+
+# 修改storage.conf
+vi storage.conf
+# group_name=group1
+# base_path=/home/yuqing/FastDFS 改为：base_path=/home/FastDFS（根据个人具体情况调整）
+# store_path0=/home/yuqing/FastDFS 改为：store_path0=/home/FastDFS/fdfs_storage（根据个人具体情况调整）
+#如果有多个挂载磁盘则定义多个store_path，如下（根据个人具体情况调整）
+#store_path1=.....
+#store_path2=......
+tracker_server=192.168.101.3:22122   #配置tracker服务器:IP
+#如果有多个则配置多个tracker
+tracker_server=192.168.101.4:22122
+
+#配置http端口
+http.server_port=80
+
+~~~
+
+#### 2.2.3 启动Storage
+
+~~~cmake
+# 注意控制台的打印信息
+/usr/bin/fdfs_storaged /etc/fdfs/storage.conf restart
+~~~
+
+### 2.3 测试FastDFS是否安装成功
+
+#### 2.3.1 上传图片测试
+
+`FastDFS`安装成功可通过`/usr/bin/fdfs_test`测试上传、下载等操作。
+
+修改`/etc/fdfs/client.conf`
+
+`tracker_server`根据自己部署虚拟机的情况/配置 
+
+~~~cmake
+# 拷贝一份新的client配置文件：
+cp client.conf.sample client.conf
+
+# 修改配置文件
+vi client.conf
+# base_path=/home/fastdfs
+# tracker_server=192.168.101.3:22122
+~~~
+
+使用格式：
+
+`/usr/bin/fdfs_test `客户端配置文件地址  `upload ` 上传文件
+
+比如将`/home`下的图片上传到`FastDFS`中：
+
+~~~cma
+/usr/bin/fdfs_test /etc/fdfs/client.conf upload /home/tomcat.png
+~~~
+
+看到如下日志：
+
+~~~cmake
+This is FastDFS client test program v5.05
+
+Copyright (C) 2008, Happy Fish / YuQing
+
+FastDFS may be copied only under the terms of the GNU General
+Public License V3, which may be found in the FastDFS source kit.
+Please visit the FastDFS Home Page http://www.csource.org/ 
+for more detail.
+
+[2019-11-18 22:56:28] DEBUG - base_path=/home/chenyn/fastdfs/FastDFS, connect_timeout=30, network_timeout=60, tracker_server_count=1, anti_steal_token=0, anti_steal_secret_key length=0, use_connection_pool=0, g_connection_pool_max_idle_time=3600s, use_storage_id=0, storage server id count: 0
+
+tracker_query_storage_store_list_without_group: 
+	server 1. group_name=, ip_addr=192.168.127.128, port=23000
+
+group_name=group1, ip_addr=192.168.127.128, port=23000
+storage_upload_by_filename
+group_name=group1, remote_filename=M00/00/00/wKh_gF3SsRyAJg6iAABlnZYG9PM641.png
+source ip address: 192.168.127.128
+file timestamp=2019-11-18 22:56:28
+file size=26013
+file crc32=2517038323
+example file url: http://192.168.127.128/group1/M00/00/00/wKh_gF3SsRyAJg6iAABlnZYG9PM641.png
+storage_upload_slave_by_filename
+group_name=group1, remote_filename=M00/00/00/wKh_gF3SsRyAJg6iAABlnZYG9PM641_big.png
+source ip address: 192.168.127.128
+file timestamp=2019-11-18 22:56:29
+file size=26013
+file crc32=2517038323
+example file url: http://192.168.127.128/group1/M00/00/00/wKh_gF3SsRyAJg6iAABlnZYG9PM641_big.png
+~~~
+
+恭喜你成功了:slightly_smiling_face:~
+
+#### 2.3.2 下载图片
+
+~~~cmake
+http://192.168.127.128/group1/M00/00/00/wKh_gF3SsRyAJg6iAABlnZYG9PM641_big.png
+# 此路径就是文件的下载路径 对应storage服务器上的
+/home/chenyn/fastdfs/FastDFS/storage/data/00/00/wKh_gF3SsRyAJg6iAABlnZYG9PM641_big.png文件。
+# 由于现在还没有和nginx整合无法使用http下载。待新增
+~~~
+
+
+
+## 3 SpringBoot整合FastDFS实现文件上传下载测试
+
+使用`javaApi`测试文件的上传。
+`java`版本的`fastdfs-client`地址在：https://github.com/happyfish100/fastdfs-client-java，参考此工程编写测试用
+例。
+
+### 3.1 环境搭建
+
+* 新建maven工程          
+
+* 添加依赖
+
+  ~~~xml
+  <parent>
+          <groupId>org.springframework.boot</groupId>
+          <artifactId>spring-boot-starter-parent</artifactId>
+          <version>2.1.9.RELEASE</version>
+          <relativePath/> <!-- lookup parent from repository -->
+  </parent>
+  <groupId>cn.itcast.javaee</groupId>
+  <artifactId>fastdfs</artifactId>
+  <version>1.0‐SNAPSHOT</version>
+  <dependencies>
+   	   <dependency>
+              <groupId>org.springframework.boot</groupId>
+              <artifactId>spring-boot-starter-web</artifactId>
+          </dependency>
+          <dependency>
+              <groupId>org.springframework.boot</groupId>
+              <artifactId>spring-boot-starter-test</artifactId>
+              <scope>test</scope>
+          </dependency>
+          <dependency>
+              <groupId>commons-io</groupId>
+              <artifactId>commons-io</artifactId>
+              <version>2.4</version>
+          </dependency>
+          <!-- https://mvnrepository.com/artifact/net.oschina.zcx7878/fastdfs-client-java -->
+          <dependency>
+              <groupId>net.oschina.zcx7878</groupId>
+              <artifactId>fastdfs-client-java</artifactId>
+              <version>1.27.0.0</version>
+          </dependency>	
+  </dependencies>
+  ~~~
+
+* resources目录下新建配置文件`fastdfs-client.properties`
+
+~~~properties
+fastdfs.connect_timeout_in_seconds = 5
+fastdfs.network_timeout_in_seconds = 30
+fastdfs.charset = UTF‐8
+fastdfs.http_anti_steal_token = false
+fastdfs.http_secret_key = FastDFS1234567890
+fastdfs.http_tracker_http_port = 80
+# 根据实际情况调整
+fastdfs.tracker_servers = 192.168.101.64:22122
+~~~
+
+### 3.2 文件上传
+
+~~~java
+public class TestFastDfsUpload {
+    /**
+     * entry point
+     *
+     * @param args comand arguments
+     *             <ul><li>args[0]: config filename</li></ul>
+     *             <ul><li>args[1]: local filename to upload</li></ul>
+     */
+    public static void main(String args[]) {
+        // 也可以指定配置文件测试
+        /*if (args.length < 2) {
+            System.out.println("Error: Must have 2 parameters, one is config filename, "
+                    + "the other is the local filename to upload");
+            return;
+        }*/
+
+        System.out.println("java.version=" + System.getProperty("java.version"));
+
+       /* String conf_filename = args[0];
+        String local_filename = args[1];*/
+
+        try {
+            // 加载配置文件
+            //ClientGlobal.init(conf_filename);
+            ClientGlobal.initByProperties("fastdfs-client.properties");
+            System.out.println("network_timeout=" + ClientGlobal.g_network_timeout + "ms");
+            System.out.println("charset=" + ClientGlobal.g_charset);
+
+            //创建tracker客户端
+            TrackerClient tracker = new TrackerClient();
+            TrackerServer trackerServer = tracker.getConnection();
+            StorageServer storageServer = null;
+
+            //定义一个storage客户端
+            StorageClient1 client = new StorageClient1(trackerServer, storageServer);
+
+            //文件元信息
+            NameValuePair[] metaList = new NameValuePair[1];
+            metaList[0] = new NameValuePair("fileName", "C:\\Users\\ching\\Desktop\\cat.png");
+
+            //执行上传
+            String fileId = client.upload_file1("C:\\Users\\ching\\Desktop\\cat.png", "png", metaList);
+            System.out.println("upload success. file id is: " + fileId);
+
+            //文件下载
+            /*int i = 0;
+            while (i++ < 10) {
+                byte[] result = client.download_file1(fileId);
+                System.out.println(i + ", download result is: " + result.length);
+            }*/
+
+            //关闭tracker服务
+            trackerServer.close();
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+    }
+}
+~~~
 
