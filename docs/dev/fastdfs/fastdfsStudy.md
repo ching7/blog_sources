@@ -330,30 +330,15 @@ fastdfs.http_tracker_http_port = 80
 fastdfs.tracker_servers = 192.168.101.64:22122
 ~~~
 
-### 3.2 文件上传
+### 3.2 文件上传、查询、下载
 
 ~~~java
-public class TestFastDfsUpload {
-    /**
-     * entry point
-     *
-     * @param args comand arguments
-     *             <ul><li>args[0]: config filename</li></ul>
-     *             <ul><li>args[1]: local filename to upload</li></ul>
+/**
+     * 文件上传
      */
-    public static void main(String args[]) {
-        // 也可以指定配置文件测试
-        /*if (args.length < 2) {
-            System.out.println("Error: Must have 2 parameters, one is config filename, "
-                    + "the other is the local filename to upload");
-            return;
-        }*/
-
+    @Test
+    public  void fileUpload() {
         System.out.println("java.version=" + System.getProperty("java.version"));
-
-       /* String conf_filename = args[0];
-        String local_filename = args[1];*/
-
         try {
             // 加载配置文件
             //ClientGlobal.init(conf_filename);
@@ -371,18 +356,11 @@ public class TestFastDfsUpload {
 
             //文件元信息
             NameValuePair[] metaList = new NameValuePair[1];
-            metaList[0] = new NameValuePair("fileName", "C:\\Users\\ching\\Desktop\\cat.png");
+            metaList[0] = new NameValuePair("fileName", "C:\\Users\\hspcadmin\\Desktop\\cat.jpg");
 
             //执行上传
-            String fileId = client.upload_file1("C:\\Users\\ching\\Desktop\\cat.png", "png", metaList);
+            String fileId = client.upload_file1("C:\\Users\\hspcadmin\\Desktop\\cat.jpg", "jpg", metaList);
             System.out.println("upload success. file id is: " + fileId);
-
-            //文件下载
-            /*int i = 0;
-            while (i++ < 10) {
-                byte[] result = client.download_file1(fileId);
-                System.out.println(i + ", download result is: " + result.length);
-            }*/
 
             //关闭tracker服务
             trackerServer.close();
@@ -390,6 +368,228 @@ public class TestFastDfsUpload {
             ex.printStackTrace();
         }
     }
-}
+
+    /**
+     * 查询文件
+     */
+    @Test
+    public void queryFile(){
+        System.out.println("java.version=" + System.getProperty("java.version"));
+        try {
+            // 加载配置文件
+            //ClientGlobal.init(conf_filename);
+            ClientGlobal.initByProperties("fastdfs-client.properties");
+            System.out.println("network_timeout=" + ClientGlobal.g_network_timeout + "ms");
+            System.out.println("charset=" + ClientGlobal.g_charset);
+
+            //创建tracker客户端
+            TrackerClient tracker = new TrackerClient();
+            TrackerServer trackerServer = tracker.getConnection();
+            StorageServer storageServer = null;
+
+            //定义一个storage客户端
+            StorageClient1 client = new StorageClient1(trackerServer, storageServer);
+
+            //查询文件
+            FileInfo fileInfo = client.query_file_info("group1","M00/00/00/wKjRgF3PSxiAHuHtAAFl33KnvNs253.jpg");
+            FileInfo fileInfo1 = client.query_file_info1("group1/M00/00/00/wKjRgF3PSxiAHuHtAAFl33KnvNs253.jpg");
+            System.out.println(fileInfo1);
+            //查询文件元信息
+            NameValuePair[] fileInfos =  client.get_metadata1("group1/M00/00/00/wKjRgF3PSxiAHuHtAAFl33KnvNs253.jpg");
+            System.out.println(fileInfos);
+
+            //关闭tracker服务
+            trackerServer.close();
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+    }
+
+    /**
+     * 文件下载
+     */
+    @Test
+    public void fileDownload(){
+        try {
+            // 加载配置文件
+            //ClientGlobal.init(conf_filename);
+            ClientGlobal.initByProperties("fastdfs-client.properties");
+            System.out.println("network_timeout=" + ClientGlobal.g_network_timeout + "ms");
+            System.out.println("charset=" + ClientGlobal.g_charset);
+
+            //创建tracker客户端
+            TrackerClient tracker = new TrackerClient();
+            TrackerServer trackerServer = tracker.getConnection();
+            StorageServer storageServer = null;
+
+            //定义一个storage客户端
+            StorageClient1 client = new StorageClient1(trackerServer, storageServer);
+
+            //下载文件
+            byte[] fileBytes = client.download_file1("group1/M00/00/00/wKjRgF3PSxiAHuHtAAFl33KnvNs253.jpg");
+            File file = new File("D:/chenyn.jpg");
+            FileOutputStream  fileOutputStream = new FileOutputStream(file);
+            fileOutputStream.write(fileBytes);
+            fileOutputStream.close();
+            //关闭tracker服务
+            trackerServer.close();
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+    }
 ~~~
+
+***注意：如果有发生socker连接超时，注意查看linux机器的防火墙是否关闭***
+
+~~~cmake
+# 或者端口是否开放
+vi /etc/sysconfig/iptables
+# -A INPUT -m state --state NEW -m tcp -p tcp --dport 80 -j ACCEPT 
+# 查看开放的端口数量
+service iptables status
+~~~
+
+
+
+## 4 文件服务案例
+
+### 4.1 需求
+
+![](/image/fastdfs3.jpg)
+
+* 上传页面上传图片到`fastDFS`文件系统。
+
+  * 进入上传页面，点击上传图片，选择本地图片
+  * 选择本地图片后，进行上传，前端浏览器会通过`http`调用文件管理服务的文件上传接口进行上传
+  * 文件管理服务通过`socket`请求`FastDFS`文件系统的上传图片，最终图片保存在`FastDFS`文件系统中的`storage server`中。
+
+* 浏览上传的图片
+
+  * 进入视频下载页面
+
+  * 前端浏览器通过图片地址请求图片服务器代理`nginx`
+  * 图片服务器代理根据负载情况将图片浏览请求转发到一台`storage server`
+  * `storage server`找到图片后通过`nginx`将图片响应给网友
+
+### 4.2 安装 FastDFS、Nginx
+
+#### 4.2.1 安装FastDFS
+
+参上
+
+#### 4.2.2 安装Nginx
+
+首先参考**[nginx基础入门](/dev/nginx/nginxstudy)**，了解和搭建`nginx`服务器
+
+#### 4.2.3 安装 FastDFS-nginx-module
+
+本文使用的是 `FastDFS-nginx-module_v1.16.tar.gz`
+
+参考`github`地址：https://github.com/happyfish100/fastdfs-nginx-module
+
+**注意：要先关闭所有的`nginx`进程，再进行下面的步骤**
+
+~~~cmake
+# 进入解压的nginx目录（根据个人情况调整目录结构）
+cd /home/chenyn/nginx/nginx-1.17.5
+
+# 配置FastDFS-nginx-module 到nginx中
+./configure --add-module=/home/chenyn/fastdfs/fastdfs-nginx-module/src
+# (/home/chenyn/fastdfs/fastdfs-nginx-module/src根据自己的文件目录来配)
+
+# 重新编译
+make
+make install
+~~~
+
+#### 4.2.4 配置nginx
+
+* 只有一个`group`时，最简单的配置：当`mod_fastdfs.conf` 配置文件中只有一个`group1`, 且配置了`url_have_group_name = false`时，即访问地址不使用分组名称，那么只需在`nginx`的配置文件中增加以下配置即可:（不推荐）
+
+  ~~~cmake
+  #在nginx.conf里面的server{里面添加location /M00……}，添加下面的几行：
+  location /M00 {
+        root /home/ningqijun/fastdfs/data;
+        ngx_fastdfs_module;
+  }
+  ~~~
+
+* 多个`group`配置，当配置多个组，且`mod_fastdfs.conf `里面指定了`url_have_group_name= true` 时，配置方式:（建议即使用的是单个`group`，也按该方法配置）
+
+  ~~~cmake
+  location ~  /group([0-9]) /M00 {
+        root /home/ningqijun/fastdfs/data;
+        ngx_fastdfs_module;
+  }
+  # 比如:在group1上的 nginx 的nginx.conf 配置是
+  location  /group1 /M00 {
+        root /home/ningqijun/fastdfs/data;
+        ngx_fastdfs_module;
+  }
+  # 比如:在group2上的 nginx 的nginx.conf 配置是
+  location   /group2 /M00 {
+        root /home/ningqijun/fastdfs/data;
+        ngx_fastdfs_module;
+  }
+  ~~~
+
+* 创建软连接
+
+  ~~~cmake
+  # 根据实际存储位置调整路径
+  ln -s /home/chenyn/fastdfs/FastDFS/storage/data /home/chenyn/fastdfs/FastDFS/storage/data/M00
+  ~~~
+
+* 调整 `fastdfs-nginx-module`配置
+
+  ~~~cmake
+  # 调整 mod_fastdfs.conf配置 
+  # 进入fastdfs-nginx-module解压目录
+  cd /home/chenyn/fastdfs/fastdfs-nginx-module/src
+  # 复制mod_fastdfs.conf复制到/etc/fdfs/里面
+  cp mod_fastdfs.conf /etc/fdfs/
+  # 调整mod_fastdfs.conf配置，根据实际情况调整路径
+  # 更改 base_path=/home/chenyn/fastdfs/FastDFS
+  # 更改 tracker_server=192.168.209.128:22122
+  # 更改 store_path0=/home/chenyn/fastdfs/FastDFS/storage
+  
+  # 调整fastdfs-nginx-module的config文件 
+   vi  config 
+  #（这一步很重要，很重要，很重要（重要的事情说三遍）
+  # CORE_INCS="$CORE_INCS /usr/local/include/fastdfs /usr/local/include/fastcommon/" --删除local
+  # CORE_LIBS="$CORE_LIBS -L/usr/local/lib -lfastcommon -lfdfsclient" --删除local
+  ~~~
+
+* 调整`FastDFS`配置
+
+  ~~~cmake
+  # 进入 FastDFS解压目录
+  cd /home/chenyn/fastdfs/FastDFS/conf
+  # 移动配置文件
+  cp  http.conf   /etc/fdfs/
+  cp  mime.types  /etc/fdfs/
+  ~~~
+
+* 启动`FastDFS`、`nginx`
+
+  ~~~cmake
+  # 启动Storage
+  /usr/bin/fdfs_storaged /etc/fdfs/storage.conf restart
+  # 启动Tracker
+  /usr/bin/fdfs_trackerd /etc/fdfs/tracker.conf restart
+  
+  # 启动nginx
+  cd /usr/local/nginx/sbin
+  ./nginx -s restart
+  ~~~
+
+### 4.3 通过`HTTP`访问`FastDFS`图片
+
+~~~xml
+http://192.168.209.128/group1/M00/00/00/wKjRgF3PSxiAHuHtAAFl33KnvNs253.jpg
+~~~
+
+如果可以正常查看或者下载，恭喜配置成功:kissing_smiling_eyes:
+
+如果失败，可以仔细查看一下上面的命令和配置，注意命令尽量不要复制，可能会有问题:relaxed:
 
