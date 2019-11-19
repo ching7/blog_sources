@@ -10,6 +10,28 @@
 
 * 使用`tar -zxvf ***`命令解压、`./configure`命令、`make && make install`命令配置编译
 
+* 这里也可以指定临时文件的目录
+
+  ~~~cmake
+  # 创建临时目录 
+  mkdir -p /var/temp/nginx 
+  # 用下面的命令
+  ./configure \
+      --prefix=/usr/local/nginx \
+      --pid-path=/var/run/nginx/nginx.pid \
+      --lock-path=/var/lock/nginx.lock \
+      --error-log-path=/var/log/nginx/error.log \
+      --http-log-path=/var/log/nginx/access.log \
+      --with-http_gzip_static_module \
+      --http-client-body-temp-path=/var/temp/nginx/client \
+      --http-proxy-temp-path=/var/temp/nginx/proxy \
+      --http-fastcgi-temp-path=/var/temp/nginx/fastcgi \
+      --http-uwsgi-temp-path=/var/temp/nginx/uwsgi \
+      --http-scgi-temp-path=/var/temp/nginx/scgi 
+  ~~~
+
+  
+
 * 启动nginx，进入目录 `/usr/local/nginx/sbin`中，`./nginx`启动nginx
 
 ## 2、测试访问nginx
@@ -23,6 +45,16 @@
   * 输入`service iptables restart`重启服务。
 
   * 输入`service iptables status`，回车就会显示正在生效的规则。
+
+  ~~~cmake
+  ## 注意 firewalld 和 iptables 根据不同linux机器不同
+  service firewalld stop //停止防火墙 
+  service firewalld disable//永久停止
+  
+  ## 选择合适的方式开放端口
+  ~~~
+
+  
 
 * 远程访问，ip:80端口，显示："Welcome to nginx!"。安装成功
 
@@ -46,6 +78,19 @@ nginx [-?hvVtq] [-s signal] [-c filename] [-p prefix] [-g directives]
 -p prefix       : 设置前缀路径（默认是：/usr/local/Cellar/nginx/1.2.6/）
 -c filename     : 设置配置文件（默认是：/usr/local/etc/nginx/nginx.conf）
 -g directives   : 设置配置文件外的全局指令
+
+注意：执行./nginx启动nginx，这里可以-c指定加载的nginx配置文件，如下：
+    ./nginx -c /usr/local/nginx/conf/nginx.conf
+如果不指定-c，nginx在启动时默认加载conf/nginx.conf文件，此文件的地址也可以在编译安装nginx时指定./configure的参数（--conf-path= 指向配置文件（nginx.conf））
+#启动命令
+./nginx 
+# 停止命令
+./nginx  -s stop
+或者全部停止 ./nginx -s quit
+#重启ngnix
+./ngnix -s reload
+#查看ngnix  状态
+netstat -tupln | grep ngnix
 ~~~
 
 ## 4、nginx配置文件
