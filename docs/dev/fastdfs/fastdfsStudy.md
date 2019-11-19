@@ -489,57 +489,6 @@ service iptables status
 
 **注意：要先关闭所有的`nginx`进程，再进行下面的步骤**
 
-~~~cmake
-# 进入解压的nginx目录（根据个人情况调整目录结构）
-cd /home/chenyn/nginx/nginx-1.17.5
-
-# 配置FastDFS-nginx-module 到nginx中
-./configure --add-module=/home/chenyn/fastdfs/fastdfs-nginx-module/src
-# (/home/chenyn/fastdfs/fastdfs-nginx-module/src根据自己的文件目录来配)
-
-# 重新编译
-make
-make install
-~~~
-
-#### 4.2.4 配置nginx
-
-* 只有一个`group`时，最简单的配置：当`mod_fastdfs.conf` 配置文件中只有一个`group1`, 且配置了`url_have_group_name = false`时，即访问地址不使用分组名称，那么只需在`nginx`的配置文件中增加以下配置即可:（不推荐）
-
-  ~~~cmake
-  #在nginx.conf里面的server{里面添加location /M00……}，添加下面的几行：
-  location /M00 {
-        root /home/ningqijun/fastdfs/data;
-        ngx_fastdfs_module;
-  }
-  ~~~
-
-* 多个`group`配置，当配置多个组，且`mod_fastdfs.conf `里面指定了`url_have_group_name= true` 时，配置方式:（建议即使用的是单个`group`，也按该方法配置）
-
-  ~~~cmake
-  location ~  /group([0-9]) /M00 {
-        root /home/ningqijun/fastdfs/data;
-        ngx_fastdfs_module;
-  }
-  # 比如:在group1上的 nginx 的nginx.conf 配置是
-  location  /group1 /M00 {
-        root /home/ningqijun/fastdfs/data;
-        ngx_fastdfs_module;
-  }
-  # 比如:在group2上的 nginx 的nginx.conf 配置是
-  location   /group2 /M00 {
-        root /home/ningqijun/fastdfs/data;
-        ngx_fastdfs_module;
-  }
-  ~~~
-
-* 创建软连接
-
-  ~~~cmake
-  # 根据实际存储位置调整路径
-  ln -s /home/chenyn/fastdfs/FastDFS/storage/data /home/chenyn/fastdfs/FastDFS/storage/data/M00
-  ~~~
-
 * 调整 `fastdfs-nginx-module`配置
 
   ~~~cmake
@@ -560,6 +509,65 @@ make install
   # CORE_LIBS="$CORE_LIBS -L/usr/local/lib -lfastcommon -lfdfsclient" --删除local
   ~~~
 
+* 重新编译nginx
+
+  ~~~cmake
+  # 进入解压的nginx目录（根据个人情况调整目录结构）
+  cd /home/chenyn/nginx/nginx-1.17.5
+  
+  # 配置FastDFS-nginx-module 到nginx中
+  ./configure --add-module=/home/chenyn/fastdfs/fastdfs-nginx-module/src
+  # (/home/chenyn/fastdfs/fastdfs-nginx-module/src根据自己的文件目录来配)
+  
+  # 重新编译
+  make
+  make install
+  ~~~
+
+  
+
+#### 4.2.4 配置nginx
+
+* 只有一个`group`时，最简单的配置：当`mod_fastdfs.conf` 配置文件中只有一个`group1`, 且配置了`url_have_group_name = false`时，即访问地址不使用分组名称，那么只需在`nginx`的配置文件中增加以下配置即可:（不推荐）
+
+  ~~~cmake
+  # 进入nginx配置目录
+  cd /usr/local/nginx/conf
+  
+  #在nginx.conf里面的server{里面添加location /M00……}，添加下面的几行：
+  location /M00 {
+        root /home/chenyn/fastdfs/FastDFS/storage/data;
+        ngx_fastdfs_module;
+  }
+  ~~~
+
+* 多个`group`配置，当配置多个组，且`mod_fastdfs.conf `里面指定了`url_have_group_name= true` 时，配置方式:（建议即使用的是单个`group`，也按该方法配置）
+
+  ~~~cmake
+  location ~  /group([0-9]) /M00 {
+        root /home/chenyn/fastdfs/FastDFS/storage/data;
+        ngx_fastdfs_module;
+  }
+  # 比如:在group1上的 nginx 的nginx.conf 配置是
+  location  /group1/M00 {
+        root /home/chenyn/fastdfs/FastDFS/storage/data;
+        ngx_fastdfs_module;
+  }
+  # 比如:在group2上的 nginx 的nginx.conf 配置是
+  location   /group2/M00 {
+        root /home/chenyn/fastdfs/FastDFS/storage/data;
+        ngx_fastdfs_module;
+  }
+  ~~~
+
+* 创建软连接
+
+  ~~~cmake
+  # 根据实际存储位置调整路径
+  # 创建软连接的目的是为了将M00虚拟路径转化一下
+  ln -s /home/chenyn/fastdfs/FastDFS/storage/data /home/chenyn/fastdfs/FastDFS/storage/data/M00
+  ~~~
+
 * 调整`FastDFS`配置
 
   ~~~cmake
@@ -573,10 +581,13 @@ make install
 * 启动`FastDFS`、`nginx`
 
   ~~~cmake
-  # 启动Storage
-  /usr/bin/fdfs_storaged /etc/fdfs/storage.conf restart
+  
   # 启动Tracker
   /usr/bin/fdfs_trackerd /etc/fdfs/tracker.conf restart
+  
+  # 启动Storage
+  /usr/bin/fdfs_storaged /etc/fdfs/storage.conf restart
+  
   
   # 启动nginx
   cd /usr/local/nginx/sbin

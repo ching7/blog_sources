@@ -48,8 +48,9 @@
 
   ~~~cmake
   ## 注意 firewalld 和 iptables 根据不同linux机器不同
-  service firewalld stop //停止防火墙 
-  service firewalld disable//永久停止
+  # 有些人安装的linux的系统默认防火墙不是iptables,而是firewall,那就得使用以下方式关闭防火墙了。
+  systemctl stop firewalld.service            #停止firewall
+  systemctl disable firewalld.service        #禁止firewall开机启动
   
   ## 选择合适的方式开放端口
   ~~~
