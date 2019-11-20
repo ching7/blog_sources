@@ -439,7 +439,12 @@ fastdfs.tracker_servers = 192.168.101.64:22122
     }
 ~~~
 
-***注意：如果有发生socker连接超时，注意查看linux机器的防火墙是否关闭***
+::: warning 注意
+1.如果有发生socker连接超时，注意查看linux机器的防火墙是否关闭
+
+2.如果发现上传文件之后，文件目录下有-m，-big文件等，这些文件是上传文件的元数据
+
+:::
 
 ~~~cmake
 # 或者端口是否开放
@@ -447,6 +452,12 @@ vi /etc/sysconfig/iptables
 # -A INPUT -m state --state NEW -m tcp -p tcp --dport 80 -j ACCEPT 
 # 查看开放的端口数量
 service iptables status
+
+# 查看元数据文件, 是 参数author,height,width的键值对
+vi test.png.m 
+
+# 关闭元数据上传
+# 在调用client.upload_file()时，meta_list入参传null即可
 ~~~
 
 
@@ -521,9 +532,10 @@ service iptables status
   
   # 重新编译
   make
-  make install
-  ~~~
-
+  # (*注意这里千万不要make install，不然就覆盖安装了)
+  # make install
+~~~
+  
   
 
 #### 4.2.4 配置nginx
@@ -539,6 +551,19 @@ service iptables status
         root /home/chenyn/fastdfs/FastDFS/storage/data;
         ngx_fastdfs_module;
   }
+  
+  #配置负载均衡
+  #storage群group1组
+  upstream storage_server_group1{
+      	server 192.168.101.5:80 weight=10;
+  		server 192.168.101.6:80 weight=10;
+      }
+      #storage群group2组
+  upstream storage_server_group2{
+      	server 192.168.101.7:80 weight=10;
+  		server 192.168.101.8:80 weight=10;
+      }
+  
   ~~~
 
 * 多个`group`配置，当配置多个组，且`mod_fastdfs.conf `里面指定了`url_have_group_name= true` 时，配置方式:（建议即使用的是单个`group`，也按该方法配置）
