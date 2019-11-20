@@ -112,15 +112,17 @@ group1/M00/00/00/wKjRgF3PPvOAOF7HAAFl33KnvNs832.jpg
 * **注意：`libfastcommon`安装好后会自动将库文件拷贝至`/usr/lib64`下，由于`FastDFS`程序引用`usr/lib`目录所以需要将`/usr/lib64`下的库文件拷贝至/`usr/lib`下。**
 
   ~~~cmake
+  # 这里要根据linux 32还是64位的实际调整
   cp /usr/lib64/libfastcommon.so /usr/lib/libfastcommon.so
   ~~~
 
-  
+
 
 #### 2.1.3 安装FastDFS
 
 ~~~cmake
 # 将FastDFS_v5.05.tar.gz拷贝至/usr/local/下
+
 tar -zxvf FastDFS_v5.05.tar.gz
 
 cd FastDFS
@@ -131,11 +133,14 @@ cd FastDFS
 # 安装成功将安装目录下的conf下的文件拷贝到/etc/fdfs/下。
 ~~~
 
+
+
 #### 2.1.4 配置FastDFS(tracker)
 
 安装成功后进入`/etc/fdfs`目录
 
 ~~~cmake
+
 # 拷贝一份新的tracker配置文件：
 cp tracker.conf.sample tracker.conf
 
@@ -148,6 +153,8 @@ vi tracker.conf
 http.server_port=80
 
 ~~~
+
+
 
 #### 2.1.5 启动Tracker
 
@@ -515,7 +522,7 @@ vi test.png.m
   
   # 调整fastdfs-nginx-module的config文件 
    vi  config 
-  #（这一步很重要，很重要，很重要（重要的事情说三遍）
+  #（这一步很重要，很重要，很重要（重要的事情说三遍） 
   # CORE_INCS="$CORE_INCS /usr/local/include/fastdfs /usr/local/include/fastcommon/" --删除local
   # CORE_LIBS="$CORE_LIBS -L/usr/local/lib -lfastcommon -lfdfsclient" --删除local
   ~~~
@@ -527,15 +534,17 @@ vi test.png.m
   cd /home/chenyn/nginx/nginx-1.17.5
   
   # 配置FastDFS-nginx-module 到nginx中
-  ./configure --add-module=/home/chenyn/fastdfs/fastdfs-nginx-module/src
+  # 创建临时目录 
+  mkdir -p /var/temp/nginx 
+  # 用下面的命令
+  ./configure \
+      --add-module=/home/chenyn/fastdfs/fastdfs-nginx-module/src
   # (/home/chenyn/fastdfs/fastdfs-nginx-module/src根据自己的文件目录来配)
   
   # 重新编译
   make
-  # (*注意这里千万不要make install，不然就覆盖安装了)
-  # make install
-~~~
-  
+  make install
+  ~~~
   
 
 #### 4.2.4 配置nginx
@@ -549,7 +558,7 @@ vi test.png.m
   #在nginx.conf里面的server{里面添加location /M00……}，添加下面的几行：
   location /M00 {
         root /home/chenyn/fastdfs/FastDFS/storage/data;
-        ngx_fastdfs_module;
+            ngx_fastdfs_module;
   }
   
   #配置负载均衡
@@ -558,32 +567,38 @@ vi test.png.m
       	server 192.168.101.5:80 weight=10;
   		server 192.168.101.6:80 weight=10;
       }
-      #storage群group2组
+  #storage群group2组
   upstream storage_server_group2{
       	server 192.168.101.7:80 weight=10;
   		server 192.168.101.8:80 weight=10;
       }
   
   ~~~
-
-* 多个`group`配置，当配置多个组，且`mod_fastdfs.conf `里面指定了`url_have_group_name= true` 时，配置方式:（建议即使用的是单个`group`，也按该方法配置）
-
+  
+  
+  
+  多个`group`配置，当配置多个组，且`mod_fastdfs.conf `里面指定了`url_have_group_name= true` 时，配置方式:（建议即使用的是单个`group`，也按该方法配置）
+  
   ~~~cmake
-  location ~  /group([0-9]) /M00 {
-        root /home/chenyn/fastdfs/FastDFS/storage/data;
-        ngx_fastdfs_module;
-  }
-  # 比如:在group1上的 nginx 的nginx.conf 配置是
-  location  /group1/M00 {
-        root /home/chenyn/fastdfs/FastDFS/storage/data;
-        ngx_fastdfs_module;
-  }
-  # 比如:在group2上的 nginx 的nginx.conf 配置是
-  location   /group2/M00 {
-        root /home/chenyn/fastdfs/FastDFS/storage/data;
-        ngx_fastdfs_module;
-  }
+   location ~  /group([0-9]) /M00 {
+          root /home/chenyn/fastdfs/FastDFS/storage/data;
+          ngx_fastdfs_module;
+    }
+    # 比如:在group1上的 nginx 的nginx.conf 配置是
+    location  /group1/M00 {
+          root /home/chenyn/fastdfs/FastDFS/storage/data;
+          ngx_fastdfs_module;
+    }
+    # 比如:在group2上的 nginx 的nginx.conf 配置是
+    location   /group2/M00 {
+          root /home/chenyn/fastdfs/FastDFS/storage/data;
+          ngx_fastdfs_module;
+    }
   ~~~
+  
+  
+
+
 
 * 创建软连接
 
@@ -613,7 +628,6 @@ vi test.png.m
   # 启动Storage
   /usr/bin/fdfs_storaged /etc/fdfs/storage.conf restart
   
-  
   # 启动nginx
   cd /usr/local/nginx/sbin
   ./nginx -s restart
@@ -628,4 +642,6 @@ http://192.168.209.128/group1/M00/00/00/wKjRgF3PSxiAHuHtAAFl33KnvNs253.jpg
 如果可以正常查看或者下载，恭喜配置成功:kissing_smiling_eyes:
 
 如果失败，可以仔细查看一下上面的命令和配置，注意命令尽量不要复制，可能会有问题:relaxed:
+
+***如果有报错，或者访问不了的情况，查看nginx启动日志，按错误信息排查***
 
