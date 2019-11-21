@@ -2,15 +2,15 @@
 
 环境：`node.js`  编码工具：`vscode`  [vuepress官网](https://vuepress.vuejs.org/)
 
-## 1、搭建环境
+## 1 搭建环境
 
-### 1）全局安装Vuepress
+### 1.1 全局安装Vuepress
 
 ~~~cmake
 yarn global add vuepress # 或者：npm install -g vuepress
 ~~~
 
-### 2）项目初始化
+### 1.2 项目初始化
 
 * 新建blog项目文件夹（注意该目录为blog项目的主文件夹）
 
@@ -105,9 +105,9 @@ footer: MIT Licensed | Copyright © 2018-present Evan You
 
 需要在`docs/.vuepress/public`下放一张静态图片作为首页logo
 
-## 2、启动项目
+## 2 启动项目
 
-### 1）项目结构解析
+### 2.1 项目结构解析
 
 ~~~yaml
 project
@@ -130,7 +130,7 @@ project
 }
 ~~~
 
-### 2）启动vuepress
+### 2.2 启动vuepress
 
 ~~~cmake
 # 构建：build生成静态的HTML文件,默认会在 .vuepress/dist 文件夹下
@@ -140,11 +140,11 @@ yarn docs:build # 或者：npm run docs:build
 yarn docs:dev # 或者：npm run docs:dev
 ~~~
 
-## 3、配置vuepress
+## 3 配置vuepress
 
 `config.js`配置
 
-### 1）基本的项目配置
+### 3.1 基本的项目配置
 
 ~~~js
 module.exports = {
@@ -165,7 +165,7 @@ module.exports = {
 }
 ~~~
 
-### 2）导航栏配置
+### 3.2 导航栏配置
 
 ![](/image/bar-example.jpg)
 
@@ -189,7 +189,7 @@ themeConfig: {
   }
 ~~~
 
-### 3）侧边栏配置
+### 3.3 侧边栏配置
 
 ![](/image/bar-example2.jpg)
 
@@ -225,9 +225,9 @@ module.exports = {
 
 ~~~
 
-## 4、发布vuepress到github
+## 4 发布vuepress到github
 
-### 1）配置`config.js`
+### 4.1 配置`config.js`
 
 在`docs/.vuepress/config.js`设置正确的base
 
@@ -241,7 +241,7 @@ module.exports = {
 }
 ```
 
-### 2）创建脚本文件
+### 4.2 创建脚本文件
 
 在`project`的根目录下创建`delpoy.sh`脚本
 
@@ -273,7 +273,7 @@ git commit -m 'deploy'
 cd -
 ```
 
-### 3）调整`package.json`
+### 4.3 调整`package.json`
 
 ~~~json
 {
@@ -285,7 +285,7 @@ cd -
 }
 ~~~
 
-### 4）部署vuepress到github
+### 4.4 部署vuepress到github
 
 然后你每次可以运行下面的命令行，来把最新更改推到`github`上：
 
