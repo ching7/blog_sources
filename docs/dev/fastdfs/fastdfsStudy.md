@@ -697,7 +697,7 @@ vi fdht_client.conf
 # 修改下面配置
 base_path=/data/fastdht
 keep_alive=1
-#include /etc/fdht/fdht_servers.cof   ---该配置不是注释，一定要加!!!
+#include /etc/fdht/fdht_servers.conf   ---该配置不是注释，一定要加!!!
 
 # 配置fdht_servers.conf
 vi fdht_servers.conf
@@ -762,6 +762,11 @@ vi /etc/sysconfig/iptables
   
   # 其他常见问题,或者根据日志错误信息找百度
   http://www.mamicode.com/info-detail-1992668.html
+  
+# 启动fdht报错：error while loading shared libraries: xxx.so.0:cannot open shared object file: No such file or directory
+  出现这类错误表示，系统不知道xxx.so放在哪个目录下，这时候就要在/etc/ld.so.conf中加入xxx.so所在的目录。
+  一般而言，有很多的so会存放在/usr/local/lib这个目录底下，去这个目录底下找，果然发现自己所需要的.so文件。
+  所以，在/etc/ld.so.conf中加入/usr/local/lib这一行，保存之后，再运行：/sbin/ldconfig –v 更新一下配置即可。
   ~~~
-
+  
   
