@@ -1,6 +1,6 @@
-# nginx
+# nginx(代理服务器)
 
-## 1、nginx安装（linux）
+## 1 nginx安装（linux）
 
 * 安装nginx环境依赖
   * 配置yum源
@@ -34,32 +34,32 @@
 
 * 启动nginx，进入目录 `/usr/local/nginx/sbin`中，`./nginx`启动nginx
 
-## 2、测试访问nginx
+## 2 测试访问nginx
 
-* linux开启80端口访问权限
+### 2.1 linux开启80端口访问权限
 
-  * `vi /etc/sysconfig/iptables`、打开iptables的配置文件，添加一行
+* `vi /etc/sysconfig/iptables`、打开iptables的配置文件，添加一行
 
-    `-A INPUT -m state --state NEW -m tcp -p tcp --dport 80 -j ACCEPT`。
+  `-A INPUT -m state --state NEW -m tcp -p tcp --dport 80 -j ACCEPT`。
 
-  * 输入`service iptables restart`重启服务。
+* 输入`service iptables restart`重启服务。
 
-  * 输入`service iptables status`，回车就会显示正在生效的规则。
+* 输入`service iptables status`，回车就会显示正在生效的规则。
 
-  ~~~cmake
-  ## 注意 firewalld 和 iptables 根据不同linux机器不同
-  # 有些人安装的linux的系统默认防火墙不是iptables,而是firewall,那就得使用以下方式关闭防火墙了。
-  systemctl stop firewalld.service            #停止firewall
-  systemctl disable firewalld.service        #禁止firewall开机启动
-  
-  ## 选择合适的方式开放端口
-  ~~~
+~~~cmake
+## 注意 firewalld 和 iptables 根据不同linux机器不同
+# 有些人安装的linux的系统默认防火墙不是iptables,而是firewall,那就得使用以下方式关闭防火墙了。
+systemctl stop firewalld.service            #停止firewall
+systemctl disable firewalld.service        #禁止firewall开机启动
 
-  
+## 选择合适的方式开放端口
+~~~
+
+
 
 * 远程访问，ip:80端口，显示："Welcome to nginx!"。安装成功
 
-## 3、ngnix常用命令
+## 3 ngnix常用命令
 
 * 进入目录`/usr/local/nginx/sbin`
 
@@ -94,7 +94,7 @@ nginx [-?hvVtq] [-s signal] [-c filename] [-p prefix] [-g directives]
 netstat -tupln | grep ngnix
 ~~~
 
-## 4、nginx配置文件
+## 4 nginx配置文件
 
 * 配置文件目录`/usr/local/nginx/conf`下的nginx.conf
 
@@ -131,7 +131,9 @@ netstat -tupln | grep ngnix
     http 全局块
     server 块
 
-## 5、反向代理Demo
+## 5 反向代理Demo
+
+### 5.1 Demo1
 
 预期效果：打开浏览器，在浏览器地址栏输入地址 www.chenyn.com ，跳转到 liunx 系统 tomcat 主页
 面中
@@ -157,6 +159,8 @@ netstat -tupln | grep ngnix
   ~~~
 
 * 访问www.chenyn.com:80 可以访问到tomcat页面
+
+### 5.2 Demo2
 
 预取效果：使用 nginx 反向代理，根据访问的路径跳转到不同端口的服务中、nginx 监听端口为 9001
 
@@ -184,7 +188,7 @@ netstat -tupln | grep ngnix
 
   会页面会跳转到8080 和8081 服务器
 
-## 6、负载均衡Demo
+## 6 负载均衡Demo
 
 预期效果：浏览器地址栏输入地址 http://192.168.17.129:9001/edu/test.html ，负载均衡效果，平均 8080 和 8081 端口中
 
@@ -226,7 +230,7 @@ netstat -tupln | grep ngnix
   按后端服务器的响应时间来分配请求，响应时间短的优先分配。
   ~~~
 
-## 7、动静分离Demo
+## 7 动静分离Demo
 
 `Nginx 动静分离简单来说就是把动态跟静态请求分开，不能理解成只是单纯的把动态页面和静态页面物理分离。严格意义上说应该是动态请求跟静态请求分开，可以理解成使用Nginx 处理静态页面，Tomcat处理动态页面`
 
@@ -266,11 +270,11 @@ netstat -tupln | grep ngnix
 
   如果一个请求的URI是/t/a.html时，web服务器将会返回服务器上的/www/root/html/t/a.html的文件。
 
-## 8、nginx 配置高可用的集群
+## 8 nginx 配置高可用的集群
 
 待新增
 
-## 9 、nginx原理
+## 9  nginx原理
 
 ![运行原理](/image/nginx.jpg)
 

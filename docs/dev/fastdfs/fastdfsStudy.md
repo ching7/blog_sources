@@ -159,7 +159,7 @@ http.server_port=80
 #### 2.1.5 启动Tracker
 
 ~~~cmake
-# 注意控制台的打印信息
+# 注意控制台的打印信息（注意启动顺序-tracker-storage）
 /usr/bin/fdfs_trackerd /etc/fdfs/tracker.conf restart
 ~~~
 
@@ -197,7 +197,7 @@ http.server_port=80
 #### 2.2.3 启动Storage
 
 ~~~cmake
-# 注意控制台的打印信息
+# 注意控制台的打印信息（注意启动顺序-tracker-storage）
 /usr/bin/fdfs_storaged /etc/fdfs/storage.conf restart
 ~~~
 
@@ -497,7 +497,7 @@ vi test.png.m
 
 #### 4.2.2 安装Nginx
 
-首先参考**[nginx基础入门](/dev/nginx/nginxstudy)**，了解和搭建`nginx`服务器
+首先参考[nginx基础入门](/dev/nginx/nginxstudy)，了解和搭建`nginx`服务器
 
 #### 4.2.3 安装 FastDFS-nginx-module
 
@@ -643,5 +643,125 @@ http://192.168.209.128/group1/M00/00/00/wKjRgF3PSxiAHuHtAAFl33KnvNs253.jpg
 
 如果失败，可以仔细查看一下上面的命令和配置，注意命令尽量不要复制，可能会有问题:relaxed:
 
-***如果有报错，或者访问不了的情况，查看nginx启动日志，按错误信息排查***
+### 4.4 安装 `FastDHT`实现文件去重处理
 
+`FastDHT`是一个高性能的分布式哈希系统，它是基于键值对存储的，而且它需要依赖于`Berkeley DB`作为数据存储的媒介，同时需要依赖于`libfastcommon`。
+
+`FastDHT`集群由一个或者多个组`group`组成，同组服务器上存储的数据是相同的，数据同步只在组的服务器之间进行；组内各个服务是对等的，对数据进行存取时，可以根据 `key`的`hash`值来决定使用哪台机器。
+
+#### 4.4.1 安装`Berkeley DB`
+
+在安装`FastDHT`之前，需要首先安装`Berkeley DB`，也需要安装`libfastcommon`，不过这安装`FastDFS`时已经安装了`libfastcommon`，所以这里省略。
+
+~~~cmake
+# 下载 berkeley-db
+cd /home/chenyn/fastdfs
+wget http://download.oracle.com/berkeley-db/db-4.7.25.tar.gz
+# 解压
+tar -zxvf db-4.7.25.tar.gz
+# 进入解压目录
+cd db-4.7.25/build_unix
+# 验证安装环境（安装到了/usr目录下）
+sudo ../dist/configure --prefix=/usr
+# 编译，从Makefile中读取指令，然后编译
+sudo make
+# 安装，从Makefile中读取指令，安装到指定位置
+sudo make install
+~~~
+
+#### 4.4.2 安装FastDHT
+
+~~~cmake
+cd /home/chenyn/fastdfs
+# wget下载FastDHT安装包 （可以根据实际情况选择版本）
+wget http://sourceforge.net/projects/fastdht/files/FastDHT%20server%20and%20php%20ext/FastDHT%20Server%20Source%20Code%20V2.01/FastDHT_v2.01.tar.gz
+# 解压
+tar –zxvf FastDHT_v2.01.tar.gz
+cd FastDHT
+# 编译之前需要修改make.sh
+vi make.sh
+# 文件中的 “CFLAGS='-Wall -D_FILE_OFFSET_BITS=64 -D_GNU_SOURCE'” 修改为 “CFLAGS='-Wall -D_FILE_OFFSET_BITS=64 -D_GNU_SOURCE -I/usr/include/ -L/usr/lib/'” （-I/usr/include/ -L/usr/lib/）这里对应上面Berkeley的安装目录
+sudo ./make.sh
+sudo ./make.sh install
+~~~
+
+#### 4.4.3 配置FastDHT
+
+先确认目录`/data/fastdht/`已创建，如果没有创建，执行以下命令创建目录：
+
+~~~cmake
+mkdir -p /data/fastdht
+# 配置fdht_client.conf文件
+cd /etc/fdht
+vi fdht_client.conf
+# 修改下面配置
+base_path=/data/fastdht
+keep_alive=1
+#include /etc/fdht/fdht_servers.cof   ---该配置不是注释，一定要加!!!
+
+# 配置fdht_servers.conf
+vi fdht_servers.conf
+# 根据fdht的机器数量调整，下面为1台参考配置
+group_count=1
+group0=192.168.209.128;11411
+
+# 配置fdhtd.conf
+vi fdhtd.conf
+port=11411
+bash_path=/data/fastdht
+cache_size=32MB
+#include /etc/fdht/fdht_servers.conf ---该配置不是注释，一定要加!!!
+
+# 配置fastdfs的storage.conf
+vi /etc/fdfs/storage.conf
+# 是否检查上传文件已经存在。如果已经存在，则建立一个索引链接以节省空间
+check_file_duplicate=1
+# check_file_duplicate=1时，FastDHT的命名空间
+key_namespace=FastDFS
+# 长连接配置选项，0为短连接 1为长连接
+keep_alive=1
+#include /etc/fdht/fdht_servers.conf ---该配置不是注释，一定要加!!!
+~~~
+
+#### 4.4.4 启动`FastDHT`
+
+启动前关闭防火墙，或者开启端口（11411）
+
+~~~cmake
+vi /etc/sysconfig/iptables
+添加如下端口行：
+# FastDHT Port
+-A INPUT -m state --state NEW -m tcp -p tcp --dport 11411 -j ACCEPT
+# 修改之后重启防火墙：
+ service iptables restart
+# 之后，就可以直接启动FastDHT了。
+ /usr/local/bin/fdhtd /etc/fdht/fdhtd.conf
+# 可以监控11411端口号的使用情况，确认是否启动成功。
+ netstat –unltp | grep 11411
+~~~
+
+#### 4.4.5 上传测试
+
+使用`3.2节`的上传方法上传重复文件，进入`/M00/00/00` 查看
+
+![](/image/fdht.jpg)
+
+出现上图，软连接指向，恭喜~~:smiley:
+
+### 4.5 常见错误
+
+* 配置`FastDFS-nginx-moudle`发生`nginx`访问不了的情况，查看`nginx`启动日志，按错误信息排查
+
+  ~~~cmake
+  #Nginx 服务器启动失败的，错误信息：trunk_shared.c, line: 177, "Permission denied" can't be accessed
+  只需修改Nginx配置文件，输入命令 “ vi /usr/local/nginx/conf/nginx.conf ”,在配置文件的开头加入 “ user root; ” 即可
+  
+  # nginx日志报错ERROR - file: ../common/fdfs_global.c, line: 52, the format of filename
+  vi /etc/fdfs/mod_fastdfs.conf
+  将  url_have_group_name=false 改为 url_have_group_name=true
+  
+  # 其他常见问题,或者根据日志错误信息找百度
+  http://www.mamicode.com/info-detail-1992668.html
+  ~~~
+
+  
