@@ -2,19 +2,18 @@
 home: true
 heroImage: /image/logo.jpg
 actionText: get start →
-actionLink: /front/
+actionLink: /mydocslist/
 footer: MIT Licensed | Copyright © 2019-chenyanan
 ---
 
 ## :new:最新
-> - [nginx进行反向代理、负载均衡、动静分离demo](https://github.com/ching7/nginxStudy)
-> - [spring框架基础demo、springboot整合各类技术demo](https://github.com/ching7/springStudy)
+> - [如何搭建 fastdfs文件储存系统](https://github.com/ching7/fastDFSStudy)
+> - [将一份ppt及ppt备注转成带语音的视频文件](https://github.com/ching7/ppt2video)
 
 ## :key:后端 
 > - [spring框架基础demo、springboot整合各类技术demo](https://github.com/ching7/springStudy)
 > - [java实现动态图像验证码登陆](https://github.com/ching7/springStudy/tree/master/validCode)
 > - [springmvc实现文件上传下载](https://github.com/ching7/springStudy/tree/master/springmvc)
-> - [java反射技术的基础demo](https://github.com/ching7/springStudy/tree/master/java-reflect/src)
 
 ## :cloud:微服务 
 > - [springcloud整合eurka基础demo](https://github.com/ching7/springStudy/tree/master/springcloud-eureka)

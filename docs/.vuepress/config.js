@@ -16,10 +16,7 @@ module.exports = {
 	  nav:[
       { text: '后端', link: '/dev/' }, // 内部链接 以docs为根目录
       { text: '前端', link: '/front/' }, 
-      { text: '微服务', link: '/dev/' }, 
-      { text: '架构', link: '#' }, 
-      { text: '读书', link: '#' }, 
-      { text: '音乐', link: '#' }, 
+      { text: '我的工程', link: '/mydocslist/' }, 
       // 下拉列表
       {
         text: 'GitHub',
