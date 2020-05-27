@@ -1,11 +1,21 @@
 ﻿---
 home: true
-heroImage: /image/logo.jpg
-actionText: get start →
-actionLink: /mydocslist/
-footer: MIT Licensed | Copyright © 2019-chenyanan
+bgImage: /image/logo.jpg
+# actionText: get start →
+# actionLink: /mydocslist/
+bgImageStyle: {
+   height: '350px'
+}
+# features:
+# - title: 简洁至上
+#   details: 以 Markdown 为中心的项目结构，以最少的配置帮助你专注于写作。
+# - title: Vue驱动
+#   details: 享受 Vue + webpack 的开发体验，在 Markdown 中使用 Vue 组件，同时可以使用 Vue 来开发自定义主题。
+# - title: 高性能
+#   details: VuePress 为每个页面预渲染生成静态的 HTML，同时在页面被加载的时候，将作为 SPA 运行。
+# footer: MIT Licensed | Copyright © 2020-chenyanan
 ---
-
+<!-- 
 ## :new:最新
 > - [如何搭建 fastdfs文件储存系统](https://github.com/ching7/fastDFSStudy)
 > - [将一份ppt及ppt备注转成带语音的视频文件](https://github.com/ching7/ppt2video)
@@ -30,4 +40,4 @@ footer: MIT Licensed | Copyright © 2019-chenyanan
 ## :raised_hands:联系我
 > - **qq：**<775608698@qq.com>
 > - **wechat: ching_vip**
-> - **[github](https://github.com/ching7)**
+> - **[github](https://github.com/ching7)** -->

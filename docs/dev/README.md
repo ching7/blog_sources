@@ -1,3 +1,9 @@
+---
+isTags: true
+sidebar: false
+isComment: false
+---
+
 ## 目录
 
 ## 1、[nginx基础入门](/dev/nginx/nginxstudy)
