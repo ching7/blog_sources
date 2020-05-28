@@ -10,11 +10,11 @@ module.exports = {
     lineNumbers: true, // 代码块显示行号
     // extractHeaders: [ 'h2', 'h3', 'h4','h5' ]
   },
-  theme: 'reco',
+  // theme: 'reco',
   plugins: ['@vuepress/blog'] ,
   themeConfig: {
     // 博客配置
-    type: 'blog',
+    // type: 'blog',
     authorAvatar: '/image/logo.jpg',
     sidebar: 'auto',//在所有页面中启用自动生成侧栏
     sidebarDepth: 2, // 将同时提取markdown中h2 和 h3 标题，显示在侧边栏上。
