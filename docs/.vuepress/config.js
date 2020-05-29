@@ -8,6 +8,8 @@ module.exports = {
   markdown: {
     lineNumbers: true, // 代码块显示行号
   },
+  base: '/vuepress-blog/', //github ching7.github.io 分支名
+  // base:'/blog-web/', //gitee 仓库名
   plugins: ['@vuepress/blog'] ,
   themeConfig: {
     // 博客配置
