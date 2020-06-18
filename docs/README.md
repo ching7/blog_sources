@@ -1,32 +1,89 @@
 ﻿---
 home: true
 heroImage: /image/logo.jpg
-actionText: get start →
-actionLink: /mydocslist/
-
 footer: MIT Licensed | Copyright © 2020-chenyanan
 ---
+<!-- ## 自定义组件 ✔
+<index-main/> -->
 
-## :new:最新
-> - [如何搭建 fastdfs文件储存系统](https://github.com/ching7/fastDFSStudy)
-> - [将一份ppt及ppt备注转成带语音的视频文件](https://github.com/ching7/ppt2video)
-> - [常用数据结构算法分享学习](https://github.com/ching7/DataStructureAndAlgorithm)
+<template>
+    <ol class='main-ol'>
+        <li class='main-li'  v-for="(item, index) in list" :key="index" @click="go(item)">
+            <span class="dir">{{ nav[item.dir] }} /</span> <!--匹配当前文章所属栏目-->
+            <span class="tit">{{ item.title }}</span>
+            <span class="date">{{ item.lastUpdated }}</span>
+        </li>
+    </ol>
+</template>
 
-## :key:后端 
-> - [spring框架基础demo、springboot整合各类技术demo](https://github.com/ching7/springStudy)
-> - [java实现动态图像验证码登陆](https://github.com/ching7/springStudy/tree/master/validCode)
-> - [springmvc实现文件上传下载](https://github.com/ching7/springStudy/tree/master/springmvc)
+<script>
+export default {
+    computed: {
+        list () {
+            debugger
+            let res2 = this.$site.pages
+            let res = this.$site.pages
+                .filter(item => item.regularPath.indexOf(".html") !== -1) //只显示内容页，不显示栏目首页
+                .sort((a, b) => {
+                    const av = a.lastUpdated ? new Date(a.lastUpdated).valueOf() : 0
+                    const bv = b.lastUpdated ? new Date(b.lastUpdated).valueOf() : 0
+                    return bv - av //模糊比较，倒序排列，此处未对非预期日期格式作兼容处理
+                })
+                .filter((item, index) => index < 15) //显示最新15条
+                .map(item => {
+                        item.dir = '/' + item.path.split('/')[1] + '/'
+                        return item
+                    })
+            return res
+        },
+        //栏目数组
+        nav () {
+            const n = this.$site.themeConfig.sidebar
+            let res = {}
+            for(let key in n) {
+                res[key] = n[key][0].title
+            }
+            return res
+        }
+    },
+    methods: {
+        go(item) {
+            location.href = item.path
+        }
+    }
+}
+</script>
 
-## :cloud:微服务 
-> - [springcloud整合eurka基础demo](https://github.com/ching7/springStudy/tree/master/springcloud-eureka)
-> - [springcloud整合rabbitmq基础demo](https://github.com/ching7/springStudy)
-> - [springmvc整合dubbo，springboot整合dubbo基础demo](https://github.com/ching7/dubboStudy)
+<style>
+.main-ol {
+  line-height: 1.7;
+  display: block;
+  list-style-type: decimal;
+  margin-block-start: 1em;
+  margin-block-end: 1em;
+  margin-inline-start: 0px;
+  margin-inline-end: 0px;
+  padding-inline-start: 40px;
+}
+.main-li {
+    color: rgb(170, 170, 170);
+    cursor: pointer;
+    list-style: none;
+    padding: 0px 0.3rem 0.3rem 0.4rem;
+}
+.dir {
+    color: rgb(0, 136, 0);
+}
+.tit {
+    color: rgb(0, 136, 0);
+}
+.date {
+    font-size: 0.8rem;
+    line-height: 1.4;
+    vertical-align: text-top;
+}
 
-## :hammer:架构 
-> - [nginx进行反向代理、负载均衡、动静分离demo](https://github.com/ching7/nginxStudy)
-
-## :sparkles:前端
-> - [基于vue和WEBRTC的图片采集处理demo](https://github.com/ching7/imageCaptureDemo/blob/master/imageCapture.html)
+</style>
 
 ## :raised_hands:联系我
 > - **qq：**<775608698@qq.com>

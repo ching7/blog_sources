@@ -1,3 +1,7 @@
+---
+title: FastDFS(分布式文件系统)
+lang: zh-cn
+---
 # FastDFS(分布式文件系统)
 
 ## 1  什么是FastDFS
