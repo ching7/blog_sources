@@ -1,3 +1,7 @@
+---
+title: 如何使用vuepress玩转blog
+lang: zh-cn
+---
 # 如何使用vuepress玩转blog
 
 环境：`node.js`  编码工具：`vscode`  [vuepress官网](https://vuepress.vuejs.org/)

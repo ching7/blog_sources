@@ -1,3 +1,7 @@
+---
+title: nginx(代理服务器)
+lang: zh-cn
+---
 # nginx(代理服务器)
 
 ## nginx安装（linux）
