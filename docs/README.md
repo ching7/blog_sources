@@ -48,8 +48,8 @@ export default {
     },
     methods: {
         go(item) {
-            // location.href = this.$site.base + item.path
-            location.href = item.path
+          //首页超链接
+            location.href = this.$site.base + item.path.substring(1)
         }
     }
 }

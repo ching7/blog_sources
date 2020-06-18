@@ -9,8 +9,8 @@ module.exports = {
     lineNumbers: true, // 代码块显示行号
   },
   // 推送到不同的平台需要修改
-  // base: '/master/', //github ching7.github.io 分支名
-  base: '/blog-web/', //gitee  分支名
+  // base: '', //github ching7.github.io
+  base: '/blog-web/', //gitee  仓库名
   // plugins: ['@vuepress/blog'],
   themeConfig: {
     // 博客配置
