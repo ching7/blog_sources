@@ -48,6 +48,7 @@ export default {
     },
     methods: {
         go(item) {
+            // location.href = this.$site.base + item.path
             location.href = item.path
         }
     }
