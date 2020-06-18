@@ -1,6 +1,6 @@
 module.exports = {
-  title: 'Attic.my',
-  description: 'now study',
+  title: 'Attic.cyn',
+  description: 'Now Just Study',
   // 注入到当前页面的 HTML <head> 中的标签
   head: [
     ['link', { rel: 'icon', href: '/icon/ico-pig.png' }], // 增加一个自定义的 favicon(网页标签的图标)
@@ -18,7 +18,7 @@ module.exports = {
     sidebarDepth: 2, // 将同时提取markdown中h2 和 h3 标题，显示在侧边栏上。
     lastUpdated: 'Last Updated', // 文档更新时间：每个文件git最后提交的时间
     nav: [
-      { text: '我的工程', link: '/00.mydocslist/' },
+      { text: '最近的', link: '/00.mydocslist/' },
       { text: '后端', link: '/01.dev/' }, // 内部链接 以docs为根目录
       { text: '前端', link: '/02.front/' },
       // 下拉列表
