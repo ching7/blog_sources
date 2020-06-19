@@ -1,6 +1,7 @@
 ---
 title: 如何使用vuepress玩转blog
 lang: zh-cn
+createDate: 2020-3-19 
 ---
 # 如何使用vuepress玩转blog
 
