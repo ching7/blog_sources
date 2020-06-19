@@ -35,8 +35,9 @@ module.exports = {
         {
           title: '服务端',
           children: [
-            '/01.dev/11.nginx/nginxstudy',
-            '/01.dev/10.fastdfs/fastdfsStudy'
+            '/01.dev/11.network/nginx',
+            '/01.dev/11.network/cros',
+            '/01.dev/10.storage/fastdfs'
           ]
         },
       ],
@@ -44,7 +45,7 @@ module.exports = {
         {
           title: '前端',
           children: [
-            '/02.front/10.markdown/manual'
+            '/02.front/10.vuepress/manual'
           ]
         }
       ]
