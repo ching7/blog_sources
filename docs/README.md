@@ -11,22 +11,23 @@ footer: MIT Licensed | Copyright © 2020-chenyanan
         <li class='main-li'  v-for="(item, index) in list" :key="index" @click="go(item)">
             <span class="dir">{{ nav[item.dir] }} /</span> <!--匹配当前文章所属栏目-->
             <span class="tit">{{ item.title }}</span>
-            <span class="date">{{ item.lastUpdated }}</span>
+            <span class="date">{{ item.frontmatter.updateDate }}</span>
         </li>
     </ol>
 </template>
 
 <script>
 export default {
+  // TODO 文章分类、分类页展示、最近在学
     computed: {
         list () {
-            debugger
-            let res2 = this.$site.pages
+            // debugger
+            // let res2 = this.$site.pages
             let res = this.$site.pages
                 .filter(item => item.regularPath.indexOf(".html") !== -1) //只显示内容页，不显示栏目首页
                 .sort((a, b) => {
-                    const av = a.lastUpdated ? new Date(a.lastUpdated).valueOf() : 0
-                    const bv = b.lastUpdated ? new Date(b.lastUpdated).valueOf() : 0
+                    const av = a.frontmatter.updateDate ? new Date(a.frontmatter.updateDate).valueOf() : 0
+                    const bv = b.frontmatter.updateDate ? new Date(b.frontmatter.updateDate).valueOf() : 0
                     return bv - av //模糊比较，倒序排列，此处未对非预期日期格式作兼容处理
                 })
                 .filter((item, index) => index < 15) //显示最新15条
@@ -85,8 +86,8 @@ export default {
 }
 
 </style>
-
-## :raised_hands:联系我
-> - **qq：**<775608698@qq.com>
-> - **wechat: ching_vip**
-> - **[github](https://github.com/ching7)**
+### :raised_hands:联系我
+- **qq：**<775608698@qq.com>
+- **wechat: ching_vip**
+- **[github](https://github.com/ching7)**
+- **[gitee](https://gitee.com/ching7777)**
