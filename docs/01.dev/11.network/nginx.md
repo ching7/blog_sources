@@ -1,7 +1,7 @@
 ---
 title: nginx(代理服务器)
 lang: zh-cn
-createDate: 2020-5-19 
+createDate: 2020-5-19
 updateDate: 2020-6-22
 ---
 # nginx(代理服务器)
