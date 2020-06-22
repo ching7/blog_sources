@@ -2,6 +2,7 @@
 title: nginx(代理服务器)
 lang: zh-cn
 createDate: 2020-5-19 
+updateDate: 2020-6-22
 ---
 # nginx(代理服务器)
 
@@ -152,7 +153,7 @@ netstat -tupln | grep ngnix
 
 　　反向代理，其实客户端对代理是无感知的，因为客户端不需要任何配置就可以访问，我们只需要将请求发送到反向代理服务器，由反向代理服务器去选择目标服务器获取数据后，在返回给客户端，此时反向代理服务器和目标服务器对外就是一个服务器，暴露的是代理服务器地址，隐藏了真实服务器IP地址。
 
-![代理](/image/proxy.jpg)
+<img :src="$withBase('/image/proxy.jpg')" alt='代理'>
 
 ### Demo1
 
@@ -297,9 +298,9 @@ netstat -tupln | grep ngnix
 
 ## 9  nginx原理
 
-![运行原理](/image/nginx.jpg)
+<img :src="$withBase('/image/nginx.jpg')" alt='运行原理'>
 
-![工作原理](/image/nginx2.jpg)
+<img :src="$withBase('/image/nginx2.jpg')" alt='工作原理'>
 
 ~~~properties
 master-workers 的机制的好处

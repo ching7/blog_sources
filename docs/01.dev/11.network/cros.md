@@ -2,6 +2,7 @@
 title: 跨域资源共享
 lang: zh-cn
 createDate: 2020-6-19 
+updateDate: 2020-6-19 
 ---
 # **CORS** （跨域资源共享）
 

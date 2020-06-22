@@ -2,6 +2,7 @@
 title: 如何使用vuepress玩转blog
 lang: zh-cn
 createDate: 2020-3-19 
+updateDate: 2020-6-22 
 ---
 # 如何使用vuepress玩转blog
 
@@ -172,7 +173,7 @@ module.exports = {
 
 ### 3.2 导航栏配置
 
-![](/image/bar-example.jpg)
+<img :src="$withBase('/image/bar-example.jpg')" alt='导航栏配置'>
 
 ~~~js
 themeConfig: {
@@ -196,7 +197,8 @@ themeConfig: {
 
 ### 3.3 侧边栏配置
 
-![](/image/bar-example2.jpg)
+<img :src="$withBase('/image/bar-example2.jpg')" alt='侧边栏配置'>
+
 
 ~~~js
 module.exports = {

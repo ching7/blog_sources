@@ -2,6 +2,7 @@
 title: FastDFS(分布式文件系统)
 lang: zh-cn
 createDate: 2020-4-19 
+updateDate: 2020-6-22 
 ---
 # FastDFS(分布式文件系统)
 
@@ -21,7 +22,7 @@ createDate: 2020-4-19
 
 #### 1.2.1 `FastDSF`架构
 
-![](/image/fastdfs.jpg)
+<img :src="$withBase('/image/fastdfs.jpg')" alt='架构'>
 
 `FastDFS`架构包括 `Tracker server`和`Storag eserver`。客户端请求`Tracker server`进行文件上传、下载，通过`Tracker server`调度最终由`Storage server`完成文件上传和下载。
 
@@ -48,7 +49,8 @@ createDate: 2020-4-19
 
 #### 1.2.2 文件上传流程
 
-![fastdfs上传流程](/image/fastdfs1.jpg)
+<img :src="$withBase('/image/fastdfs1.jpg')" alt='fastdfs上传流程'>
+
 
 客户端上传文件后存储服务器将文件ID返回给客户端，此文件ID用于以后访问该文件的索引信息。文件索引信息包括：组名，虚拟磁盘路径，数据两级目录，文件名。
 
@@ -66,7 +68,7 @@ group1/M00/00/00/wKjRgF3PPvOAOF7HAAFl33KnvNs832.jpg
 
 tracker根据请求的文件路径即文件ID 来快速定义文件。
 
-![fastdfs下载流程](/image/fastdfs2.jpg)
+<img :src="$withBase('/image/fastdfs2.jpg')" alt='fastdfs下载流程'>
 
 比如请求下边的文件：
 
@@ -478,7 +480,7 @@ vi test.png.m
 
 ### 4.1 需求
 
-![](/image/fastdfs3.jpg)
+<img :src="$withBase('/image/fastdfs3.jpg')" alt>
 
 * 上传页面上传图片到`fastDFS`文件系统。
 
@@ -749,7 +751,7 @@ vi /etc/sysconfig/iptables
 
 使用`3.2节`的上传方法上传重复文件，进入`/M00/00/00` 查看
 
-![](/image/fdht.jpg)
+<img :src="$withBase('/image/fdht.jpg')" alt>
 
 出现上图，软连接指向，恭喜~~:smiley:
 
@@ -767,11 +769,11 @@ vi /etc/sysconfig/iptables
   
   # 其他常见问题,或者根据日志错误信息找百度
   http://www.mamicode.com/info-detail-1992668.html
-  
-# 启动fdht报错：error while loading shared libraries: xxx.so.0:cannot open shared object file: No such file or directory
+  ~~~
+
+* 启动fdht报错：error while loading shared libraries: xxx.so.0:cannot open shared object file: No such file or directory
+  ~~~cmake
   出现这类错误表示，系统不知道xxx.so放在哪个目录下，这时候就要在/etc/ld.so.conf中加入xxx.so所在的目录。
   一般而言，有很多的so会存放在/usr/local/lib这个目录底下，去这个目录底下找，果然发现自己所需要的.so文件。
   所以，在/etc/ld.so.conf中加入/usr/local/lib这一行，保存之后，再运行：/sbin/ldconfig –v 更新一下配置即可。
   ~~~
-  
-  
