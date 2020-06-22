@@ -2,7 +2,7 @@
 title: FastDFS(分布式文件系统)
 lang: zh-cn
 createDate: 2020-4-19 
-updateDate: 2020-6-22 
+updateDate: 2020-6-22
 ---
 # FastDFS(分布式文件系统)
 

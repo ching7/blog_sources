@@ -40,7 +40,12 @@ module.exports = {
             '/01.dev/10.storage/fastdfs'
           ]
         },
-      ],
+        {
+          title: 'JAVA基础',
+          children: [
+            '/01.dev/12.java/java8newfeature',
+          ]
+        }],
       '/02.front/': [
         {
           title: '前端',
