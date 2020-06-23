@@ -2,7 +2,7 @@
 title: Java8新特性
 lang: zh-cn
 createDate: 2020-6-22
-updateDate: 2020-6-22 
+updateDate: 2020-6-23 
 category: JAVA基础
 ---
 # JAVA8 新特性
@@ -191,6 +191,30 @@ Stream（流）是一个来自数据源的元素队列并支持聚合操作
   orElse(T) ：值存在时返回该值，否则返回 T 的值
 
   Optional 类还有三个特化版本 OptionalInt，OptionalLong，OptionalDouble
+
+### 流式操作可能出现的问题
+
+1. foreach中的return函数
+
+   foreach()处理集合时不能使用break和continue这两个方法，也就是说不能按照普通的for循环遍历集合时那样根据条件来中止遍历，而如果要实现在普通for循环中的效果时，可以使用return来达到，也就是说如果你在一个方法的lambda表达式中使用return时，这个方法是不会返回的，而只是执行下一次遍历
+
+   ~~~java
+   List<String> list = Arrays.asList("123", "45634", "7892", "abcdef", "a", "b");
+           list.stream().forEach(e -> {
+               if (e.length() >= 5) {
+                   return;
+               }
+               System.out.println(e);
+           });
+   
+   //结果
+   123
+   7892
+   a
+   b
+   ~~~
+
+   
 
 ## 并行流parallelStream
 
