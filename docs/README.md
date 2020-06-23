@@ -40,7 +40,6 @@ export default {
       ,
       //栏目数组
       nav() {
-        // a.path.substring((a.path.lastIndexOf('.html')),-1)
         const n = this.$site.themeConfig.sidebar
         let res = {}
         for(let key in n) {

@@ -19,7 +19,13 @@ module.exports = {
     lastUpdated: 'Last Updated', // 文档更新时间：每个文件git最后提交的时间
     nav: [
       { text: '最近的', link: '/00.mydocslist/' },
-      { text: '后端', link: '/01.dev/' }, // 内部链接 以docs为根目录
+      {
+        text: '后端',
+        items: [
+          { text: '默认', link: '/01.dev/' },
+          { text: '框架', link: '/03.framework/' }
+        ]
+      }, // 内部链接 以docs为根目录
       { text: '前端', link: '/02.front/' },
       // 下拉列表
       {
@@ -51,6 +57,14 @@ module.exports = {
           title: '前端',
           children: [
             '/02.front/10.vuepress/manual'
+          ]
+        }
+      ],
+      '/03.framework/': [
+        {
+          title: 'spring框架',
+          children: [
+            '/03.framework/10.spring/annotation'
           ]
         }
       ]
