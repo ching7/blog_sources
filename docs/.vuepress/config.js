@@ -22,7 +22,7 @@ module.exports = {
       {
         text: '后端',
         items: [
-          { text: '默认', link: '/01.dev/' },
+          { text: '基础', link: '/01.dev/' },
           { text: '框架', link: '/03.framework/' }
         ]
       }, // 内部链接 以docs为根目录
@@ -39,10 +39,15 @@ module.exports = {
     sidebar: {
       '/01.dev/': [
         {
-          title: '服务端',
+          title: '网络通信',
           children: [
             '/01.dev/11.network/nginx',
-            '/01.dev/11.network/cros',
+            '/01.dev/11.network/cros'
+          ]
+        },
+        {
+          title: 'OSS存储',
+          children: [
             '/01.dev/10.storage/fastdfs'
           ]
         },
@@ -64,7 +69,8 @@ module.exports = {
         {
           title: 'spring框架',
           children: [
-            '/03.framework/10.spring/annotation'
+            '/03.framework/10.spring/annotation',
+            '/03.framework/11.microservices/domaindrivedesign'
           ]
         }
       ]
