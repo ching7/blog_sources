@@ -67,10 +67,15 @@ module.exports = {
       ],
       '/03.framework/': [
         {
-          title: 'spring框架',
+          title: '框架思想',
+          children: [
+            '/03.framework/11.microservices/domaindrivedesign'
+          ]
+        },
+        {
+          title: 'Spring框架',
           children: [
             '/03.framework/10.spring/annotation',
-            '/03.framework/11.microservices/domaindrivedesign'
           ]
         }
       ]
