@@ -1,10 +1,15 @@
-﻿---
+---
 home: true
 heroImage: /image/logo.jpg
 footer: MIT Licensed | Copyright © 2020-chenyanan
 ---
-<!-- ## 自定义组件 ✔
-<index-main/> -->
+### 阅读须知
+
+这里记录的是一个程序员日常的学习记录，目的是把自己的学习记录下来，分享交流。理想是形成一个Java基础以及进阶知识库。目前正在努力。
+
+目前水平有限，文章中有任何问题，欢迎交流联系。[github issue](https://github.com/ching7/blog_sources/issues)
+
+### 近期更新
 
 <template>
     <ol class='main-ol'>
