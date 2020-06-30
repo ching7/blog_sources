@@ -3,13 +3,15 @@ home: true
 heroImage: /image/logo.jpg
 footer: MIT Licensed | Copyright © 2020-author
 ---
-### 阅读须知
+### 🚩 阅读须知
 
-这里记录的是一个程序员日常的学习记录，目的是把自己的学习记录下来，分享交流。理想是形成一个Java基础以及进阶知识库。目前正在努力。
+这里记录的是一个程序员日常的学习记录，目的是把自己的学习记录下来，分享交流。
+
+理想是形成一个Java基础以及进阶知识库。目前正在努力。
 
 目前水平有限，文章中有任何问题，欢迎交流联系。[github issue](https://github.com/ching7/blog_sources/issues)
 
-### 近期更新
+### 🌟 近期更新
 
 <template>
     <ol class='main-ol'>
@@ -99,8 +101,8 @@ export default {
 }
 
 </style>
-### :raised_hands:联系我
-- **qq：**<[已删除]>
-- **wechat: [已删除]**
-- **[github](https://github.com/ching7)**
-- **[gitee](https://gitee.com/user)**
+### 💬 联系我
+- **QQ：**<[已删除]>
+- **WeChat: [已删除]**
+- **[Github](https://github.com/ching7)**
+- **[Gitee](https://gitee.com/user)**
