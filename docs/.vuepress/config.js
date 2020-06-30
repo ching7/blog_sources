@@ -15,10 +15,11 @@ module.exports = {
   themeConfig: {
     // 博客配置
     sidebar: 'auto',//在所有页面中启用自动生成侧栏
-    sidebarDepth: 2, // 将同时提取markdown中h2 和 h3 标题，显示在侧边栏上。
+    sidebarDepth: 3, // 将同时提取markdown中h2 和 h3 标题，显示在侧边栏上。
     lastUpdated: 'Last Updated', // 文档更新时间：每个文件git最后提交的时间
     nav: [
       { text: '最近的', link: '/00.mydocslist/' },
+      { text: 'JAVA知识库', link: '/04.javalibrary/' },
       {
         text: '后端',
         items: [
@@ -78,7 +79,16 @@ module.exports = {
             '/03.framework/10.spring/annotation',
           ]
         }
+      ],
+      '/04.javalibrary/': [
+        {
+          title: 'JavaLibrary',
+          children: [
+            '/04.javalibrary/'
+          ]
+        }
       ]
+
     }
   },
 };
