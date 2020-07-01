@@ -10,8 +10,8 @@ updateDate: 2020-6-30
 
 ### 基础知识
 
-1. [什么是反射](/01.dev/12.java/reflect)
-2. [通俗易懂解释注解](/01.dev/12.java/annotation)
+1. [什么是反射](../01.dev/12.java/reflect)
+2. [通俗易懂解释注解](../01.dev/12.java/annotation)
 
 ### todo
 
