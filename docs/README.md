@@ -11,6 +11,10 @@ footer: MIT Licensed | Copyright © 2020-author
 
 目前水平有限，文章中有任何问题，欢迎交流联系。[github issue](https://github.com/ching7/blog_sources/issues)
 
+### 💢 Java Library
+
+[Java基础以及进阶知识库](/04.javalibrary/)
+
 ### 🌟 近期更新
 
 <template>

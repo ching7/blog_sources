@@ -56,6 +56,8 @@ module.exports = {
           title: 'JAVA基础',
           children: [
             '/01.dev/12.java/java8newfeature',
+            '/01.dev/12.java/reflect',
+            '/01.dev/12.java/annotation',
           ]
         }],
       '/02.front/': [
