@@ -1,8 +1,8 @@
 ---
 title: Java 反射
 lang: zh-cn
-createDate: 2020-7-01
-updateDate: 2020-7-01
+createDate: 2020-7-1
+updateDate: 2020-7-1
 category: java
 ---
 # Java 反射
