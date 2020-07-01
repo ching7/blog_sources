@@ -4,7 +4,7 @@ lang: zh-cn
 ---
 # 目录
 
-##  最近学习记录
+##  正在学习
 * 尚硅谷谷粒商城：后台 [gitee](https://gitee.com/ching7777/guliproject) [github](https://github.com/ching7/guliproject/tree/master) 前台 [gitee](https://gitee.com/ching7777/renren-fast-vue) [github](https://github.com/ching7/renren-fast-vue)
 * vue基础知识 [gitee](https://gitee.com/ching7777/vueStudy) [github](https://github.com/ching7/vueStudy)
 * spring框架整合中间件demo，微服务基础demo  [gitee](https://gitee.com/ching7777/springStudy) [github](https://github.com/ching7/springStudy)
