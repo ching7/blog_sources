@@ -1,8 +1,8 @@
 ---
 title: 注解
 lang: zh-cn
-createDate: 2020-7-01
-updateDate: 2020-7-01
+createDate: 2020-7-1
+updateDate: 2020-7-1
 category: java
 ---
 ## Java 注解

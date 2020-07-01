@@ -3,6 +3,8 @@ home: true
 heroImage: /image/logo.jpg
 footer: MIT Licensed | Copyright © 2020-author
 ---
+<!-- <test-main/> -->
+
 ### 🚩 阅读须知
 
 这里记录的是一个程序员日常的学习记录，目的是把自己的学习记录下来，分享交流。
@@ -26,6 +28,8 @@ footer: MIT Licensed | Copyright © 2020-author
         </li>
     </ol>
 </template>
+<!-- 博客本年更新情况 -->
+<vue-contribution/>
 
 <script>
 export default {
