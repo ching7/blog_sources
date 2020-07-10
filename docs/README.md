@@ -77,7 +77,6 @@ export default {
     }
   },
   created() {
-    //过滤出内容页，不显示栏目首页
     let pages = this.$site.pages.filter(item => item.regularPath.indexOf(".html") !== -1)
     //侧边栏生成
     let sidebar = this.$site.themeConfig.sidebar
@@ -88,8 +87,8 @@ export default {
       value.forEach(bar => {
         pages.forEach(element => {
           if (element.path.indexOf(bar.basePath) != -1) {
-              // 为每个栏目子菜单添加
-              bar.children.push(element.path.substring(0,element.path.length-5))
+            // 为每个栏目子菜单添加
+            bar.children.push(element.path.substring(0, element.path.length - 5))
           }
         });
         newSidebarVal.push(bar)

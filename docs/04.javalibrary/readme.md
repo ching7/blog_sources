@@ -10,8 +10,8 @@ updateDate: 2020-6-30
 
 ### 基础知识
 
-1. <a href="../01.dev/12.java/reflect" target="_blank">什么是反射</a>
-2. <a href="../01.dev/12.java/annotation" target="_blank">通俗易懂解释注解</a>
+1. [什么是反射](../01.dev/12.java/reflect.html)
+2. [通俗易懂解释注解](../01.dev/12.java/annotation.html)
 
 ### todo
 
@@ -19,7 +19,7 @@ updateDate: 2020-6-30
 
 ### Spring框架
 
-1. <a href="../03.framework/10.spring/springbootdemo" target="_blank">SpringBootDemo工程</a>
+1. [SpringBootDemo工程](../03.framework/10.spring/springbootdemo.html)
    
 ### todo
 
