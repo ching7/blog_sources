@@ -36,7 +36,7 @@ export default {
   // TODO 文章分类、分类页展示、最近在学
   computed: {
       list () {
-          // debugger
+          debugger
           // let res2 = this.$site.pages
           let res = this.$site.pages
               .filter(item => item.regularPath.indexOf(".html") !== -1) //只显示内容页，不显示栏目首页
@@ -75,7 +75,29 @@ export default {
       //首页超链接
         location.href = this.$site.base + item.path.substring(1)
     }
-  }
+  },
+  created() {
+    //过滤出内容页，不显示栏目首页
+    let pages = this.$site.pages.filter(item => item.regularPath.indexOf(".html") !== -1)
+    //侧边栏生成
+    let sidebar = this.$site.themeConfig.sidebar
+    let newSidebar = {}
+    for (let [key, value] of Object.entries(sidebar)) {
+      // 每一栏目子菜单：01.dev/10.storage
+      let newSidebarVal = []
+      value.forEach(bar => {
+        pages.forEach(element => {
+          if (element.path.indexOf(bar.basePath) != -1) {
+              // 为每个栏目子菜单添加
+              bar.children.push(element.path.substring(0,element.path.length-5))
+          }
+        });
+        newSidebarVal.push(bar)
+      });
+      newSidebar[key] = newSidebarVal
+    }
+    this.$site.themeConfig.sidebar = newSidebar
+  },
 }
 </script>
 
