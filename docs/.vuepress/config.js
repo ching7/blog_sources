@@ -48,7 +48,7 @@ module.exports = {
         {
           title: 'OSS存储',
           children: [],
-          basePath: '/01.dev/11.storage'
+          basePath: '/01.dev/10.storage'
         },
         {
           title: 'JAVA基础',
