@@ -38,48 +38,41 @@ module.exports = {
       }
     ],
     sidebar: {
+      // children移动至页面初始化
       '/01.dev/': [
         {
           title: '网络通信',
-          children: [
-            '/01.dev/11.network/nginx',
-            '/01.dev/11.network/cros'
-          ]
+          children: [],
+          basePath: '/01.dev/11.network'
         },
         {
           title: 'OSS存储',
-          children: [
-            '/01.dev/10.storage/fastdfs'
-          ]
+          children: [],
+          basePath: '/01.dev/11.storage'
         },
         {
           title: 'JAVA基础',
-          children: [
-            '/01.dev/12.java/java8newfeature',
-            '/01.dev/12.java/reflect',
-            '/01.dev/12.java/annotation',
-          ]
+          children: [],
+          basePath: '/01.dev/12.java'
+
         }],
       '/02.front/': [
         {
           title: '前端',
-          children: [
-            '/02.front/10.vuepress/manual'
-          ]
+          children: [],
+          basePath: '/02.front/10.vuepress'
         }
       ],
       '/03.framework/': [
         {
           title: '框架思想',
-          children: [
-            '/03.framework/11.microservices/domaindrivedesign'
-          ]
+          children: [],
+          basePath: '/03.framework/11.microservices'
         },
         {
           title: 'Spring框架',
-          children: [
-            '/03.framework/10.spring/annotation',
-          ]
+          children: [],
+          basePath: '/03.framework/10.spring'
         }
       ],
       '/04.javalibrary/': [
@@ -87,10 +80,11 @@ module.exports = {
           title: 'JavaLibrary',
           children: [
             '/04.javalibrary/'
-          ]
+          ],
+          basePath: '/04.javalibrary'
         }
       ]
 
     }
-  },
+  }
 };
