@@ -84,7 +84,6 @@ module.exports = {
           basePath: '/04.javalibrary'
         }
       ]
-
     }
   }
 };
