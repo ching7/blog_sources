@@ -76,27 +76,28 @@ export default {
         location.href = this.$site.base + item.path.substring(1)
     }
   },
-  created() {
-    let pages = this.$site.pages.filter(item => item.regularPath.indexOf(".html") !== -1)
-    //侧边栏生成
-    let sidebar = this.$site.themeConfig.sidebar
-    let newSidebar = {}
-    for (let [key, value] of Object.entries(sidebar)) {
-      // 每一栏目子菜单：01.dev/10.storage
-      let newSidebarVal = []
-      value.forEach(bar => {
-        pages.forEach(element => {
-          if (element.path.indexOf(bar.basePath) != -1) {
-            // 为每个栏目子菜单添加
-            bar.children.push(element.path.substring(0, element.path.length - 5))
-          }
-        });
-        newSidebarVal.push(bar)
-      });
-      newSidebar[key] = newSidebarVal
-    }
-    this.$site.themeConfig.sidebar = newSidebar
-  },
+  // 不进入首页直接访问菜单存在问题，config.js需要时静态文件，不能动态生成
+  // created() {
+  //   let pages = this.$site.pages.filter(item => item.regularPath.indexOf(".html") !== -1)
+  //   //侧边栏生成
+  //   let sidebar = this.$site.themeConfig.sidebar
+  //   let newSidebar = {}
+  //   for (let [key, value] of Object.entries(sidebar)) {
+  //     // 每一栏目子菜单：01.dev/10.storage
+  //     let newSidebarVal = []
+  //     value.forEach(bar => {
+  //       pages.forEach(element => {
+  //         if (element.path.indexOf(bar.basePath) != -1) {
+  //           // 为每个栏目子菜单添加
+  //           bar.children.push(element.path.substring(0, element.path.length - 5))
+  //         }
+  //       });
+  //       newSidebarVal.push(bar)
+  //     });
+  //     newSidebar[key] = newSidebarVal
+  //   }
+  //   this.$site.themeConfig.sidebar = newSidebar
+  // },
 }
 </script>
 

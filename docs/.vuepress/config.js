@@ -42,36 +42,51 @@ module.exports = {
       '/01.dev/': [
         {
           title: '网络通信',
-          children: [],
+          children: [
+            '/01.dev/11.network/cros',
+            '/01.dev/11.network/nginx'
+          ],
           basePath: '/01.dev/11.network'
         },
         {
           title: 'OSS存储',
-          children: [],
+          children: [
+            '/01.dev/10.storage/fastdfs'
+          ],
           basePath: '/01.dev/10.storage'
         },
         {
           title: 'JAVA基础',
-          children: [],
+          children: [
+            '/01.dev/12.java/annotation',
+            '/01.dev/12.java/java8newfeature',
+            '/01.dev/12.java/reflect'
+          ],
           basePath: '/01.dev/12.java'
-
         }],
       '/02.front/': [
         {
           title: '前端',
-          children: [],
+          children: [
+            '/02.front/10.vuepress/manual'
+          ],
           basePath: '/02.front/10.vuepress'
         }
       ],
       '/03.framework/': [
         {
           title: '框架思想',
-          children: [],
+          children: [
+            '/03.framework/11.microservices/domaindrivedesign'
+          ],
           basePath: '/03.framework/11.microservices'
         },
         {
           title: 'Spring框架',
-          children: [],
+          children: [
+            '/03.framework/10.spring/annotation',
+            '/03.framework/10.spring/springbootdemo'
+          ],
           basePath: '/03.framework/10.spring'
         }
       ],
