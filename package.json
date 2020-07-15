@@ -9,6 +9,7 @@
     "d": "bash deploy.sh"
   },
   "dependencies": {
-    "vue-contribution": "^0.1.9"
+    "vue-contribution": "^0.1.9",
+    "vuepress": "^1.5.2"
   }
 }
