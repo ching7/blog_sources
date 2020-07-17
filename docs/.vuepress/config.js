@@ -85,7 +85,10 @@ module.exports = {
           title: 'Spring框架',
           children: [
             '/03.framework/10.spring/annotation',
-            '/03.framework/10.spring/springbootdemo'
+            '/03.framework/10.spring/aop',
+            '/03.framework/10.spring/ioc',
+            '/03.framework/10.spring/springbootdemo',
+            '/03.framework/10.spring/springbootmodule'
           ],
           basePath: '/03.framework/10.spring'
         }
