@@ -91,6 +91,13 @@ module.exports = {
             '/03.framework/10.spring/springbootmodule'
           ],
           basePath: '/03.framework/10.spring'
+        },
+        {
+          title: '日志框架',
+          children: [
+            '/03.framework/12.log/log4j2andslf4j'
+          ],
+          basePath: '/03.framework/12.log'
         }
       ],
       '/04.javalibrary/': [
