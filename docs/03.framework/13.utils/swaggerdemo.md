@@ -140,3 +140,12 @@ Swagger的注解大致来说可以分为两类，一类是用于Controller层，
 生成的文档中，会包含所有的请求类型，开发中建议加上，减少冗余
 
 ![](https://gitee.com/ching7777/gitee_graph_bed/raw/master/img/20200721151531.png)
+
+**参考：**
+
+> [Swagger使用手册](https://www.jianshu.com/p/66a14ea07622)
+>
+> [Swagger使用教程](https://juzibiji.top/archives/14/)
+>
+> [在 Spring Boot 项目中使用 Swagger 文档](https://developer.ibm.com/zh/articles/j-using-swagger-in-a-spring-boot-project/)
+
