@@ -98,6 +98,13 @@ module.exports = {
             '/03.framework/12.log/log4j2andslf4j'
           ],
           basePath: '/03.framework/12.log'
+        },
+        {
+          title: '敏捷开发工具',
+          children: [
+            '/03.framework/13.utils/swaggerdemo'
+          ],
+          basePath: '/03.framework/12.utils'
         }
       ],
       '/04.javalibrary/': [

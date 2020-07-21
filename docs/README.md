@@ -24,7 +24,7 @@ footer: MIT Licensed | Copyright © 2020-chenyanan
         <li class='main-li'  v-for="(item, index) in list" :key="index" @click="go(item)">
             <span class="dir">{{ nav[item.path.substring((item.path.lastIndexOf('.html')),-1)] }} /</span> <!--匹配当前文章所属栏目-->
             <span class="tit">{{ item.title }}</span>
-            <span class="date">{{ item.frontmatter.updateDate }}</span>
+            <span class="date" v-bind:class="{'main-li-redfont': index===0 || index===1 }">{{ index===0 || index===1 ? item.frontmatter.updateDate + " " + latestMsg : item.frontmatter.updateDate }}</span>
         </li>
     </ol>
 </template>
@@ -34,6 +34,11 @@ footer: MIT Licensed | Copyright © 2020-chenyanan
 <script>
 export default {
   // TODO 文章分类、分类页展示、最近在学
+  data() {
+    return {
+      latestMsg:'NEW'
+    }
+  },
   computed: {
       list () {
           debugger
@@ -117,6 +122,9 @@ export default {
     cursor: pointer;
     list-style: none;
     padding: 0px 0.3rem 0.3rem 0.4rem;
+}
+.main-li-redfont {
+    color:red;
 }
 .dir {
     color: rgb(0, 136, 0);
