@@ -2,7 +2,7 @@
 title: Java8新特性
 lang: zh-cn
 createDate: 2020-6-22
-updateDate: 2020-6-23 
+updateDate: 2020-8-8
 category: JAVA基础
 ---
 # JAVA8 新特性
