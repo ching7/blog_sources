@@ -1,31 +1,15 @@
 ---
 title: Java 虚拟机
 lang: zh-cn
-createDate: 2020-8-8
-updateDate: 2020-8-8
+createDate: 2020-8-24
+updateDate: 2020-8-24
 category: java
 ---
 # Java JVM虚拟机
 
-什么是**反射**：
+Java虚拟机在执行Java程序的过程中会把它所管理的内存划分为若干个不同的数据区域。这些区域
+有各自的用途，以及创建和销毁的时间，有的区域随着虚拟机进程的启动而一直存在，有些区域则是
+依赖用户线程的启动和结束而建立和销毁。根据《Java虚拟机规范》的规定，Java虚拟机所管理的内存
+将会包括以下几个运行时数据区域
 
-正常情况下我们新建一个类就是：
-
-```java
-Student st = new Student()
-```
-
-通过new方式，调用默认构造方法新建一个类，加载到jvm虚拟机中，这种类的加载方法存在一种问题，就是运行时不灵活，如果我们把student类换成teacher类，就需要重新修改代码。
-
-而java的反射机制提供了一种方法，在程序运行时动态加载所需要的类
-
-```java
-Class c1 = Class.forName("com.cyh.test.Teacher");
-//创建此Class对象所表示类的一个新实例,
- //newInstance方法调用的是Teacher的空参数构造方法
-Object o = c1.newInstance();
-```
-
-类路径可以从配置文件加载，从而实现不需要修改代码，实现类的替换
-
-除此之外，还可以根据反射特性，对于任意一个类。都能都知道这个类的所有属性和方法，对于任意一个对象，都能够调用它的任意一个方法和属
+![](https://gitee.com/ching7777/gitee_graph_bed/raw/master/img/20200824193709.png)

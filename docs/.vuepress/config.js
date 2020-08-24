@@ -61,6 +61,7 @@ module.exports = {
             '/01.dev/12.java/reflect',
             '/01.dev/12.java/annotation',
             '/01.dev/12.java/java8newfeature',
+            '/01.dev/12.java/jvm'
           ],
           basePath: '/01.dev/12.java'
         }],
