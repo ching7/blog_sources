@@ -64,6 +64,13 @@ module.exports = {
             '/01.dev/12.java/jvm'
           ],
           basePath: '/01.dev/12.java'
+        },
+        {
+          title: '编码规范',
+          children: [
+            '/01.dev/13.codestd/gitstd'
+          ],
+          basePath: '/01.dev/12.codestd'
         }],
       '/02.front/': [
         {
