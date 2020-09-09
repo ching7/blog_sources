@@ -13,6 +13,7 @@ updateDate: 2020-6-30
 1. [什么是反射](../01.dev/12.java/reflect.html)
 2. [通俗易懂解释注解](../01.dev/12.java/annotation.html)
 3. [JVM简介](../01.dev/12.java/jvm.html)
+4. [常见的设计模式](../01.dev/12.java/designpattern.html)
 
 ### Java8
 
@@ -55,6 +56,7 @@ updateDate: 2020-6-30
 1. [如何使用vuepress玩转blog](../02.front/10.vuepress/manual.html)
 2. 编码规范
    * [git基础规范](../01.dev/13.codestd/gitstd.html)
+
 ## 面试
 
 ### todo
