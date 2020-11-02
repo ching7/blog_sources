@@ -3,8 +3,6 @@ home: true
 heroImage: /image/logo.jpg
 footer: MIT Licensed | Copyright © 2020-author
 ---
-<!-- <test-main/> -->
-
 ### 🚩 阅读须知
 
 这里记录的是一个程序员日常的学习记录，目的是把自己的学习记录下来，分享交流。
@@ -15,7 +13,9 @@ footer: MIT Licensed | Copyright © 2020-author
 
 ### 💢 Java Library
 
-[Java基础以及进阶知识库](/04.javalibrary/)
+ 📖 [Java基础以及进阶知识库](/04.javalibrary/)
+
+ 📌 [Demo演示](/05.demoShow/)
 
 ### 🌟 近期更新
 
@@ -41,7 +41,6 @@ export default {
   },
   computed: {
       list () {
-          debugger
           // let res2 = this.$site.pages
           let res = this.$site.pages
               .filter(item => item.regularPath.indexOf(".html") !== -1) //只显示内容页，不显示栏目首页

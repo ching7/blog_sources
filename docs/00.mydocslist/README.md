@@ -53,7 +53,6 @@ export default {
   },
   computed: {
       list () {
-          debugger
           // let res2 = this.$site.pages
           let res = this.$site.pages
               .filter(item => item.regularPath.indexOf(".html") !== -1) //只显示内容页，不显示栏目首页
