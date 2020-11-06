@@ -1,6 +1,23 @@
 <template>
   <div class="index-main">
     <el-button type="primary" @click="openScanBox">开始采集</el-button>
+    <span style="margin:10px;display: block;">入参：</span>
+    <div>
+      <div style="width:100%;margin:10px;display:inline-block">
+        <el-input
+          type="textarea"
+          :rows="10"
+          placeholder="请输入内容"
+          :value="JSON.stringify(scanList)">
+        </el-input>
+      </div>
+      <div style="width:100%;margin:10px;display:inline-block">
+        <json-view :data="scanList"
+          deep='2'
+          theme="one-dark"/>  
+      </div>
+    </div>
+
     <scan-box ref="scanBox"
       :scanList='scanList'
       :deviceFrameSizeList="deviceFrameSizeList"
@@ -10,7 +27,12 @@
 </template>
 <script>
 import scanBox from './scanBox'
+import jsonView from 'vue-json-views'
+
 export default {
+  components:{
+    scanBox,jsonView
+  },
   data () {
     return {
       model:'scan',
@@ -45,9 +67,6 @@ export default {
         'pageNum': 2 // 当前采集项可以采集的页数
       }],
     }
-  },
-  components:{
-    scanBox
   },
   methods:{
     openScanBox () {
