@@ -11,11 +11,13 @@ footer: MIT Licensed | Copyright © 2020-author
 
 目前水平有限，文章中有任何问题，欢迎交流联系。[github issue](https://github.com/ching7/blog_sources/issues)
 
-### 💢 Java Library
+### 📖 Java Library
 
- 📖 [Java基础以及进阶知识库](/04.javalibrary/)
+ [Java基础以及进阶知识库](/04.javalibrary/)
 
- 📌 [Demo演示](/05.demoShow/)
+### 💡 开源项目
+
+ [基于WebRtc实现浏览器图片采集功能](/05.openSource/10.scanBox/scanBox)
 
 ### 🌟 近期更新
 

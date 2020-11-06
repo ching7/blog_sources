@@ -19,6 +19,7 @@ module.exports = {
     lastUpdated: 'Last Updated', // 文档更新时间：每个文件git最后提交的时间
     nav: [
       { text: '最近的', link: '/00.mydocslist/' },
+      { text: '开源项目', link: '/05.openSource/10.scanBox/scanBox' },
       { text: 'JAVA知识库', link: '/04.javalibrary/' },
       {
         text: '后端',
@@ -124,6 +125,16 @@ module.exports = {
           ],
           basePath: '/04.javalibrary'
         }
+      ],
+      '/05.openSource/': [
+        {
+          title: '浏览器图片采集器',
+          children: [
+            '/05.openSource/10.scanBox/scanBoxReadme',
+            '/05.openSource/10.scanBox/scanBox'
+          ],
+          basePath: '/05.openSource/10.scanBox'
+        },
       ]
     }
   }
