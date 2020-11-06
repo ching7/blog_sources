@@ -17,7 +17,7 @@ footer: MIT Licensed | Copyright © 2020-author
 
 ### 💡 开源项目
 
- [基于WebRtc实现浏览器图片采集功能](/05.openSource/10.scanBox/scanBox)
+ [基于WebRtc实现浏览器图片采集功能](/05.openSource/10.scanBox/scanBoxReadme)
 
 ### 🌟 近期更新
 

@@ -133,7 +133,7 @@ module.exports = {
             '/05.openSource/10.scanBox/scanBoxReadme',
             '/05.openSource/10.scanBox/scanBox'
           ],
-          basePath: '/05.openSource/10.scanBox'
+          basePath: '/05.openSource/10.scanBox/scanBoxReadme'
         },
       ]
     }
