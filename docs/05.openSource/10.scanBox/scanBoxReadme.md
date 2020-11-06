@@ -16,6 +16,13 @@ category: openSource
 - 支持自定义文件分片上传
 - 支持切换视频源和分辨率（需要插件盒子支持）
 
+### 注意：
+
+最新版本chrome浏览器会限制网页调用本地设备，需要配置允许访问
+
+- chrome浏览器输入 **chrome://flags/#unsafely-treat-insecure-origin-as-secure，输入需要调用设备的ip+post，如：127.0.0.1:8080。并且启用配置**
+- chrome浏览器：设置>>隐私设置和安全性>>网站设置>>权限，确保有摄像头和麦克风权限
+
 ### 组件文件
 
 ```json
