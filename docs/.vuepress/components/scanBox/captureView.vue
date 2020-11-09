@@ -148,7 +148,6 @@
 <script>
 import Viewer from 'v-viewer'
 import Vue from 'vue'
-import { VueCropper } from 'vue-cropper'
 import { urlToBase64, OTSUAlgorithm, getGrayScaleImage, rotateBase64Img } from './file'
 import 'viewerjs/dist/viewer.css'
 Vue.use(Viewer)
@@ -176,7 +175,6 @@ let sourceList = []
 let usedStreamList = []
 export default {
   name: 'captureView',
-  components: { VueCropper },
   props: {
     model: {
       type: String,

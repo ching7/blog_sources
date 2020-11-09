@@ -60,7 +60,7 @@ export const OTSUAlgorithm = (canvas) => {
   // 获取图像的灰度图像的信息
   const canvasData = getGrayScaleImage(canvas)
   if (!canvasData) {
-    window.alert('图像还没有转化为灰度图像！')
+    console.alert('图像还没有转化为灰度图像！')
     return
   }
   let mpFstdHistogram = Array.from({ length: 256 }, () => { return 0 })// 表示灰度值的分布点概率
