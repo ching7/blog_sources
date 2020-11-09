@@ -11,11 +11,6 @@
           :value="JSON.stringify(scanList)">
         </el-input>
       </div>
-      <div style="width:100%;margin:10px;display:inline-block">
-        <json-view :data="scanList"
-          deep='2'
-          theme="one-dark"/>  
-      </div>
     </div>
 
     <scan-box ref="scanBox"
@@ -27,11 +22,9 @@
 </template>
 <script>
 import scanBox from './scanBox'
-import jsonView from 'vue-json-views'
-
 export default {
   components:{
-    scanBox,jsonView
+    scanBox
   },
   data () {
     return {
@@ -90,8 +83,8 @@ export default {
       }
       let isWater = true
       let waterMsg = 'waterMsg'
-      const uploadUrl = window.LOCAL_CONFIG.API_HOME + '/' + window.LOCAL_CONFIG.API_PATH.BPS + '/' + 'broker-bps/fileHandler/fileUpload'
-      let waterLogoUrl = 'http://10.20.23.199:8088/g/hsbroker.ams/v/uf30/broker-ams/downloadByPath?filePath=group1/M00/00/4E/wKgh_V-MLcSEdLQOAAAAAAAAAAA040.jpg'
+      const uploadUrl = 'test://upload'
+      let waterLogoUrl = 'test://upload.jpg'
       beforeUpload(uploadScanImageList, acptInfo, isWater, waterMsg, waterLogoUrl, uploadUrl).then(res => {
         this.$hMessage.info('采集完成')
         // todo 每个采集项上传进度

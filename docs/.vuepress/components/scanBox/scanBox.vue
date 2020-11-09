@@ -2,7 +2,7 @@
   <div>
     <el-dialog title="图片采集"
               :visible.sync="showWin"
-              :width="950"
+              width="950"
               @close="closeCapture">
       <div id="captureWin"
            class="scan-contianer">

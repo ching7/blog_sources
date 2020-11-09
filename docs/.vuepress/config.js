@@ -19,7 +19,7 @@ module.exports = {
     lastUpdated: 'Last Updated', // 文档更新时间：每个文件git最后提交的时间
     nav: [
       { text: '最近的', link: '/00.mydocslist/' },
-      { text: '开源项目', link: '/05.openSource/10.scanBox/scanBox' },
+      { text: '开源项目', link: '/05.openSource/10.scanBox/scanBoxReadme' },
       { text: 'JAVA知识库', link: '/04.javalibrary/' },
       {
         text: '后端',
