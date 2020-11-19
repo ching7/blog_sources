@@ -9,6 +9,4 @@ lang:
 
 **待办事项**
 
-* 前端框架vue学习（以项目《谷粒商城》学习记录）
-
-  进度：分布式基础篇P50 [gitee](https://gitee.com/user/renren-fast-vue)
+* ~~前端框架vue学习（以项目《谷粒商城》学习记录）进度：分布式基础篇P50 [gitee](https://gitee.com/user/renren-fast-vue)，前端部分不适用~~
