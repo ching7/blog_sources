@@ -19,6 +19,8 @@ footer: MIT Licensed | Copyright © 2020-author
 
  [基于WebRtc实现浏览器图片采集功能](/05.openSource/10.scanBox/scanBoxReadme)
 
+ [简单商城](/06.openSource/11.simplemall/simpleMallDemo)
+
 ### 🌟 近期更新
 
 <template>

@@ -50,7 +50,7 @@ value -> System.out.println(value)
 
 ***从lambda 表达式引用的本地变量必须是最终变量或实际上的最终变量***
 
-<img :src="$withBase('/image/java8newfeature1.png')" alt="">
+![](./java8newfeature1.png)
 
 第一个问题，为什么存在这样的限制？
 
@@ -64,7 +64,7 @@ value -> System.out.println(value)
 
 如下图
 
-<img :src="$withBase('/image/java8newfeature2.png')" alt="">
+![](./java8newfeature2.png)
 
 Java 8引入了lambda表达式，我们从此可以非常方便地编写大量的小代码块，但是在捕获外围的局部变量这件事上，lambda表达式和匿名内部类没有任何区别——被捕获的局部变量必须是final的。这就带来了一个问题，继续坚持把局部变量声明成final的话，烦也烦死了。 因此，JLS做出了一个妥协：
 
@@ -417,7 +417,7 @@ public static void main(String[] args) throws ExecutionException, InterruptedExc
 这种编程方式让你的线程可以在ExecutorService以并发方式调用另一个线程执行耗时操作的同时，去执行一些其他任务。如果已经运行到没有异步操作的结果就无法继续进行时，可以调用它的get方法去获取操作结果。如果操作已经完成，该方法会立刻返回操作结果，否则它会阻塞线程，直到操作完成，返回相应的结果。
 为了处理长时间运行的操作永远不返回的可能性，虽然Future提供了一个无需任何参数的get方法，但还是推荐使用重载版本的get方法，它接受一个超时的参数，可以定义线程等待Future结果的时间，而不是永无止境地等待下去
 
-<img :src="$withBase('/image/java-thread1.jpg')" alt="">
+![](./java-thread1.jpg)
 
 **Future接口的局限性**
 使用`Future`获得异步执行结果时，要么调用阻塞方法`get()`，要么轮询看`isDone()`是否为`true`，这两种方法都不是很好，因为主线程也会被迫等待。

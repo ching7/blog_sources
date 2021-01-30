@@ -21,6 +21,7 @@ module.exports = {
       { text: '最近的', link: '/00.mydocslist/' },
       { text: '开源项目', link: '/05.openSource/10.scanBox/scanBoxReadme' },
       { text: 'JAVA知识库', link: '/04.javalibrary/' },
+      { text: 'JAVA面试宝典', link: '/06.javainterview/10.interviewNote/interviewnote' },
       {
         text: '后端',
         items: [
@@ -136,6 +137,22 @@ module.exports = {
           ],
           basePath: '/05.openSource/10.scanBox/scanBoxReadme'
         },
+        {
+          title: '简单商城',
+          children: [
+            '/05.openSource/11.simplemall/simpleMallDemo'
+          ],
+          basePath: '/05.openSource/11.simplemall'
+        },
+      ],
+      '/06.javainterview/': [
+        {
+          title: 'java面试宝典',
+          children: [
+            '/06.javainterview/10.interviewNote/interviewnote'
+          ],
+          basePath: '/06.javainterview/10.interviewNote/'
+        }
       ]
     }
   }
