@@ -13,13 +13,15 @@ footer: MIT Licensed | Copyright © 2020-chenyanan
 
 ### 📖 Java Library
 
- [Java基础以及进阶知识库](/04.javalibrary/)
+ [Java基础以及进阶知识库](/04.javalibrary/javalibrary.html)
 
-### 💡 开源项目
+### openSource
 
- [基于WebRtc实现浏览器图片采集功能](/05.openSource/10.scanBox/scanBoxReadme)
+ [基于WebRtc实现浏览器图片采集功能](/05.openSource/10.scanBox/scanBox.html)
 
- [简单商城](/06.openSource/11.simplemall/simpleMallDemo)
+ [简单商城](/05.openSource/11.simplemall/simpleMallDemo.html)
+
+ [PTT转视频功能插件](/05.openSource/12.pptToVideo/pptToVideo.html)
 
 ### 🌟 近期更新
 
