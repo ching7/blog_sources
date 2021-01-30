@@ -2,7 +2,7 @@
 title: Spring框架常用注解
 lang: zh-cn
 createDate: 2020-6-23
-updateDate: 2020-11-11
+updateDate: 2020-11-1
 category: spring
 ---
 

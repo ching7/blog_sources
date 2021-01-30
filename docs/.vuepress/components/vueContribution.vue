@@ -1,5 +1,5 @@
 <template>
-  <contribution :data="blogLog" :year="2020" :rectWidth="12" :rectHeight="12" :fontSize="10" :click="click" monthText="en" />
+  <contribution :data="blogLog" :year="2021" :rectWidth="12" :rectHeight="12" :fontSize="10" :click="click" monthText="en" />
 </template>
 <script>
 export default {

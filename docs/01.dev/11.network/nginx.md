@@ -153,8 +153,6 @@ netstat -tupln | grep ngnix
 
 　　反向代理，其实客户端对代理是无感知的，因为客户端不需要任何配置就可以访问，我们只需要将请求发送到反向代理服务器，由反向代理服务器去选择目标服务器获取数据后，在返回给客户端，此时反向代理服务器和目标服务器对外就是一个服务器，暴露的是代理服务器地址，隐藏了真实服务器IP地址。
 
-<img :src="$withBase('/image/proxy.jpg')" alt='代理'>
-
 ### Demo1
 
 预期效果：打开浏览器，在浏览器地址栏输入地址 www.chenyn.com ，跳转到 liunx 系统 tomcat 主页
@@ -298,9 +296,9 @@ netstat -tupln | grep ngnix
 
 ## 9  nginx原理
 
-<img :src="$withBase('/image/nginx.jpg')" alt='运行原理'>
+![](./nginx.jpg)
 
-<img :src="$withBase('/image/nginx2.jpg')" alt='工作原理'>
+![](./nginx2.jpg)
 
 ~~~properties
 master-workers 的机制的好处

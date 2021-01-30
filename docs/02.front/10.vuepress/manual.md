@@ -173,7 +173,7 @@ module.exports = {
 
 ### 3.2 导航栏配置
 
-<img :src="$withBase('/image/bar-example.jpg')" alt='导航栏配置'>
+![](./bar-example.jpg)
 
 ~~~js
 themeConfig: {
@@ -197,8 +197,7 @@ themeConfig: {
 
 ### 3.3 侧边栏配置
 
-<img :src="$withBase('/image/bar-example2.jpg')" alt='侧边栏配置'>
-
+![](./bar-example2.jpg)
 
 ~~~js
 module.exports = {
