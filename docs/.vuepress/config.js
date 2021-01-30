@@ -20,7 +20,7 @@ module.exports = {
     nav: [
       { text: '最近的', link: '/00.mydocslist/' },
       { text: '开源项目', link: '/05.openSource/10.scanBox/scanBoxReadme' },
-      { text: 'JAVA知识库', link: '/04.javalibrary/' },
+      { text: 'JAVA知识库', link: '/04.javalibrary/javalibrary' },
       { text: 'JAVA面试宝典', link: '/06.javainterview/10.interviewNote/interviewnote' },
       {
         text: '后端',
@@ -123,7 +123,7 @@ module.exports = {
         {
           title: 'JavaLibrary',
           children: [
-            '/04.javalibrary/'
+            '/04.javalibrary/javalibrary'
           ],
           basePath: '/04.javalibrary'
         }
@@ -143,6 +143,13 @@ module.exports = {
             '/05.openSource/11.simplemall/simpleMallDemo'
           ],
           basePath: '/05.openSource/11.simplemall'
+        },
+        {
+          title: 'PPT转视频',
+          children: [
+            '/05.openSource/12.pptToVideo/pptToVideo'
+          ],
+          basePath: '/05.openSource/12.pptToVideo'
         },
       ],
       '/06.javainterview/': [
