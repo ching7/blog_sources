@@ -5,7 +5,7 @@ createDate: 2021-1-25
 updateDate: 2021-4-27 
 ---
 
-### 待补充知识点
+## 待补充知识点
 
 * 多线程顺序执行
 * redis的Sentinel  
@@ -42,7 +42,7 @@ updateDate: 2021-4-27
 
    深度：线程池，java底层。
 
-### 高频知识点
+## 高频知识点
 
 * 基础的JVM内存模型
 * 静态初始化相关的一些东西：静态块/静态变量>构造块>构造方法。
@@ -56,13 +56,13 @@ updateDate: 2021-4-27
 
 **TODO Important 不知道也要说思路，根据自己的思路输出大概的猜想和实现，或者让面试引导自己去理解和学习**
 
-### 自我介绍
+## 自我介绍
 
 工作内容，主要负责方面，主要做的事情
 
 注意说话时的节奏和技巧
 
-### 反问点：
+## 反问点：
 
 1. 工作主要负责，系统目前使用的架构。
 2. 工作地点、薪资，公积金比例，年终奖（是否转正后满一年才有年终奖和调薪），调薪晋升周期
@@ -70,11 +70,11 @@ updateDate: 2021-4-27
 
 ---
 
-### JVM内存结构
+## JVM内存结构
 
 参考：[JVM调优总结](https://www.cnblogs.com/andy-zhou/p/5327288.html)
 
-#### JVM内存模型
+### JVM内存模型
 
 * jvm线程共享区域
   * heap堆：java对象，垃圾回收重点区域
@@ -85,7 +85,7 @@ updateDate: 2021-4-27
   * 本地方法栈：native调用本地方法
   * 程序计数器：字节码指令、程序控制流的指示器，分支、循环、跳转、异常处理、线程恢复等基础功能都需要依赖这个计数器来完成。
 
-#### JVM堆栈
+### JVM堆栈
 
 **jvm堆**
 
@@ -111,7 +111,7 @@ updateDate: 2021-4-27
 
 ![](./jvm-stackandheap.gif)
 
-#### JVM的gc算法
+### JVM的gc算法
 
 gc调优：heap内存的合理分配。设置年轻代和老年代的比值，调整gc回收器的选择
 
@@ -131,7 +131,7 @@ gc调优：heap内存的合理分配。设置年轻代和老年代的比值，�
 
 一阶段标记被引用的对象，二阶段清理未被标记的对象，同时整理未被清除的对象到堆的一块连续内存区域
 
-#### JVM的gc策略
+### JVM的gc策略
 
 jvm的对象
 
@@ -157,7 +157,7 @@ jvm的对象
 
 对整个堆进行整理，包括Young、Tenured和Perm。
 
-##### 可以直接在老年代进行对象创建吗？
+#### 可以直接在老年代进行对象创建吗？
 
 * 分配的对象大于eden space空间
 * eden space的剩余空间不总，直接分配到老年代
@@ -197,7 +197,7 @@ JVM常用设置参数
   -XX:+CMSIncrementalMode :设置为增量模式。适用于单CPU情况。  
   -XX:ParallelGCThreads=n :设置并发收集器年轻代收集方式为并行收集时，使用的CPU数。并行收集线程数。
 
-#### JVM如何判断对象生死（即jvm如何标记被引用的对象）
+### JVM如何判断对象生死（即jvm如何标记被引用的对象）
 
 * 引用计数算法
 
@@ -220,7 +220,7 @@ JVM常用设置参数
   
   为什么它们可以作为GC Roots？因为这些对象肯定不会被回收。比如，虚拟机栈中是正在执行的方法，所以里面引用的对象不会被回收。
 
-#### volatile
+### volatile
 
 * 保证可见性
 * 禁止指令重排
@@ -231,7 +231,7 @@ volatile保证了修饰的共享变量在转换为汇编语言时，会加上一
 1. 将当前内核中线程工作内存中该共享变量刷新到主存；
 2. 通知其他内核里缓存的该共享变量内存地址无效；
 
-#### jvmOOM
+### jvmOOM
 
 从Java内存模型来看，除了程序计数器不会发生OOM外，哪些区域会发生OOM的情况呢？
 
@@ -255,9 +255,9 @@ volatile保证了修饰的共享变量在转换为汇编语言时，会加上一
 | 直接内存   | 否           | 是            |
 | 堆         | 否           | 是            |
 
-### JAVA基础
+## JAVA基础
 
-#### 基础知识
+### 基础知识
 
 * **子类继承父类，一定会调用父类的无参构造方法(递归调用到最高层父类的构造方法)**
 * **super()，this()。必须在构造方法的第一行调用**
@@ -271,7 +271,7 @@ volatile保证了修饰的共享变量在转换为汇编语言时，会加上一
 
 引入反射机制：运行时动态加载类，提高系统灵活性
 
-#### JVM类加载过程
+### JVM类加载过程
 
 jvm的类加载一般分为 7个阶段：加载、验证、准备、解析、初始化、使用、卸载
 
@@ -335,7 +335,7 @@ jvm的类加载一般分为 7个阶段：加载、验证、准备、解析、初
 
 其他对类的引用 称为被动引用，加载类时不会进行初始化动作
 
-##### 双亲委派模型
+#### 双亲委派模型
 
 - **BootstrapClassLoader(启动类加载器)** ：最顶层的加载类，由C++实现，负责加载 %JAVA_HOME%/lib目录下的jar包和类或者或被 -Xbootclasspath参数指定的路径中的所有类。
 - **ExtensionClassLoader(扩展类加载器)** ：主要负责加载目录 %JRE_HOME%/lib/ext 目录下的jar包和类，或被 java.ext.dirs 系统变量所指定的路径下的jar包。
@@ -349,7 +349,7 @@ jvm的类加载一般分为 7个阶段：加载、验证、准备、解析、初
 
 > 因为这样可以避免重复加载，当父亲已经加载了该类的时候，就没有必要 ClassLoader 再加载一次。考虑到安全因素，我们试想一下，如果不使用这种委托模式，那我们就可以随时使用自定义的String来动态替代java核心api中定义的类型，这样会存在非常大的安全隐患，而双亲委托的方式，就可以避免这种情况，因为String 已经在启动时就被引导类加载器（Bootstrcp ClassLoader）加载，所以用户自定义的ClassLoader永远也无法加载一个自己写的String，除非你改变 JDK 中 ClassLoader 搜索类的默认算法。
 
-#### 静态变量加载，静态代码块加载时间点
+### 静态变量加载，静态代码块加载时间点
 
 当类加载器将类加载到JVM中的时候就会创建静态变量，这跟对象是否创建无关。静态变量加载的时候就会分配内存空间。
 
@@ -391,7 +391,7 @@ public class TestStaticLoadSort {
 }
 ~~~
 
-#### JDK代理、cglib代理
+### JDK代理、cglib代理
 
 一般的话，如果业务类实现了接口，jdk的代理可以直接代理业务类的接口。
 
@@ -552,13 +552,13 @@ public class NenFangwenzhe {
 
 这个参数就是我们自己实现的InvocationHandler对象，我们知道InvocationHandler对象中组合加入了代理类代理的接口类的实现类；所以，$Proxy0对象调用所有要实现的接口的方法，都会调用InvocationHandler对象的invoke（）方法实现；
 
-#### object类的方法有哪些
+### object类的方法有哪些
 
 toString、hashcode、equals
 
 wait、notify、notifyall
 
-#### 抽象类可不可以实例化?
+### 抽象类可不可以实例化?
 
 抽象类被继承后，继承类实例化，会触发抽象类的构造函数
 
@@ -595,7 +595,7 @@ a
 子类已经实例化
 ~~~
 
-#### 字节流、字符流的区别
+### 字节流、字符流的区别
 
 * FileInputStream // 文件的字节输入流
 
@@ -623,7 +623,7 @@ public String(byte bytes[], String charsetName)
 而在字符流转化为字节流时，实际上是String转化为byte[]时，
 byte[] String.getBytes(String charsetName)
 
-#### hash算法原理，怎么避免hash重复
+### hash算法原理，怎么避免hash重复
 
 **一般来说是hash的目的是将非固定长度的输入转化成固定长度的输出，该输出被称为散列值**
 
@@ -657,7 +657,7 @@ byte[] String.getBytes(String charsetName)
 
 ![](./chainingadress.jpg)
 
-#### J2EE
+### J2EE
 
 **servlet生命周期**
 
@@ -708,7 +708,7 @@ pageContext，out，config，page，exception
 - **session**代表与某个用户与服务器建立的一次会话相关的对象和属性。跟某个用户相关的数据应该放在用户自己的session中。
 - **application**代表与整个Web应用程序相关的对象和属性，它实质上是跨越整个Web应用程序，包括多个页面、请求和会话的一个全局作用域。
 
-#### 强引用、软引用、弱引用
+### 强引用、软引用、弱引用
 
 **强引用(StrongReference):**
 
@@ -780,7 +780,7 @@ public class Main {
 }
 ~~~
 
-#### 接口和抽象类的异同
+### 接口和抽象类的异同
 
 相同：
 
@@ -796,7 +796,7 @@ public class Main {
 * 一个类只能继承extends单个抽象类。而可以实现implement多个接口
 * 抽象类是对象更具体的封装。而接口一般只是封装了对象的功能
 
-#### 基本数据类型和引用数据类型
+### 基本数据类型和引用数据类型
 
 * **基本数据类型：**
 
@@ -820,7 +820,7 @@ float，double，char，boolean
 
 两种传递当时实际都是值传递：**基本类型传递的是值的副本，引用类型传递的是引用的副本**
 
-#### 基本数据类型和包装数据类型
+### 基本数据类型和包装数据类型
 
 * 包装类和基本数据类型对应的类一一对应存在，方便涉及到对象的操作。
 * 包含每种基本数据类型的相关属性如最大值、最小值等，以及相关的操作方法
@@ -832,7 +832,7 @@ float，double，char，boolean
 * Integer实际是对象的引用，当new一个Integer时，实际上是生成一个指针指向此对象；而int则是直接存储数据值
 * Integer的默认值是null，int的默认值是0
 
-#### String、StringBuilder、StringBuffer
+### String、StringBuilder、StringBuffer
 
 **线程安全性**
 
@@ -842,7 +842,7 @@ float，double，char，boolean
 
 每次对 `String` 类型进行改变的时候，都会生成一个新的 `String` 对象，然后将指针指向新的 `String` 对象。`StringBuffer` 每次都会对 `StringBuffer` 对象本身进行操作，而不是生成新的对象并改变对象引用。相同情况下使用 `StringBuilder` 相比使用 `StringBuffer` 仅能获得 10%~15% 左右的性能提升，但却要冒多线程不安全的风险。
 
-#### Java异常
+### Java异常
 
 异常都有一个共同的祖先 java.lang 包中的 **Throwable 类**。
 
@@ -870,7 +870,7 @@ illegalargumentexception//参数不合法
 IOException//输入输出异常
 ```
 
-#### JDK8新特性
+### JDK8新特性
 
 * stream流
 * lamba函数
@@ -879,13 +879,13 @@ IOException//输入输出异常
   * 时间相关：TimeUnit
   * bean相关：atomic原子类
 
-### 算法基础
+## 算法基础
 
-#### 稳定排序
+### 稳定排序
 
 定义：保证排序前2个相等的数其在序列的前后位置顺序和排序后它们两个的前后位置顺序相同。在简单形式化一下，如果Ai = Aj，Ai原来在位置前，排序后Ai还是要在Aj位置前。
 
-#### 时间复杂度
+### 时间复杂度
 
 不论是数组、链表还是二叉树、二叉排序树（搜索树）、红黑树，我们要找到其中特定的一个元素，方法只有一个那就是挨个比较直到找到为止，这就造成了查找的时间复杂度总是与N有关系。
 
@@ -905,13 +905,13 @@ IOException//输入输出异常
 | ---- | ----------------- | ----------------- | ----------------- | ---------- | ------ |
 | 查找 | 1000000（一百万） | 1000000（一百万） | 1000000（一百万） | 20~1000000 | 20     |
 
-#### LRU算法（least recently used,最近最少使用）
+### LRU算法（least recently used,最近最少使用）
 
 算法根据数据的历史访问记录来进行淘汰数据，其核心思想是“如果数据最近被访问过，那么将来被访问的几率也更高”。
 
 常见的实现是使用链表保存缓存
 
-![](./lru.webp)
+![](./lru.jpg)
 
 1. 新数据加入链表头部
 2. 每当缓存命中，即缓存数据再次被访问，则将数据移到链表头部
@@ -926,11 +926,11 @@ IOException//输入输出异常
 
 todo：优化热点数据
 
-#### dijkstra算法求最短路径
+### dijkstra算法求最短路径
 
 todo
 
-### 基本数据结构
+## 基本数据结构
 
 **常用基本数据结构**
 
@@ -948,13 +948,13 @@ todo
 
 集合，线性结构，树形结构，图形结构（树、图也被称为非线性）
 
-##### **集合**
+#### **集合**
 
 ![](./collection.png)
 
 数据结构中的元素之间除了“同属一个集合” 的相互关系外，别无其他关系；
 
-##### **线性结构**
+#### **线性结构**
 
 数据结构中的元素存在一对一的相互关系
 
@@ -964,21 +964,21 @@ todo
 
 常用的线性结构：线性表、栈、队列、链表、数组
 
-###### 栈
+#### 栈
 
 ![](./stack.jpg)
 
-###### 队列
+#### 队列
 
 ![](./queue.jpg)
 
-###### 链表
+#### 链表
 
 ![](./linkedlist.jpg)
 
 
 
-###### 数组
+#### 数组
 
 ![](./array.jpg)
 
@@ -988,13 +988,13 @@ todo
 
 线性表是一种抽象数据类型；数组是一种具体的数据结构，线性表是元素之间具有1对1的线性关系的数据元素的集合，而数组是具体的实现，即一组数据元素到数组下标的一一映射
 
-##### 树形结构
+#### 树形结构
 
 **树**是一种数据结构，它是由n（n>=1）个有限节点组成一个具有层次关系的集合。
 
 拓展树（平衡二叉树、红黑树、B+树）
 
-###### 简单二叉树
+#### 简单二叉树
 
 * 每个结点最多有两颗子树，结点的度最大为2。
 * 左子树和右子树是有顺序的，次序不能颠倒。
@@ -1004,7 +1004,7 @@ todo
 
 
 
-###### 完全二叉树、满二叉树
+#### 完全二叉树、满二叉树
 
 * 完全二叉树：设二叉树的深度为h，除第 h 层外，其它各层 (1～h-1) 的结点数都达到最大个数，
   第 h 层所有的结点都连续集中在最左边
@@ -1015,7 +1015,7 @@ todo
 
 
 
-###### 堆
+#### 堆
 
 - 堆中某个节点的值总是不大于或不小于其父节点的值；
 - 堆总是一棵完全二叉树。
@@ -1024,7 +1024,7 @@ todo
 
 
 
-###### 平衡二叉树
+#### 平衡二叉树
 
 **它是一棵空树或它的左右两个子树的高度差的绝对值不超过1，并且左右两个子树都是一棵平衡二叉树。**
 
@@ -1032,7 +1032,7 @@ todo
 
 
 
-###### 二叉查找树
+#### 二叉查找树
 
 也称**二叉搜索树，或二叉排序树**。其定义也比较简单，要么是一颗空树，要么就是具有如下性质的二叉树：
 
@@ -1046,7 +1046,7 @@ todo
 
   ![](./binarytree.jpg)
 
-###### 最优二叉树——哈夫曼树
+#### 最优二叉树——哈夫曼树
 
 最优二叉树就是从已给出的目标带权结点(单独的结点) 经过一种方式的组合形成一棵树.使树的权值最小.
 
@@ -1075,7 +1075,7 @@ todo
 
 其中(c)树的WPL最小，可以验证，它就是哈夫曼树。
 
-###### 红黑树
+#### 红黑树
 
 * 每个个节点或者是黑色，或者是红色。
 
@@ -1086,7 +1086,7 @@ todo
 
  ![](./RB-tree.jpg)
 
-###### b-树
+#### b-树
 
 b-树就是b树，不存在b减树的读法
 
@@ -1138,7 +1138,7 @@ b-树就是b树，不存在b减树的读法
      
      https://blog.csdn.net/qq_26222859/article/details/80631121
 
-###### 散列表
+#### 散列表
 
 也叫哈希表，是根据关键码和值 (key和value) 直接进行访问的数据结构，通过key和value来映射到集合中的一个位置，这样就可以很快找到集合中的对应元素。
 
@@ -1150,13 +1150,13 @@ jdk1.8之后才换成了数组加红黑树的结构
 
 ![](./hashtable.jpg)
 
-##### 图性结构
+#### 图性结构
 
 图是由结点的有穷集合V和边的集合E组成。其中，为了与树形结构加以区别，在图结构中常常将结点称为顶点，边是顶点的有序偶对，若两个顶点之间存在一条边，就表示这两个顶点具有相邻关系。
 
 ![](./map.jpg)
 
-#### 基础数据结构的编码实现
+### 基础数据结构的编码实现
 
 **二叉树，前序后序的编码实现**
 
@@ -1168,7 +1168,7 @@ jdk1.8之后才换成了数组加红黑树的结构
 
 
 
-#### 简单集合类的代码底层原理
+### 简单集合类的代码底层原理
 
 **HashMap：**
 
@@ -1208,7 +1208,7 @@ hashmap的index的计算方式：**index = HashCode（Key） & （Length - 1）*
 
 ![](./linklistandarraylist.jpg)
 
-#### 常用集合类知识
+### 常用集合类知识
 
 **集合类分类**
 
@@ -1236,11 +1236,11 @@ collection:它属于集合框架中的一个接口，并且是顶层接口。
 
  Collectios 则是在集合框架中给我们提供的一个工具类，它提供了一系列静态方法实现对各种集合的搜索、排序、线程安全化等操作。
 
-#### 为什么hashMap的主干数组长度是2的倍数
+### 为什么hashMap的主干数组长度是2的倍数
 
 其实在hashmap的使用长度超过负载因子时，hashmap会自动扩容。由于hash值太大不能拿来直接散列，所以要用hash值对数组长度取余操作，进一步放到数组下标里。数组下标的计算方法index = HashCode（Key） & （Length - 1）。 采用二进制位操作 &，如果长度不是2的幂次数，则通过 hash(key)&(length-1) 位运算得出的index冲突几率高。这就解释了 HashMap 的长度为什么是2的幂次方。
 
-#### String、StringBuilder、StringBuffer
+### String、StringBuilder、StringBuffer
 
 String：适用于少量的字符串操作的情况
 
@@ -1248,7 +1248,7 @@ StringBuilder：适用于单线程下在字符缓冲区进行大量操作的情�
 
 StringBuffer：适用多线程下在字符缓冲区进行大量操作的情况-线程安全
 
-#### 阻塞队列实现
+### 阻塞队列实现
 
 * ArrayBlockingQueue
 
@@ -1264,7 +1264,7 @@ StringBuffer：适用多线程下在字符缓冲区进行大量操作的情况-�
 
 ReentrantLock肯定是越多越好，锁越多那么相同锁的竞争就越少；LinkedBlockingQueue分别有入队锁和出队锁，所以入队和出队的时候不会有竞争锁的关系；而ArrayBlockingQueue只有一个Lock，那么不管是入队还是出队，都需要竞争同一个锁，所以效率会低点。ArrayBlockingQueue是环形数组结构，入队的地址和出队的地址可能是同一个，比如数组table大小为1，那么第一次入队和出队需要操作的位置都是table[0]这个元素，所以入队和出队必须共用同一把锁；而LinkedBlockingQueue是链表形式，内存地址是散列的，入队的元素地址和出队的元素地址永远不可能会是同一个地址。所以可以采用两个锁，分别对入队进行加锁同步和对出队进行加锁同步即可。
 
-### 线程安全容器
+## 线程安全容器
 
 线程安全：
 
@@ -1285,7 +1285,7 @@ HashMap | ArrayList | HashSet
 
 arraylist 如何进行扩充，平衡二叉树原理和特点。
 
-##### HashMap、Hashset、HashTable、ConcurrentHashMap 的原理和差异
+#### HashMap、Hashset、HashTable、ConcurrentHashMap 的原理和差异
 
 指定初始容量，减少内存消耗
 
@@ -1310,20 +1310,20 @@ arraylist 如何进行扩充，平衡二叉树原理和特点。
 
 * 使用锁分段的技术，将hashmap的主干数组分成了多段数据用segment[]存储，理论情况下支持n个进程进行并发操作
 
-##### LinkedHashMap和hashMap
+#### LinkedHashMap和hashMap
 
 - LinkedHashMap是继承于HashMap，是基于HashMap和双向链表来实现的。
 - HashMap无序；LinkedHashMap有序
 
-### 网络原理
+## 网络原理
 
-#### 正向代理、反向代理
+### 正向代理、反向代理
 
 正向代理是在客户端设置的，客户端先设置vpn转发地址，vpn转发到不同服务器
 
 反向代理是在服务端设置，客户端无感知，客户端访问的是虚拟的ip端口，进行负载等功能，对客户端屏蔽服务端的信息
 
-#### Socket
+### Socket
 
 socket是应用层与TCP/IP协议族通信的中间软件抽象层，它是一组接口。在设计模式中，Socket其实就是一个门面模式，它把复杂的TCP/IP协议族隐藏在Socket接口后面，对用户来说，一组简单的接口就是全部，让Socket去组织数据，以符合指定的协议。
 
@@ -1353,7 +1353,7 @@ socket在五层网络模型中的位置，处于应用层和传输层的中间�
 
 - close()函数
 
-#### BIO、NIO
+### BIO、NIO
 
 JAVA的BIO、NIO和 AIO 是 Java 语言对操作系统的各种 IO 模型的封装。在使用这些 API 的时候，不需要关心操作系统层面的知识，也不需要根据不同操作系统编写不同的代码。只需要使用Java的API
 
@@ -1387,7 +1387,7 @@ NIO 包含下面几个核心的组件：
 * 对于并发要求不高可以使用BIO，节省内存空间。高并发情况下使用NIO，减少线程切换，但是会增加内存空间的消耗，因为缓冲区的存在。以空间换取时间
 * 由于传统的JavaNIO手动实现较为复杂。一般使用Netty框架实现NIO的需求，Netty对于复杂的NIO接口做了封装和优化
 
-#### TCP三次握手、四次挥手
+### TCP三次握手、四次挥手
 
 TCP 的三个特点：**面向连接、可靠性和面向字节流**。
 
@@ -1413,16 +1413,16 @@ ACK（Acknowledge Character），确认字符；
 
   客户端：接受FIN+ACK，发送ACK断开连接
 
-#### Netty框架
+### Netty框架
 
 **Netty是一个高性能、异步事件驱动的NIO框架**，**它提供了对TCP、UDP和文件传输的支持**，作为一个异步NIO框架，Netty的所有IO操作都**是异步非阻塞**的，**通过Future-Listener机制，用户可以方便的主动获取或者通过通知机制获得IO操作结果**。
 
-#### HTTPS相对HTTP有啥好处
+### HTTPS相对HTTP有啥好处
 
 1. https有加密的过程，对通信内容加密，ssl\tls+http
 2. https有验证报文的完整性
 
-#### Tomcat支持的四种线程模型
+### Tomcat支持的四种线程模型
 
 |      | 描述                                                         |
 | ---- | ------------------------------------------------------------ |
@@ -1431,9 +1431,9 @@ ACK（Acknowledge Character），确认字符；
 | APR  | tomcat 以JNI形式调用http服务器的核心动态链接库来处理文件读取或网络传输操作，需要编译安装APR库 |
 | AIO  | 异步非阻塞，tomcat8.0后支持                                  |
 
-### 架构
+## 架构
 
-#### 分布式和微服务区别
+### 分布式和微服务区别
 
 **分布式**
 
@@ -1456,17 +1456,17 @@ ACK（Acknowledge Character），确认字符；
 
 微服务：对于项目中的服务边界划分清晰。细粒度的拆分
 
-#### 流量监控、热点配置、服务降级熔断
+### 流量监控、热点配置、服务降级熔断
 
 Hystrix,sentinel
 
-#### 服务网关
+### 服务网关
 
 鉴权，负载，流控
 
 Zull gateway
 
-#### 注册中心
+### 注册中心
 
 Nacos\zk\Eureka
 
@@ -1476,19 +1476,19 @@ Eureka：以CAP中的AP为主，保证注册中心多节点的可用性和分区
 
 NACOS：支持AP和CP的切换
 
-#### 配置中心
+### 配置中心
 
 nacos
 
-#### 链路追踪
+### 链路追踪
 
 Sleuth
 
-#### 分布式事务
+### 分布式事务
 
 seata
 
-#### 设计模式
+### 设计模式
 
 * 生产者——消费者
 
@@ -1575,9 +1575,9 @@ public class SingletonDemo{
 
   公用父类，实例化子类时，个性化子类属性
 
-### Spring框架
+## Spring框架
 
-#### spring的核心原理
+### spring的核心原理
 
 **AOP(Aspect Oriented Programming)-面向切面编程:**
 
@@ -1594,7 +1594,7 @@ public class SingletonDemo{
 
 依赖注入实现IOC方法和途径，通过依赖注入，将容器中对象的依赖对象，动态注入
 
-#### springcloud和dubbo的底层区别
+### springcloud和dubbo的底层区别
 
 * dubbo使用Netty这样的NIO框架，是基于TCP协议传输的，配合以Hession序列化完成RPC通信
 
@@ -1622,13 +1622,13 @@ Spring目地就是让对象与对象（模块与模块）之间的关系没有�
 
 * http协议，不需要通信双方都是相同的框架，只要满足http协议，满足restful原则既可以进行通信，一般请求数据格式使用json格式，不需要关注通信细节，http协议做了基本封装，但是消息较为臃肿，效率相对低
 
-#### aop的底层实现
+### aop的底层实现
 
 通过aop注解获取需要进行操作的类（类全路径），通过反射获取类内容，通过动态代理进行代理改类是方法执行，再其方法执行前后加上自定义方法
 
-#### spring常用注解
+### spring常用注解
 
-##### @Transactional
+#### @Transactional
 
 参数：rollbackFor-指定异常回滚，noRollbackFor-指定异常不回滚
 
@@ -1685,15 +1685,15 @@ protected TransactionAttribute computeTransactionAttribute(Method method, Class 
 * @Transactional(propagation=PROPAGATION.NESTED)：字面也可知道，nested，嵌套级别事务。该传播级别特征是，如果上下文中存在事务，则嵌套事务执行，如果不存在事务，则新建事务。
   那么什么是嵌套事务呢？
 
-##### @Autowired和@Resource的区别
+#### @Autowired和@Resource的区别
 
 * 所在的jar包不一样，autowried在spring的包，Resource在jdk1.6后的原生包
 * autowried是按照type去匹配对象的，resource是按照name去匹配对象的
 * autowried默认不允许空
 
-##### @bean\@controller\@restcontroller
+#### @bean\@controller\@restcontroller
 
-#### spring的类加载过程
+### spring的类加载过程
 
 1. 加载-所有的bean已经被扫描加载到applicationcontext中
 2. 解析-使用getBean或者注解通过beanname或者beantype解析要加载的bean
@@ -1702,7 +1702,7 @@ protected TransactionAttribute computeTransactionAttribute(Method method, Class 
 5. 初始化-初始化方法调用，属性填充
 6. 获得最终的实例bean
 
-#### spring中bean生命周期
+### spring中bean生命周期
 
 1. bean创建
 2. bean注入
@@ -1715,7 +1715,7 @@ protected TransactionAttribute computeTransactionAttribute(Method method, Class 
 
 ![](./springbeanloader.jpg)
 
-#### Spring常用的接口和类
+### Spring常用的接口和类
 
 * ApplicationContextAware
 
@@ -1750,7 +1750,7 @@ protected TransactionAttribute computeTransactionAttribute(Method method, Class 
      效果等同于bean的destroy-method属性的使用或者@PreDestory注解的使用。
      三种方式的执行顺序：先注解，然后执行DisposableBean接口中定义的方法，最后执行destroy-method属性指定的方法。
 
-#### springboot的启动过程
+### springboot的启动过程
 
 SpringBootApplication注解是三个注解的集成
 
@@ -1764,9 +1764,9 @@ SpringBootApplication注解是三个注解的集成
 
 ![](./springbootstart.jpg)
 
-### 线程
+## 线程
 
-#### 线程新建
+### 线程新建
 
 继承Thread类、实现Runnable接口、实现Callable接口通过FutureTask包装器来创建Thread线程、使用ExecutorService、Callable、Future实现有返回结果的多线程，其中前两种方式线程执行完后都没有返回值，后两种是带返回值的。
 
@@ -1866,21 +1866,21 @@ SpringBootApplication注解是三个注解的集成
 
   
 
-#### 线程状态
+### 线程状态
 
 ![](./threadstatus.png)
 
-#### 线程通信
+### 线程通信
 
 wait()、notify()、notifyAll()、join()
 
-#### 线程关闭
+### 线程关闭
 
 * volatile修饰线程可见标志，通过标志判断
 * 使用interrupt中断
 * 直接stop
 
-#### 线程池
+### 线程池
 
 一个线程池包括以下四个基本组成部分：
 
@@ -1959,7 +1959,7 @@ wait()、notify()、notifyAll()、join()
 2. concurrentHashMap存放执行结果
 3. 循环List任务集合，使用CompletableFuture的runAsync方法，从jdk的默认线程池里面取线程执行任务，结果放入concurrentHashMap
 
-#### 多线程顺序执行
+### 多线程顺序执行
 
 todo - fixme 
 
@@ -1971,9 +1971,9 @@ todo - fixme
 
 * [通过创建单一化线程池newSingleThreadExecutor()实现](https://blog.csdn.net/jqc874789596/article/details/100557300#t3)
 
-### 线程安全
+## 线程安全
 
-#### 锁
+### 锁
 
 **公平/非公平**
 
@@ -2039,7 +2039,7 @@ AtomicLong是多个线程针对单个热点值value进行原子操作。而LongA
 
 悲观锁的实现有传统关系型数据库中的行锁、表锁、读锁、写锁，java里面的synchronized关键字的实现
 
-![](./unhappylock.webp)
+![](./unhappylock.jpg)
 
 悲观锁又分为：共享锁，排他锁
 
@@ -2051,7 +2051,7 @@ AtomicLong是多个线程针对单个热点值value进行原子操作。而LongA
 
 乐观锁假设数据一般不会造成冲突，一般只有在用户进行更新提交时，才会校验数据是否有冲突，如果有冲突，返回错误信息给用户决定如何操作
 
-![](./happy.webp)
+![](./happy.jpg)
 
 乐观锁本身不会刻意使用数据库的锁机制，依赖的是数据本身来保证数据的真确性，	
 
@@ -2061,7 +2061,7 @@ cas自旋锁：自旋锁在每次进行数据更新是，会重新从主内存�
 
 自旋锁的ABA问题：使用版本号控制修改记录。每次数据修改version+1，再对比修改前版本写入，如果版本不相等，重新读取更新
 
-#### sychronize和Reentrantlock区别
+### sychronize和Reentrantlock区别
 
 AQS: abstractQueuedSynchronizer 抽象队列同步器
 
@@ -2125,7 +2125,7 @@ calss MyCache{
 }
 ~~~
 
-#### 阻塞同步、非阻塞同步
+### 阻塞同步、非阻塞同步
 
 阻塞\非阻塞：程序在等待调用结果时的状态
 
@@ -2139,13 +2139,13 @@ calss MyCache{
 
 异步：发出一个调用时，立即返回，只是返回是否调用成功，调用者不会立刻得到调用结果。*被调用者*(类似接口)通过状态、通知来通知调用者，或通过回调函数处理这个调用结果。
 
-### JAVA性能优化
+## JAVA性能优化
 
 * Arthas
 
-### 中间件
+## 中间件
 
-#### ORM
+### ORM
 
 Object Relational Mapping。对象关联关系映射框架
 
@@ -2173,7 +2173,7 @@ JPA 包括三个方面的技术：
 * mybatis需要手动写sql语句，而hibernate基本不需要
 * mybatis属于对jdbc的轻量级封装，而hibernate属于重量级封装，功能较全面
 
-#### JDBC
+### JDBC
 
 JavaDataBase Connectivity，用Java语言来操作数据库。原来我们操作数据库是在控制台使用SQL语句来操作数据库，JDBC是用Java语言向数据库发送SQL语句。
 
@@ -2203,9 +2203,9 @@ JDBC是接口，而JDBC驱动才是接口的实现，没有驱动无法完成数
 
 ![](./jdbc01.png)
 
-#### zookeeper
+### zookeeper
 
-##### 节点类型
+#### 节点类型
 
 1. 持久节点(PERSISTENT)
 
@@ -2223,11 +2223,11 @@ JDBC是接口，而JDBC驱动才是接口的实现，没有驱动无法完成数
 
 临时节点在客户端会话失效后节点自动清除。临时节点下面不能创建子节点。父节点getChildren会获得顺序的节点列表。
 
-#### rabbitmq
+### rabbitmq
 
 默认情况下，RbbitMQ 的消息默认存放在内存上面，如果不特别声明设置，消息不会持久化保存到硬盘上面的，如果节点重启或者意外crash掉，消息就会丢失。RabbitMQ分发完消息后，也会从内存中把消息删除掉。
 
-##### 消息丢失问题：
+#### 消息丢失问题：
 
 **消息丢失的原因**
 
@@ -2271,15 +2271,15 @@ JDBC是接口，而JDBC驱动才是接口的实现，没有驱动无法完成数
 
 todo
 
-#### redis应用场景
+### redis应用场景
 
-##### redis数据结构
+#### redis数据结构
 
 string、hash：hashTable、list：ziplist\LinkedList、sets、sortedSets
 
 ![](./redis-datastructure.jpg)
 
-##### 缓存穿透和缓存雪崩问题
+#### 缓存穿透和缓存雪崩问题
 
 **缓存穿透：**即黑客故意去请求缓存中不存在的数据，导致所有的请求都怼到数据库上，从而数据库连接异常。
 
@@ -2287,7 +2287,7 @@ string、hash：hashTable、list：ziplist\LinkedList、sets、sortedSets
 
 临时token、短信通知
 
-##### redis如何进行持久化存储
+#### redis如何进行持久化存储
 
 > Redis提供了RDB和AOF两种不同的数据持久化方式
 
@@ -2373,7 +2373,7 @@ dir ~/redis/
 
   数据完整性较高
 
-##### Redis保证主从一致性
+#### Redis保证主从一致性
 
 两个思路
 
@@ -2381,7 +2381,7 @@ dir ~/redis/
 
 * 设一个key记录着一次写的数据,然后设置一个同步时间，如果在这个时间内，有一个读请求,看看对应的key有没有相关数据,有的话,说明数据近期发生过写事件，这样key的数据就继续读主库，否则就读从库
 
-##### Redis如何保证缓存（Redis）和数据库（MySQL）一致性
+#### Redis如何保证缓存（Redis）和数据库（MySQL）一致性
 
 主要有两个问题：
 
@@ -2432,21 +2432,21 @@ dir ~/redis/
   * 如果第二次缓存淘汰失败，则不一致依旧会存在
     解决办法：用“重试机制”，即当二次淘汰失败后，报错并继续重试，直到执行成功个人
 
-##### Redis Sentinel机制与用法
+#### Redis Sentinel机制与用法
 
 > Redis-Sentinel是Redis官方推荐的高可用性(HA)解决方案，当用Redis做Master-slave的高可用方案时，假如master宕机了，Redis本身(包括它的很多客户端)都没有实现自动进行主备切换，而Redis-sentinel本身也是一个独立运行的进程，它能监控多个master-slave集群，发现master宕机后能进行自懂切换。
 >
 > 同时redis-sentinel本身也是需要集群的
 
-#### Nginx
+### Nginx
 
 **有状态的请求，nginx是怎么处理的**
 
 保留状态属性直接转发
 
-### sql索引以及数据库
+## sql索引以及数据库
 
-#### 数据库设计3大范式
+### 数据库设计3大范式
 
 **第一范式(确保每列保持原子性)**
 
@@ -2486,7 +2486,7 @@ dir ~/redis/
 
 这样在查询订单信息的时候，就可以使用客户编号来引用客户信息表中的记录，也不必在订单信息表中多次输入客户信息的内容，减小了数据冗余。
 
-#### sql锁表
+### sql锁表
 
 在使用SQL时，大都会遇到这样的问题，update一条记录时，需要通过Select来检索出其值或条件，然后在通过这个值来执行修改操作。
 
@@ -2504,7 +2504,7 @@ mysql> select k from t where id=1 for update; #悲观锁，排他锁
 
 注:for update 仅适用于InnoDB，并且必须开启事务，在begin与commit之间才生效。
 
-#### 索引类别
+### 索引类别
 
 非聚集索引:
 
@@ -2524,9 +2524,9 @@ mysql> select k from t where id=1 for update; #悲观锁，排他锁
 
 组合索引：在多个列字段上面创建索引，使用组合索引时，遵循最左前缀集合。即（field1，field2，field3）的组合索引，是安装从左到右匹配索引的
 
-#### 索引值改变了，树的结构如何改变
+### 索引值改变了，树的结构如何改变
 
-#### sql优化
+### sql优化
 
 1. 数据库查询、优化方法，sql常用函数，存储过程
 
@@ -2577,7 +2577,7 @@ mysql> select k from t where id=1 for update; #悲观锁，排他锁
 
 查看sql的执行计划，explain plan
 
-#### 手写sql语句
+### 手写sql语句
 
 5000万条数据，在500ms毫秒之内
 
@@ -2645,7 +2645,7 @@ mysql> select k from t where id=1 for update; #悲观锁，排他锁
     
     ```
 
-#### 隔离级别
+### 隔离级别
 
 隔离性是指，多个用户的并发事务访问同一个数据库时，一个用户的事务不应该被其他用户的事务干扰，多个并发事务之间要相互隔离。	
 
@@ -2719,7 +2719,7 @@ MySql默认隔离级别。
 
 可避免 ***脏读、不可重复读、幻读*** 的发生。
 
-##### 如何实现可重复度读
+#### 如何实现可重复度读
 
 > 可重复读是指：一个事务执行过程中看到的数据，总是跟这个事务在启动时看到的数据是一致的。
 
@@ -2729,7 +2729,7 @@ MySql默认隔离级别。
 
 如下图所示，一行记录被多个事务更新之后，最新值为 k=22。假设事务A在 trx_id=15 这个事务**提交后启动**，事务A 要读取该行时，就通过 undo log，计算出该事务启动瞬间该行的值为 k=10。
 
-![img](./repeadtable-read1.webp)
+![img](./repeadtable-read1.jpg)
 
 在可重复读隔离级别下，一个事务在启动时，InnoDB 会为事务构造一个数组，用来保存这个事务启动瞬间，当前正在”活跃“的所有事务ID。”活跃“指的是，启动了但还没提交。
 
@@ -2739,7 +2739,7 @@ MySql默认隔离级别。
 
 这个视图数组把所有的 row trx_id 分成了几种不同的情况。
 
-![img](./repeadtable-read2.webp)
+![img](./repeadtable-read2.jpg)
 
 1. 如果 trx_id 小于低水位，表示这个版本在事务启动前已经提交，可见；
 2. 如果 trx_id 大于高水为，表示这个版本在事务启动后生成，不可见；
@@ -2749,7 +2749,7 @@ MySql默认隔离级别。
 
 **InnoDB 就是利用 undo log 和 trx_id 的配合，实现了事务启动瞬间”秒级创建快照“的能力**
 
-#### Delete\Drop\Truncate
+### Delete\Drop\Truncate
 
 * delete（用于table和view）
 
@@ -2769,9 +2769,9 @@ MySql默认隔离级别。
 
   表空间释放
 
-#### 用itearte接受数据库查询结果
+### 用itearte接受数据库查询结果
 
-#### 保证sql的幂等性
+### 保证sql的幂等性
 
 * 数据库使用唯一索引
 
@@ -2787,9 +2787,9 @@ MySql默认隔离级别。
 
   * 使用过滤字段过滤sql的结果
 
-### Linux常用使用命令
+## Linux常用使用命令
 
-#### 查看某个进程的状态
+### 查看某个进程的状态
 
 ~~~shell
  ps -ef|grep ams
@@ -2797,9 +2797,9 @@ MySql默认隔离级别。
  cat /proc/PID/status
 ~~~
 
-### 了解哪些设计模式
+## 了解哪些设计模式
 
-#### 手敲代码实现单例模式
+### 手敲代码实现单例模式
 
 单例：减少对象的反复实例化，单例只初始化时实例一次对象
 
@@ -2858,7 +2858,7 @@ ShapeFactory shapeFactory = new ShapeFactory();
 
 策略模式：相同接口，多个实现类
 
-### 题目
+## 题目
 
 1. 随机生成 Salary {name, baseSalary, bonus }的记录，如“wxxx,10,1”，每行一条记录，总共1000万记录，写入文本文件（UFT-8编码），
    然后读取文件，name的前两个字符相同的，其年薪累加，比如wx，100万，3个人，最后做排序和分组，输出年薪总额最高的10组：
