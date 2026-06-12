@@ -20,6 +20,13 @@ class TestHelpers(unittest.TestCase):
         self.assertEqual(fm["category"], "java")
         self.assertTrue(body.startswith("# 正文"))
 
+    def test_parse_frontmatter_body_contains_hr(self):
+        text = "---\ntitle: T\n---\nbody\n\n---\nmore"
+        fm, body = migrate.parse_frontmatter(text)
+        self.assertEqual(fm["title"], "T")
+        self.assertIn("---", body)          # 正文中的水平线 HR 应保留
+        self.assertTrue(body.startswith("body"))
+
     def test_build_frontmatter_maps_category_and_date(self):
         fm = {"title": "X", "createDate": "2020-8-24", "updateDate": "2020-9-1",
               "category": "java"}
