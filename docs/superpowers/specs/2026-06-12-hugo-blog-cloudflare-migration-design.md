@@ -24,10 +24,16 @@
 ## 非目标（明确不做）
 
 - 不做在线 CMS / 浏览器后台写作（用户选择本地写）。
-- 不迁移 `scanBox` 等 Vue 自定义组件演示页 —— 归档丢弃。
 - 不做动态系统（WordPress 等）。
 - 不强求保留旧站 URL（旧站为 IP:8080 / Gitee Pages，SEO 包袱低）。
 - 暂不做 ICP 备案 + 国内服务器的重方案。
+- **暂不绑自定义域名**：先用 Cloudflare 默认 `*.pages.dev` 跑通整条链路，后续再绑。
+
+## 关于「归档」的口径（重要，已与用户对齐）
+
+- 「归档」**不等于丢弃**：所有历史纯 Markdown 文章**照常全部迁移**进新 Hugo 站点，只是统一打一个 **`归档`(archive) 标签**，与今后新写的文章区分开。
+- 真正丢弃的只有**依赖 Vue 组件的交互演示**（`scanBox`/`tiff` 等）：交互部分无法在 Hugo 运行，仅迁移其正文 Markdown（同样打 `归档` 标签），交互 demo 本身丢弃。
+- 文章**分类（categories）**不需用户预先给映射：迁移时**按文章内容 / 所在原目录自动归纳**出合理分类，迁移后用户可再调整。
 
 ## 关键决策
 
@@ -51,13 +57,13 @@ GitHub Actions
    3. hugo --minify  →  public/
    4. cloudflare/wrangler-action 上传 public/
         ▼
-Cloudflare Pages  ──全球 CDN──▶  国内访问（建议绑自定义域名）
+Cloudflare Pages  ──全球 CDN──▶  国内访问（先用 *.pages.dev，后续可绑自定义域名）
 ```
 
 ## 1. 仓库与分支策略
 
-- `main` 分支 = 新 Hugo 站点源码 + 全部 Markdown 内容，今后唯一日常分支。
-- 旧 VuePress 资产（`docs/.vuepress/`、`config.js`、`enhanceApp.js`、`scanBox` 组件、`package.json` 等）**归档保留**：迁移完成后保留在 `legacy-vuepress` 分支（或 `main` 上的 `legacy/` 目录），不删除、不再维护。
+- `main` 分支 = 新 Hugo 站点源码 + 全部 Markdown 内容（含已迁移、打了 `归档` 标签的历史文章），今后唯一日常分支。
+- 旧 VuePress **构建设施**（`docs/.vuepress/`、`config.js`、`enhanceApp.js`、Vue 组件、`package.json` 等，注意：这里指的是工程脚手架，不是文章内容）从 `main` 移除即可——它们仍完整保留在现有 `gh-pages` 分支的 git 历史里，不会丢失，无需再单独搬运。
 - 构建产物不再进 git（Cloudflare 端构建），废弃 `gh-pages` 分支上的 `dist`。
 - 当前实际开发在 `blog-hugo-migration` 分支进行，完成后合入 `main`。
 
@@ -73,13 +79,14 @@ Cloudflare Pages  ──全球 CDN──▶  国内访问（建议绑自定义�
   | `title` | 原 frontmatter title，缺失则取文件首个 H1 或文件名 |
   | `date` | 原 frontmatter date；**缺失则用 git 首次提交时间** `git log --diff-filter=A --format=%aI -- <file>` |
   | `lastmod` | git 最后提交时间（对应原 VuePress lastUpdated） |
-  | `categories` | 来自所在分类目录（如 `01.dev` → "后端基础"） |
-  | `tags` | 原 tags，无则留空 |
+  | `categories` | **按文章内容 / 所在原目录自动归纳**（如 `01.dev` → "后端基础"），迁移后用户可再调整 |
+  | `tags` | 原 tags，无则留空；**所有历史文章统一追加 `归档` 标签** |
   | `draft` | `false` |
 
+- **全部迁移 + 归档标签**：6 大分类下的历史纯 md 全部迁移，统一打 `归档` 标签区分于今后新写文章。
 - **图片**：`docs/.vuepress/public/image`、`/icon` 下资源迁到 Hugo `static/`（保持 `/image/...`、`/icon/...` 路径不变，文中引用基本无需改）；必要时按文章做 page bundle。
 - **链接修正**：检查并修正文中跨文档相对链接、图片路径在 Hugo 下能正确解析。
-- **丢弃归档**：`scanBox`/`tiff` 等组件页不迁。
+- **组件演示页**：`scanBox`/`tiff` 等依赖 Vue 组件的页面，**仅迁移其正文 Markdown**（同样打 `归档` 标签），交互 demo 丢弃。
 
 迁移脚本产物需人工抽查若干篇核对渲染。
 
@@ -106,9 +113,9 @@ Cloudflare Pages  ──全球 CDN──▶  国内访问（建议绑自定义�
 ## 5. 国内访问的现实约束（需用户知晓）
 
 - Cloudflare Pages 国内访问优于 GitHub Pages，但默认 `*.pages.dev` 在国内仍可能限速/不稳。
-- **建议绑自定义域名**（CNAME 指向 Cloudflare，无需备案）通常明显改善访问。
+- **本期先用默认 `*.pages.dev` 域名跑通整条链路**；若访问不理想，后续再绑自定义域名（CNAME 指向 Cloudflare，无需备案）通常明显改善。
 - 唯一「保证稳」是国内服务器 + ICP 备案的重方案，本期不做。
-- 结论：先上 Cloudflare + 自定义域名，够用即止。
+- 结论：先 `*.pages.dev` 验证可用，自定义域名作为后续可选增强。
 
 ## 风险 / 待办
 
