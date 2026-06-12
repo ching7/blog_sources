@@ -1,4 +1,4 @@
-baseURL = "https://example.pages.dev/"
+baseURL = "https://cyn-blog.pages.dev/"
 languageCode = "zh-cn"
 title = "Attic.cyn"
 theme = "PaperMod"
