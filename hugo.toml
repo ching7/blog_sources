@@ -4,7 +4,8 @@ title = "Attic.cyn"
 theme = "PaperMod"
 hasCJKLanguage = true
 enableGitInfo = false
-paginate = 10
+[pagination]
+pagerSize = 10
 
 [markup.goldmark.renderer]
 unsafe = true
