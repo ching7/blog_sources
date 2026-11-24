@@ -11,7 +11,3 @@
 
 https://cyn-blog.pages.dev/
 
-## 联系我
-
-QQ：[已删除]
-WeChat: [已删除]
