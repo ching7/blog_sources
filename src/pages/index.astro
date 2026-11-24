@@ -1,14 +1,10 @@
 ---
 import Base from '../layouts/Base.astro';
-import Greeting from '../components/Greeting.astro';
-import Cat from '../components/Cat.astro';
-import PencilCup from '../components/PencilCup.astro';
+import ActivityLog from '../components/ActivityLog.astro';
 ---
 <Base title="一张乱桌子">
-  <main style="padding:80px 64px;display:grid;gap:40px;justify-items:start">
-    <Greeting size="lg" />
-    <Cat size="lg" />
-    <PencilCup variant="cup" />
-    <PencilCup variant="dots" />
+  <main style="padding:80px 64px;display:grid;gap:60px;max-width:760px">
+    <ActivityLog variant="strip" />
+    <div style="max-width:420px"><ActivityLog variant="card" /></div>
   </main>
 </Base>

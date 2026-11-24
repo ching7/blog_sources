@@ -1,0 +1,65 @@
+---
+import Card from './Card.astro';
+import { emojiSrc } from '../data/emoji.mjs';
+import github from '../data/activity/github.json';
+import linuxdo from '../data/activity/linuxdo.json';
+
+interface Props {
+  variant: 'card' | 'strip';
+}
+const { variant } = Astro.props;
+// 热力图按周成列：第一天前补空格，让每列从周日开始
+const lead = github.days.length ? new Date(`${github.days[0].date}T00:00:00Z`).getUTCDay() : 0;
+const cells = [...Array(lead).fill(null), ...github.days];
+const updatedAt = [github.updatedAt, linuxdo.updatedAt].sort().at(-1);
+const active = github.days.filter((d) => d.level > 0).length;
+---
+{variant === 'card' ? (
+  <Card color="var(--c-log)" class="activity-card">
+    <img class="emo" src={emojiSrc('fire')} alt="" width="76" height="76" />
+    <h3>最近有没有偷懒</h3>
+    <div class="grid-wrap"><div class="grid" role="img" aria-label={`GitHub 近一年 ${active} 天有提交`}>
+      {cells.map((d) => <b class:list={[d && d.level > 0 && 'on', !d && 'pad']} title={d ? d.date : undefined}></b>)}
+    </div></div>
+    <p class="stats">
+      <span>linux.do 泡了 <mark>{linuxdo.days}</mark> 天</span>
+      <span>读了 <mark>{linuxdo.hours}</mark> 小时</span>
+      <span>刷过 <mark>{linuxdo.postsRead}</mark> 帖</span>
+      <span>信任等级 <mark>{linuxdo.trustLevel}</mark></span>
+      <span>加入于 {linuxdo.joined}</span>
+    </p>
+    <p class="small">更新于 {updatedAt} · 上：GitHub 近一年</p>
+  </Card>
+) : (
+  <section class="strip">
+    <h3>最近有没有偷懒</h3>
+    <div class="grid-wrap"><div class="grid" role="img" aria-label={`GitHub 近一年 ${active} 天有提交`}>
+      {cells.map((d) => <b class:list={[d && d.level > 0 && 'on', !d && 'pad']} title={d ? d.date : undefined}></b>)}
+    </div></div>
+    <p class="line">
+      linux.do 泡了 <em>{linuxdo.days}</em> 天 · 读了 <em>{linuxdo.hours}</em> 小时 · 刷过 <em>{linuxdo.postsRead}</em> 帖 · 信任等级 <em>{linuxdo.trustLevel}</em> · 更新于 {updatedAt}
+    </p>
+  </section>
+)}
+
+<style>
+  /* 放不下时裁掉最早的几周，保留最近的 */
+  .grid-wrap { display: flex; overflow: hidden; }
+  :global(.activity-card) .grid-wrap { justify-content: flex-end; }
+  .grid { flex: none; display: grid; grid-auto-flow: column; grid-template-rows: repeat(7, 6px); grid-auto-columns: 6px; gap: 1.5px; overflow: hidden; }
+  .grid b { border-radius: 1px; background: #e8e0cf; }
+  .grid b.pad { background: none; }
+  .grid b.on { background: var(--hl); }
+  /* card */
+  :global(.activity-card) h3 { font-size: 22px; margin: 4px 0 8px; }
+  .emo { display: block; width: 76px; height: 76px; margin: -30px 0 4px -6px; }
+  .activity-card .grid b.on { outline: 1px solid var(--ink); }
+  /* 卡片是倾斜的，rough-notation 会画歪，这里用 CSS 荧光笔 */
+  mark { background: linear-gradient(transparent 55%, var(--hl) 55%); color: inherit; font-size: 18px; padding: 0 2px; }
+  .stats { display: flex; flex-wrap: wrap; gap: 4px 12px; font-size: 14px; color: #555; margin-top: 10px; }
+  .small { font: 11px var(--font-mono); color: #999; margin-top: 6px; }
+  /* strip */
+  .strip h3 { font-size: 13px; color: var(--mute); letter-spacing: 0.2em; margin-bottom: 10px; }
+  .line { margin-top: 12px; font-size: 14px; color: var(--mute); }
+  .line em { font-style: normal; color: var(--ink); }
+</style>
