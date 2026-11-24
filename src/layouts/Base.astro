@@ -22,6 +22,21 @@ const color = section === 'home' ? 'var(--hl)' : `var(--c-${section})`;
     <title>{title}</title>
     <meta name="description" content={description} />
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <!-- 系统开了「减弱动态效果」：把所有动态表情（含之后脚本换上的）换成单帧静态版 -->
+    <script is:inline data-still-emoji>
+      if (matchMedia('(prefers-reduced-motion: reduce)').matches) {
+        const still = (img) => {
+          const s = img.getAttribute('src');
+          if (s && /^\/emoji\/[0-9a-f_]+\.webp$/.test(s)) img.setAttribute('src', s.replace(/\.webp$/, '.still.webp'));
+        };
+        new MutationObserver((ms) => {
+          for (const m of ms) {
+            if (m.type === 'attributes') still(m.target);
+            else for (const n of m.addedNodes) if (n.nodeType === 1) { if (n.tagName === 'IMG') still(n); n.querySelectorAll('img').forEach(still); }
+          }
+        }).observe(document.documentElement, { subtree: true, childList: true, attributes: true, attributeFilter: ['src'] });
+      }
+    </script>
   </head>
   <body data-section={section} style={`--c: ${color}`}>
     <slot />

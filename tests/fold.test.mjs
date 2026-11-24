@@ -10,7 +10,8 @@ let browser;
 before(async () => { browser = await chromium.launch({ channel: 'chrome' }); });
 after(async () => { await browser?.close(); });
 
-for (const [w, h] of [[1280, 720], [1440, 900]]) {
+// 1366×650 / 1280×650：笔记本屏幕扣掉浏览器标签栏和地址栏后的真实可视高度
+for (const [w, h] of [[1280, 720], [1440, 900], [1366, 650], [1280, 650]]) {
   for (const path of ['/', '/desk/']) {
     test(`${path} 在 ${w}x${h} 首屏放得下（最长欢迎语）`, async () => {
       const page = await browser.newPage({ viewport: { width: w, height: h } });

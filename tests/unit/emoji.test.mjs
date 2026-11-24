@@ -17,3 +17,11 @@ test('emojiSrc 返回站内路径', () => {
 test('emojiSrc 拼写错误会抛错', () => {
   assert.throws(() => emojiSrc('nope'));
 });
+
+test('每个表情都有单帧静态版（减弱动态效果时用）', async () => {
+  const sharp = (await import('sharp')).default;
+  for (const code of Object.values(EMOJI)) {
+    const meta = await sharp(`public/emoji/${code}.still.webp`).metadata();
+    assert.equal(meta.pages ?? 1, 1, code);
+  }
+});

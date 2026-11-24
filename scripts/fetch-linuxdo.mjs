@@ -7,6 +7,7 @@ import { execFileSync, spawn } from 'node:child_process';
 import { resolve } from 'node:path';
 import { chromium } from 'playwright';
 import { summarizeLinuxdo } from '../src/lib/activity.mjs';
+import { gitPlan } from './linuxdo-git.mjs';
 
 const USER = 'ching7';
 const OUT = 'src/data/activity/linuxdo.json';
@@ -60,10 +61,13 @@ writeFileSync(OUT, after);
 console.log(`linux.do：${data.days} 天 · ${data.hours} 小时 · ${data.postsRead} 帖 · 等级 ${data.trustLevel}`);
 
 if (commit && !same) {
-  const day = data.updatedAt.replaceAll('-', '');
-  execFileSync('git', ['add', OUT], { stdio: 'inherit' });
-  execFileSync('git', ['commit', '-m', `chore:[${day}] 更新 linux.do 活跃度`], { stdio: 'inherit' });
-  execFileSync('git', ['push'], { stdio: 'inherit' });
+  const sh = (...a) => execFileSync(a[0], a.slice(1), { encoding: 'utf8' }).trim();
+  const branch = sh('git', 'rev-parse', '--abbrev-ref', 'HEAD');
+  const dirtyOthers = sh('git', 'status', '--porcelain').split('\n').some((l) => l && !l.endsWith(OUT));
+  for (const [cmd, ...args] of gitPlan({ branch, dirtyOthers, day: data.updatedAt.replaceAll('-', ''), file: OUT })) {
+    execFileSync(cmd, args, { stdio: 'inherit' });
+  }
+  if (branch !== 'main' || dirtyOthers) console.log(`已提交但没推送：当前分支 ${branch}${dirtyOthers ? '，工作区还有别的改动' : ''}`);
 } else if (commit) {
   console.log('数据没变，不提交');
 }

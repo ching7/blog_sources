@@ -27,3 +27,8 @@ export function summarizeLinuxdo(summary, user, fetchedAt) {
     updatedAt: fetchedAt.slice(0, 10),
   };
 }
+
+/** 两个数据源的更新日期取较旧的：CI 每天刷新 GitHub，不能让手动更新的 linux.do 数字看起来也是今天的。 */
+export function staleDate(a, b) {
+  return a < b ? a : b;
+}

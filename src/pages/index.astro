@@ -31,6 +31,12 @@ const notes = await noteCount();
   .top { display: flex; align-items: center; justify-content: space-between; gap: 16px; }
   .gap { height: 3.5vh; flex: none; }
   .push { flex: 1 0 2vh; }
+  /* 矮屏（笔记本浏览器窗口约 620–700px 高）：收紧上下间距，保住首屏 */
+  @media (max-height: 700px) and (min-width: 721px) {
+    .simple { padding-top: 22px; padding-bottom: 14px; }
+    .gap { height: 2.2vh; }
+    .push { flex-basis: 1vh; }
+  }
   @media (max-width: 720px) {
     .simple { padding: 32px 18px 24px; }
     .top { flex-direction: column; align-items: flex-start; }

@@ -3,6 +3,7 @@ import Card from './Card.astro';
 import { emojiSrc } from '../data/emoji.mjs';
 import github from '../data/activity/github.json';
 import linuxdo from '../data/activity/linuxdo.json';
+import { staleDate } from '../lib/activity.mjs';
 
 interface Props {
   variant: 'card' | 'strip';
@@ -11,7 +12,7 @@ const { variant } = Astro.props;
 // 热力图按周成列：第一天前补空格，让每列从周日开始
 const lead = github.days.length ? new Date(`${github.days[0].date}T00:00:00Z`).getUTCDay() : 0;
 const cells = [...Array(lead).fill(null), ...github.days];
-const updatedAt = [github.updatedAt, linuxdo.updatedAt].sort().at(-1);
+const updatedAt = staleDate(github.updatedAt, linuxdo.updatedAt);
 const active = github.days.filter((d) => d.level > 0).length;
 ---
 {variant === 'card' ? (

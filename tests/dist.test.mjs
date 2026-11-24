@@ -79,3 +79,18 @@ test('404 有猫和回桌面的路', () => {
   assert.match(html, /href="\/"/);
   assert.match(html, /data-cat404/);
 });
+
+test('简约首页悬停表情不随首屏下载（只有 data-src）', () => {
+  const html = readDist('index.html');
+  const pops = html.match(/<img[^>]*class="pop[^"]*"[^>]*>/g) ?? [];
+  assert.equal(pops.length, 4);
+  for (const p of pops) {
+    assert.doesNotMatch(p, /\ssrc=/, p);
+    assert.match(p, /data-src="\/emoji\//, p);
+  }
+});
+
+test('页面带「减弱动态效果时换静态表情」的脚本', () => {
+  for (const f of ['index.html', 'desk/index.html', 'about/index.html', '404.html'])
+    assert.match(readDist(f), /data-still-emoji/, f);
+});

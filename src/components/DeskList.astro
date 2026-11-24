@@ -17,7 +17,7 @@ const { notes } = Astro.props;
         <span class="desc">{d.short.replace('{N}', String(notes))}</span>
       </span>
       <small>{d.sectionLabel}</small>
-      <img class="pop" src={emojiSrc(d.emoji)} alt="" width="64" height="64" loading="lazy" />
+      <img class="pop" data-src={emojiSrc(d.emoji)} alt="" width="64" height="64" />
     </a>
   ))}
 </nav>
@@ -39,4 +39,20 @@ const { notes } = Astro.props;
   .row:hover .title, .row:focus-visible .title { background: linear-gradient(transparent 62%, color-mix(in srgb, var(--c) 45%, transparent) 62%); }
   .row:hover .pop, .row:focus-visible .pop { opacity: 1; transform: none; }
   @media (max-width: 900px) { .pop { display: none; } }
+  @media (max-height: 700px) and (min-width: 721px) {
+    .row { padding-top: 6px; padding-bottom: 6px; }
+    .title { font-size: 20px; }
+    .desc { font-size: 13px; }
+  }
 </style>
+
+<script>
+  // 悬停/聚焦时才设置 src：首屏不下载看不见的表情
+  for (const row of document.querySelectorAll<HTMLElement>('.list .row')) {
+    const img = row.querySelector<HTMLImageElement>('img[data-src]');
+    if (!img) continue;
+    const load = () => { if (!img.src) img.src = img.dataset.src!; };
+    row.addEventListener('pointerenter', load, { once: true });
+    row.addEventListener('focusin', load, { once: true });
+  }
+</script>

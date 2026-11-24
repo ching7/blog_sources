@@ -1,4 +1,4 @@
-// 下载 Noto 动态表情并压缩，存 public/emoji/<码点>.webp；已存在则跳过。
+// 下载 Noto 动态表情并压缩，存 public/emoji/<码点>.webp；另生成单帧静态版 <码点>.still.webp。已存在则跳过。
 // 原图 512px、约 70 帧、500–700KB；直接重编码反而更大。做法：缩到 192px（最大显示 96px，覆盖 2 倍屏），
 // 隔一帧取一帧并把被丢帧的时长并入保留帧（动画总时长不变），再以 q60 编码，单张约 100–200KB。
 // 运行：NODE_USE_ENV_PROXY=1 HTTPS_PROXY=http://127.0.0.1:7897 node scripts/fetch-emoji.mjs
@@ -40,4 +40,13 @@ for (const [name, code] of Object.entries(EMOJI)) {
   writeFileSync(out, await shrink(Buffer.from(await res.arrayBuffer())));
   console.log(`✓ ${name} ${code} ${(statSync(out).size / 1024).toFixed(0)}KB`);
 }
+// 静态版：取动画中间那一帧（有些动画第一帧是空的，比如彩虹），给「减弱动态效果」用
+for (const code of Object.values(EMOJI)) {
+  const anim = `public/emoji/${code}.webp`;
+  const still = `public/emoji/${code}.still.webp`;
+  if (!existsSync(anim) || existsSync(still)) continue;
+  const { pages = 1 } = await sharp(anim, { animated: true }).metadata();
+  await sharp(anim, { page: Math.floor(pages / 2) }).webp({ quality: 80 }).toFile(still);
+}
+
 process.exit(failed ? 1 : 0);

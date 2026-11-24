@@ -34,3 +34,9 @@ test('抓取失败不覆盖已有数据，退出码 0', () => {
   execFileSync('node', ['scripts/fetch-github.mjs'], { env: { ...process.env, GITHUB_CONTRIB_URL: 'http://127.0.0.1:9/' }, stdio: 'pipe' });
   assert.equal(readFileSync('src/data/activity/github.json', 'utf8'), before);
 });
+
+test('打卡本的「更新于」取较旧的那个日期', async () => {
+  const { staleDate } = await import('../../src/lib/activity.mjs');
+  assert.equal(staleDate('2026-11-30', '2026-11-24'), '2026-11-24');
+  assert.equal(staleDate('2026-10-01', '2026-11-24'), '2026-10-01');
+});
