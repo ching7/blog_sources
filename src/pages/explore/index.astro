@@ -1,7 +1,6 @@
 ---
 import Base from '../../layouts/Base.astro';
 import Card from '../../components/Card.astro';
-import Draft from '../../components/Draft.astro';
 import SectionHead from '../../components/SectionHead.astro';
 import { REPOS } from '../../data/repos.mjs';
 
@@ -11,7 +10,7 @@ const EXPERIMENTS = REPOS.filter((r) => ['ai-roundtable', 'prompt-me'].includes(
 <Base title="可能会炸 · 探索" section="explore">
   <main class="page">
     <SectionHead emoji="rocket" title="可能会炸" label="探索" colorName="若竹">
-      <Draft>还没想清楚的实验和半成品。有的能跑，有的只跑过一次。</Draft>
+      还没想清楚的实验和半成品。有的能跑，有的只跑过一次。
     </SectionHead>
     <div class="grid">
       {EXPERIMENTS.map((r, i) => (

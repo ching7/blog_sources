@@ -1,11 +1,10 @@
 ---
 import Base from '../../layouts/Base.astro';
 import Card from '../../components/Card.astro';
-import Draft from '../../components/Draft.astro';
 import SectionHead from '../../components/SectionHead.astro';
 import { PALETTE } from '../../lib/accent.mjs';
 
-// 来自收藏夹「设计」目录里的公开站点；「为什么喜欢」是起草的，等本人改。
+// 来自收藏夹「设计」目录里的公开站点（2026-11-24 定稿）。
 const FINDS = [
   { name: 'NIPPON COLORS', url: 'https://nipponcolors.com/', why: '点一个色名，整页换成那个颜色。这张桌子的配色就是从这儿偷的。' },
   { name: 'WebGL Fluid Simulation', url: 'https://paveldogreat.github.io/WebGL-Fluid-Simulation/', why: '鼠标一划就是一摊彩墨，能玩十分钟。' },
@@ -28,7 +27,7 @@ const FINDS = [
       {FINDS.map((f, i) => (
         <Card href={f.url} color="var(--c-aesthetics)" tilt={i % 2 ? 1.2 : -1.2}>
           <h3>{f.name}</h3>
-          <p><Draft>{f.why}</Draft></p>
+          <p>{f.why}</p>
         </Card>
       ))}
     </div>
