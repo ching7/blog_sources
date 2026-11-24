@@ -35,7 +35,7 @@ test('旧搜索/归档有重定向', () => {
 
 test('首页：无名字、有欢迎语、四件物件、打卡本、猫、切换按钮', () => {
   const html = readDist('index.html');
-  assert.doesNotMatch(html, /作者/);
+  assert.doesNotMatch(html, /\u9648\u4e9a\u7537/);
   assert.match(html, /嗯？你也走到/); // GREETINGS[0] 服务端渲染
   for (const h of ['/repos/', '/aesthetics/', '/explore/', '/notes/']) assert.match(html, new RegExp(`href="${h}"`));
   assert.match(html, /最近有没有偷懒/);
@@ -47,7 +47,7 @@ test('首页：无名字、有欢迎语、四件物件、打卡本、猫、切�
 
 test('热闹版存在、无名字、能回到简约', () => {
   const html = readDist('desk/index.html');
-  assert.doesNotMatch(html, /作者/);
+  assert.doesNotMatch(html, /\u9648\u4e9a\u7537/);
   assert.match(html, /<a[^>]*class="[^"]*\bmode-switch\b[^"]*"[^>]*href="\/"|<a[^>]*href="\/"[^>]*class="[^"]*\bmode-switch\b/);
   assert.match(html, /最近有没有偷懒/);
   assert.match(html, /戳我/);
@@ -96,7 +96,7 @@ test('页面带「减弱动态效果时换静态表情」的脚本', () => {
 });
 
 test('全站不出现名字、公司等个人信息', () => {
-  const PRIVATE = /作者|作者|user|author|user|某厂商|company|example|某公司|framework|[已删除]|[已删除]/i;
+  const PRIVATE = /\u9648\u4e9a\u7537|\u4e9a\u7537|cheny\x6e|chen\x79anan|ching\x37777|\u8baf\u98de|ifly\x74ek|hund\x73un|\u6052\u751f|jres\x63loud|7756086\x398|ching\x5fvip/i;
   for (const f of listDist().filter((f) => f.endsWith('.html'))) {
     const m = readDist(f).match(PRIVATE);
     assert.equal(m, null, `${f}: ${m?.[0]}`);

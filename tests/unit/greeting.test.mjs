@@ -21,7 +21,7 @@ test('只有一条时返回 0', () => assert.equal(nextGreetingIndex(0, 1, Math.
 test('问候语里没有名字，表情都在清单里', () => {
   assert.ok(GREETINGS.length >= 8);
   for (const g of GREETINGS) {
-    assert.doesNotMatch(g.text, /作者|作者/);
+    assert.doesNotMatch(g.text, /\u9648\u4e9a\u7537|\u4e9a\u7537/);
     assert.ok(EMOJI[g.emoji], g.emoji);
   }
 });
