@@ -1,0 +1,57 @@
+---
+import Base from './Base.astro';
+
+interface Props {
+  title: string;
+  date?: Date;
+  section?: string;
+}
+const { title, date, section } = Astro.props;
+const fmt = (d?: Date) => (d ? d.toISOString().slice(0, 10) : '');
+---
+<Base title={`${title} · 考古现场`} section="notes">
+  <main class="note-page">
+    <nav class="crumb"><a href="/">桌面</a> / <a href="/notes/">考古现场</a>{section && <> / {section}</>}</nav>
+    <article class="paper">
+      <span class="tape" aria-hidden="true"></span>
+      <h1>{title}</h1>
+      {date && <p class="meta">挖出于 {fmt(date)}</p>}
+      <div class="prose"><slot /></div>
+    </article>
+  </main>
+</Base>
+
+<style>
+  .note-page { max-width: 860px; margin: 0 auto; padding: 56px 32px 0; }
+  .crumb { font-size: 14px; color: var(--mute); margin-bottom: 28px; }
+  .crumb a { color: var(--mute); }
+  .paper {
+    position: relative;
+    background: var(--card);
+    border: 2.5px solid var(--ink);
+    border-radius: 14px 18px 12px 20px / 18px 12px 20px 14px;
+    box-shadow: 6px 7px 0 var(--c);
+    padding: 44px 48px 40px;
+  }
+  .tape { position: absolute; top: -12px; left: 48px; width: 90px; height: 24px; background: var(--c); opacity: 0.6; transform: rotate(-3deg); }
+  h1 { font-size: 34px; line-height: 1.35; }
+  .meta { font: 12px var(--font-mono); color: var(--mute); margin: 8px 0 28px; }
+  .prose { font-family: -apple-system, 'PingFang SC', 'Microsoft YaHei', sans-serif; font-size: 16px; line-height: 1.85; color: #333; }
+  .prose :global(h2) { font-family: var(--font-hand); font-size: 24px; margin: 36px 0 12px; }
+  .prose :global(h3) { font-family: var(--font-hand); font-size: 20px; margin: 28px 0 10px; }
+  .prose :global(p), .prose :global(ul), .prose :global(ol), .prose :global(blockquote), .prose :global(table) { margin: 12px 0; }
+  .prose :global(ul), .prose :global(ol) { padding-left: 1.5em; }
+  .prose :global(a) { text-decoration-color: var(--hl); text-decoration-thickness: 3px; }
+  .prose :global(code) { font-family: var(--font-mono); font-size: 0.9em; background: #f1ead9; padding: 1px 5px; border-radius: 4px; }
+  .prose :global(pre) { margin: 16px 0; padding: 16px 18px; border: 2px solid var(--ink); border-radius: 10px; overflow-x: auto; font-size: 14px; line-height: 1.6; }
+  .prose :global(pre code) { background: none; padding: 0; }
+  .prose :global(img) { display: block; margin: 16px auto; border: 2px solid var(--ink); border-radius: 8px; }
+  .prose :global(blockquote) { border-left: 4px solid var(--c); padding: 4px 14px; color: #555; background: #faf6ec; }
+  .prose :global(table) { border-collapse: collapse; display: block; overflow-x: auto; }
+  .prose :global(th), .prose :global(td) { border: 1px solid var(--line); padding: 6px 10px; }
+  .prose :global(.img-broken) { display: inline-block; padding: 8px 12px; border: 2px dashed var(--mute); border-radius: 8px; color: var(--mute); font-size: 14px; }
+  @media (max-width: 720px) {
+    .note-page { padding: 32px 16px 0; }
+    .paper { padding: 32px 20px 28px; }
+  }
+</style>

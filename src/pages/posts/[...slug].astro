@@ -1,0 +1,28 @@
+---
+import { getCollection, render } from 'astro:content';
+import Note from '../../layouts/Note.astro';
+import { legacySlug } from '../../lib/legacy-slug.mjs';
+import { SECTIONS, isIndex, sectionOf, noteUrl } from '../../lib/notes.mjs';
+
+export async function getStaticPaths() {
+  const all = await getCollection('notes', (e) => !e.data.draft);
+  return all.map((entry) => ({ params: { slug: legacySlug(entry.id) }, props: { entry, all } }));
+}
+
+const { entry, all } = Astro.props;
+const { Content } = await render(entry);
+const section = SECTIONS[sectionOf(entry)];
+// 分类目录页：正文之后列出同目录下的笔记
+const children = isIndex(entry)
+  ? all.filter((e) => !isIndex(e) && sectionOf(e) === sectionOf(entry))
+  : [];
+---
+<Note title={entry.data.title} date={entry.data.date} section={section}>
+  <Content />
+  {children.length > 0 && (
+    <>
+      <h2>这一层挖出来的</h2>
+      <ul>{children.map((c) => <li><a href={noteUrl(c)}>{c.data.title}</a></li>)}</ul>
+    </>
+  )}
+</Note>

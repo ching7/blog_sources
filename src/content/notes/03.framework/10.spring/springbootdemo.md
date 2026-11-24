@@ -34,7 +34,7 @@ SpringBoot 基于 Spring 开发。SpringBoot 本身并不提供 Spring 框架的
 
 这种传统web开发的架构模式当然也有它的优势，比如它测试部署比较简单，因为不涉及到多个服务的互联互调，只需要把一个包上传到服务器就行了，可以说是一人吃饱全家不饿。同样也不会给运维带来麻烦，方便水平扩展，只需要又把相同的应用复制多份放在不同的服务器中就达到了扩展的目的。
 
-![](https://gitee.com/user/gitee_graph_bed/raw/master/img/20200717185012.png)
+![](/images/03.framework/10.spring/20200717185012.png)
 
 单体应用的的缺点也显而易见，容易牵一发而动全身，比如要更改一个小小的功能，就可能需要重新部署整个应用。当然，更大的挑战就是日益增长的用户需求。
 
@@ -76,7 +76,7 @@ SpringBoot 具有如下优点：
 
 idea新建一个maven工程
 
-![](https://gitee.com/user/gitee_graph_bed/raw/master/img/springbootdemo.png)
+![](/images/03.framework/10.spring/springbootdemo.png)
 
 ### 模块化
 
@@ -84,13 +84,13 @@ idea新建一个maven工程
 
 qs-api、qs-pub、qs-service
 
-![](https://gitee.com/user/gitee_graph_bed/raw/master/img/springboot01.png)
+![](/images/03.framework/10.spring/springboot01.png)
 
-![](https://gitee.com/user/gitee_graph_bed/raw/master/img/springbootdemo2.png)
+![](/images/03.framework/10.spring/springbootdemo2.png)
 
 **注意**：在idea中，右侧红框中，是否有灰色的模块，这样的模块，需要重新在右侧mvn导入。否则在模块间依赖的时候会出现无法导入的问题
 
-![](https://gitee.com/user/gitee_graph_bed/raw/master/img/springboot03.png)
+![](/images/03.framework/10.spring/springboot03.png)
 
 ### 依赖导入
 
@@ -124,13 +124,13 @@ qs-api、qs-pub、qs-service
 
 
 
-![](https://gitee.com/user/gitee_graph_bed/raw/master/img/springbootdemo04.png)
+![](/images/03.framework/10.spring/springbootdemo04.png)
 
 ### Demo编写
 
-![](https://gitee.com/user/gitee_graph_bed/raw/master/img/springboot05.png)
+![](/images/03.framework/10.spring/springboot05.png)
 
-![](https://gitee.com/user/gitee_graph_bed/raw/master/img/springboot06.png)
+![](/images/03.framework/10.spring/springboot06.png)
 
 ### 打包测试
 
@@ -166,6 +166,6 @@ qs-api、qs-pub、qs-service
 
    在springboot启动的模块，pom新增打包配置
 
-   ![](https://gitee.com/user/gitee_graph_bed/raw/master/img/springboot07.png)
+   ![](/images/03.framework/10.spring/springboot07.png)
 
 2. 右侧mvn，package打包成jar，启动测试

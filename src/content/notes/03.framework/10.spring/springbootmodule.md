@@ -12,7 +12,7 @@ draft: false
 
 如下图所示是一个mall工程
 
-![](https://gitee.com/user/gitee_graph_bed/raw/master/img/20200717192205.png)
+![](/images/03.framework/10.spring/20200717192205.png)
 
 其中业务模块为
 
@@ -31,7 +31,7 @@ draft: false
 
 业务模块根据业务需求进行开发，重点关注聚合模块，最外层的pom进行公用依赖管理
 
-![](https://gitee.com/user/gitee_graph_bed/raw/master/img/20200717194156.png)
+![](/images/03.framework/10.spring/20200717194156.png)
 
 ### parent模块-公用模块
 
@@ -53,10 +53,10 @@ deploy模块主要负责
 * 项目配置管理
 * 项目打包配置
 
-![](https://gitee.com/user/gitee_graph_bed/raw/master/img/20200717192615.png)
+![](/images/03.framework/10.spring/20200717192615.png)
 
 其中pom文件尤为关键
 
-![](https://gitee.com/user/gitee_graph_bed/raw/master/img/20200717192705.png)
+![](/images/03.framework/10.spring/20200717192705.png)
 
 pom只依赖了impl，打包时，会将所有业务模块根据配置，进行打包

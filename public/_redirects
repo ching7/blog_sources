@@ -1,0 +1,5 @@
+/search/ /notes/ 301
+/archives/ /notes/ 301
+/categories/* /notes/ 301
+/tags/* /notes/ 301
+/posts/ /notes/ 301

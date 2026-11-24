@@ -104,11 +104,11 @@ public class AdminMenusController {
 
 启动项目。访问http://127.0.0.1:8090/swagger-ui.html
 
-![](https://gitee.com/user/gitee_graph_bed/raw/master/img/20200721150358.png)
+![](/images/03.framework/13.utils/20200721150358.png)
 
 点击接口进行测试
 
-![](https://gitee.com/user/gitee_graph_bed/raw/master/img/20200721150535.png)
+![](/images/03.framework/13.utils/20200721150535.png)
 
 ### swagger注解介绍
 
@@ -135,11 +135,11 @@ Swagger的注解大致来说可以分为两类，一类是用于Controller层，
 
 如果方法注解上不写请求方法的参数
 
-![](https://gitee.com/user/gitee_graph_bed/raw/master/img/20200721151443.png)
+![](/images/03.framework/13.utils/20200721151443.png)
 
 生成的文档中，会包含所有的请求类型，开发中建议加上，减少冗余
 
-![](https://gitee.com/user/gitee_graph_bed/raw/master/img/20200721151531.png)
+![](/images/03.framework/13.utils/20200721151531.png)
 
 **参考：**
 

@@ -24,7 +24,7 @@ Class A中用到了Class B的对象b，一般情况下，需要在A的代码中�
 
   将 A 调用 B 的对象修改为 C 类的对象，修改的是调用方的代码，所以我们认为代码的调用权在调用方。
 
-![](https://gitee.com/user/gitee_graph_bed/raw/master/img/20200717191533.png)
+![](/images/03.framework/10.spring/20200717191533.png)
 
 * 基于 IoC（控制反转）的调用方式
 
@@ -34,7 +34,7 @@ Class A中用到了Class B的对象b，一般情况下，需要在A的代码中�
 
   我们将代码的调用权（控制权）从调用方转移给被调用方（服务提供方）的设计模式称为控制反转（IoC）。
 
-  ![](https://gitee.com/user/gitee_graph_bed/raw/master/img/20200717191632.png)
+  ![](/images/03.framework/10.spring/20200717191632.png)
 
 根据上图可以得出，实现一个 IoC 的框架，必须要解决两个问题：
 

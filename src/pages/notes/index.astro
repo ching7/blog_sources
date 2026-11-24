@@ -1,0 +1,45 @@
+---
+import { getCollection } from 'astro:content';
+import Base from '../../layouts/Base.astro';
+import Card from '../../components/Card.astro';
+import { groupNotes, noteUrl } from '../../lib/notes.mjs';
+
+const groups = groupNotes(await getCollection('notes'));
+const total = groups.reduce((n, g) => n + g.items.length, 0);
+const fmt = (d?: Date) => (d ? d.toISOString().slice(0, 7) : '');
+---
+<Base title="考古现场" section="notes">
+  <main class="notes">
+    <nav class="crumb"><a href="/">← 回到桌面</a></nav>
+    <h1>考古现场</h1>
+    <p class="lead">挖出 {total} 篇 2020 年前后的 Java 笔记。那时候还在和 jstack 谈恋爱，字迹有点潦草，凑合看。</p>
+    <div class="layers">
+      {groups.map((g, i) => (
+        <Card color="var(--c-notes)" tilt={i % 2 ? 0.8 : -0.8}>
+          <h2>{g.name}<small>{g.items.length} 篇</small></h2>
+          <ul>
+            {g.items.map((e) => (
+              <li><a href={noteUrl(e)}>{e.data.title}</a><time>{fmt(e.data.date)}</time></li>
+            ))}
+          </ul>
+        </Card>
+      ))}
+    </div>
+  </main>
+</Base>
+
+<style>
+  .notes { max-width: 1100px; margin: 0 auto; padding: 56px 32px 0; }
+  .crumb { font-size: 14px; color: var(--mute); }
+  .crumb a { color: var(--mute); }
+  h1 { font-size: 44px; margin-top: 16px; }
+  .lead { color: #555; margin: 8px 0 40px; font-size: 17px; }
+  .layers { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 32px 28px; align-items: start; }
+  h2 { font-size: 22px; display: flex; align-items: baseline; gap: 10px; margin-bottom: 8px; }
+  h2 small { font: 11px var(--font-mono); color: var(--mute); }
+  ul { list-style: none; }
+  li { display: flex; justify-content: space-between; gap: 12px; padding: 5px 0; border-bottom: 1px dashed var(--line); font-size: 15px; }
+  li a { text-decoration: none; }
+  li a:hover { background: linear-gradient(transparent 60%, var(--hl) 60%); }
+  time { font: 11px var(--font-mono); color: var(--mute); white-space: nowrap; }
+</style>

@@ -13,4 +13,4 @@ Java虚拟机在执行Java程序的过程中会把它所管理的内存划分为
 依赖用户线程的启动和结束而建立和销毁。根据《Java虚拟机规范》的规定，Java虚拟机所管理的内存
 将会包括以下几个运行时数据区域
 
-![](https://gitee.com/user/gitee_graph_bed/raw/master/img/20200824193709.png)
+![](/images/01.dev/12.java/20200824193709.png)
