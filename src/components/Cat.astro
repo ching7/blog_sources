@@ -1,0 +1,50 @@
+---
+import { emojiSrc } from '../data/emoji.mjs';
+
+interface Props {
+  size: 'sm' | 'lg';
+}
+const { size } = Astro.props;
+---
+<button type="button" class:list={['cat', size]} data-cat data-grin={emojiSrc('catGrin')} aria-label="戳一下猫">
+  <span class="bubble" data-say>戳我，或者敲敲键盘</span>
+  <img src={emojiSrc('cat')} alt="" width="88" height="88" data-cat-img />
+</button>
+
+<style>
+  .cat { display: flex; align-items: center; gap: 8px; background: none; border: 0; padding: 0; font: inherit; color: inherit; cursor: pointer; user-select: none; }
+  .cat img { transition: transform 0.09s; flex: none; }
+  .cat:hover img, .cat:focus-visible img { transform: scale(1.08); }
+  .sm img { width: 56px; height: 56px; }
+  .lg img { width: 88px; height: 88px; }
+  .bubble { white-space: nowrap; background: var(--card); color: var(--ink); }
+  .sm .bubble { font-size: 13px; border: 1px solid var(--line); border-radius: 12px; padding: 3px 9px; }
+  .lg .bubble { font-size: 14px; border: 2px solid var(--ink); border-radius: 12px; padding: 6px 10px; }
+</style>
+
+<script>
+  const LINES = ['咚！', '咚咚咚！', '你打字好快', '这人会写 Java', '也会写 Python', '还会画架构图', '好了好了够了'];
+  const cats = [...document.querySelectorAll<HTMLButtonElement>('[data-cat]')];
+  let n = 0;
+  const hit = () => {
+    n++;
+    for (const cat of cats) {
+      const img = cat.querySelector<HTMLImageElement>('[data-cat-img]')!;
+      const say = cat.querySelector('[data-say]')!;
+      if (!matchMedia('(prefers-reduced-motion: reduce)').matches) {
+        img.style.transform = `rotate(${n % 2 ? 10 : -10}deg)`;
+        setTimeout(() => (img.style.transform = ''), 90);
+      }
+      if (n % 5 === 0) say.textContent = LINES[(n / 5 - 1) % LINES.length];
+      if (n === 30) { img.src = cat.dataset.grin!; say.textContent = '你赢了'; }
+    }
+  };
+  for (const cat of cats) cat.addEventListener('click', hit);
+  addEventListener('keydown', (e) => {
+    if (e.metaKey || e.ctrlKey || e.altKey || e.repeat) return;
+    const t = e.target instanceof Element ? e.target : null;
+    if (t?.closest('input, textarea, select, [contenteditable]')) return;
+    if ((e.key === 'Enter' || e.key === ' ' || e.key === 'Tab') && t?.closest('button, a')) return; // 别和按钮/链接的键盘操作打架
+    hit();
+  });
+</script>

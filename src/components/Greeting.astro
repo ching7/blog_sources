@@ -1,0 +1,55 @@
+---
+import { GREETINGS } from '../data/greetings.mjs';
+import { emojiSrc } from '../data/emoji.mjs';
+import { splitGreeting } from '../lib/greeting.mjs';
+
+interface Props {
+  size?: 'sm' | 'lg';
+}
+const { size = 'sm' } = Astro.props;
+const first = GREETINGS[0];
+const [head, mark, tail] = splitGreeting(first.text);
+const data = GREETINGS.map((g) => ({ src: emojiSrc(g.emoji), parts: splitGreeting(g.text) }));
+---
+<button class:list={['greeting', size]} type="button" title="点一下换一句" data-greeting={JSON.stringify(data)}>
+  <img src={emojiSrc(first.emoji)} alt="" width="96" height="96" />
+  <span class="text" data-greeting-text>{head}<u>{mark}</u>{tail}</span>
+</button>
+
+<style>
+  .greeting {
+    display: flex; align-items: center; gap: 16px;
+    background: none; border: 0; padding: 0; margin: 0;
+    font: inherit; color: inherit; text-align: left; cursor: pointer;
+  }
+  .text { font-weight: 400; line-height: 1.35; }
+  u { text-decoration: none; background: linear-gradient(transparent 60%, var(--hl) 60%); transition: background 0.4s; }
+  .sm img { width: 48px; height: 48px; }
+  .sm .text { font-size: 34px; }
+  .lg img { width: 64px; height: 64px; }
+  .lg .text { font-size: 40px; }
+  .greeting:hover img { transform: rotate(-8deg) scale(1.08); }
+  img { transition: transform 0.25s; flex: none; }
+  @media (max-width: 720px) {
+    .text { font-size: 26px !important; }
+    img { width: 40px !important; height: 40px !important; }
+  }
+</style>
+
+<script>
+  import { nextGreetingIndex } from '../lib/greeting.mjs';
+
+  for (const btn of document.querySelectorAll<HTMLButtonElement>('[data-greeting]')) {
+    const list: { src: string; parts: [string, string, string] }[] = JSON.parse(btn.dataset.greeting!);
+    const img = btn.querySelector('img')!;
+    const text = btn.querySelector('[data-greeting-text]')!;
+    const show = (i: number) => {
+      const [head, mark, tail] = list[i].parts;
+      img.src = list[i].src; // 只在显示时才设置 src，其它表情不预加载
+      text.replaceChildren(head, Object.assign(document.createElement('u'), { textContent: mark }), tail);
+    };
+    let i = Math.floor(Math.random() * list.length);
+    if (i !== 0) show(i);
+    btn.addEventListener('click', () => show((i = nextGreetingIndex(i, list.length, Math.random))));
+  }
+</script>

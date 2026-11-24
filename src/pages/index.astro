@@ -1,18 +1,14 @@
 ---
 import Base from '../layouts/Base.astro';
-import Card from '../components/Card.astro';
-import Highlight from '../components/Highlight.astro';
-import Tag from '../components/Tag.astro';
+import Greeting from '../components/Greeting.astro';
+import Cat from '../components/Cat.astro';
+import PencilCup from '../components/PencilCup.astro';
 ---
 <Base title="一张乱桌子">
-  <main style="padding:80px 64px;max-width:420px">
-    <h1>施工中，<Highlight>别踩到胶带</Highlight>。</h1>
-    <div style="margin-top:40px">
-      <Card href="/repos/" color="var(--c-repos)">
-        <h3>拆盲盒</h3>
-        <p>几个顺手造的小轮子。</p>
-        <Tag label="仓库" colorName="瑠璃" color="var(--c-repos)" />
-      </Card>
-    </div>
+  <main style="padding:80px 64px;display:grid;gap:40px;justify-items:start">
+    <Greeting size="lg" />
+    <Cat size="lg" />
+    <PencilCup variant="cup" />
+    <PencilCup variant="dots" />
   </main>
 </Base>
