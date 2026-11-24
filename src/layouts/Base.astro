@@ -1,0 +1,26 @@
+---
+import 'lxgw-wenkai-webfont/lxgwwenkai-regular.css';
+import '../styles/tokens.css';
+import '../styles/base.css';
+
+interface Props {
+  title: string;
+  description?: string;
+  section?: 'repos' | 'aesthetics' | 'explore' | 'notes' | 'about' | 'home';
+}
+const { title, description = '一张乱桌子，摆着一些好玩的东西。', section = 'home' } = Astro.props;
+const color = section === 'home' ? 'var(--hl)' : `var(--c-${section})`;
+---
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+  </head>
+  <body data-section={section} style={`--c: ${color}`}>
+    <slot />
+  </body>
+</html>

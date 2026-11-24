@@ -1,0 +1,17 @@
+:root {
+  --paper: #f3ecdf;
+  --ink: #2b2b2b;
+  --dot: #d9cdb6;
+  --hl: #FFB11B;
+  --mute: #8a8478;
+  --line: #e2d9c6;
+  --card: #fffdf7;
+  --c-about: #0D5661;
+  --c-repos: #005CAF;
+  --c-aesthetics: #EEA9A9;
+  --c-explore: #5DAC81;
+  --c-notes: #BDC0BA;
+  --c-log: #F35336;
+  --font-hand: 'LXGW WenKai', 'Kaiti SC', 'STKaiti', serif;
+  --font-mono: Menlo, Consolas, monospace;
+}

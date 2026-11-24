@@ -1,5 +1,7 @@
-node_modules
-/public/
-/resources/
-.hugo_build.lock
+node_modules/
+dist/
+.astro/
+.cache/
 .DS_Store
+.superpowers/
+.playwright-mcp/
