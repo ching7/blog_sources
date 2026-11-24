@@ -1,20 +1,17 @@
-# Attic.cyn 博客（Hugo）
+# 一张乱桌子
 
-本仓库是个人 Java 学习笔记博客的源码，使用 **Hugo + PaperMod** 构建，push 到 `main` 后由 GitHub Actions 自动部署到 Cloudflare Pages。写作与发布流程见 [WRITING.md](./WRITING.md)。
+个人展厅站点：仓库、审美、探索、早年的 Java 笔记，以及一只会打鼓的猫。
 
-## 🚩 阅读须知
+用 **Astro**（纯静态输出）+ 手写 CSS + 原生 JS 构建，push 到 `main` 后由 GitHub Actions 部署到 Cloudflare Pages。写作与日常维护见 [WRITING.md](./WRITING.md)。
 
-这里记录的是一个程序员日常的学习记录，目的是把自己的学习记录下来，分享交流。
+- 首页默认简约版 `/`，「弄乱桌面」切到热闹版 `/desk/`
+- 早年笔记保留原链接：`/posts/...`，索引在 `/notes/`
 
-理想是形成一个 Java 基础以及进阶知识库。目前正在努力。
+## 在线地址
 
-目前水平有限，文章中有任何问题，欢迎交流联系（github issue）。
+https://cyn-blog.pages.dev/
 
-## 🚀 在线博客
-
-https://cyn-blog.pages.dev/ （Cloudflare Pages，部署上线后可访问）
-
-## 💬 联系我
+## 联系我
 
 QQ：[已删除]
 WeChat: [已删除]
