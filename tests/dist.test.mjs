@@ -56,3 +56,26 @@ test('热闹版存在、无名字、能回到简约', () => {
 test('首页图片只引用自托管资源', () => {
   for (const f of ['index.html', 'desk/index.html']) assert.doesNotMatch(readDist(f), /<img[^>]+src="https?:\/\//, f);
 });
+
+test('展区页都存在', () => {
+  for (const p of ['repos', 'aesthetics', 'explore', 'about', 'notes']) readDist(`${p}/index.html`);
+  readDist('404.html');
+});
+
+test('仓库点评原文', () => {
+  assert.match(readDist('repos/index.html'), /PPT 转 MP4 小工具，TTS \+ FFmpeg 拼出来的，意外多人 star/);
+});
+
+test('About 自述与代表项目原文', () => {
+  const html = readDist('about/index.html');
+  assert.match(html, /发现 OOM 没躲过去，只是变成了显存版/);
+  assert.match(html, /金融行业智能体平台/);
+  assert.match(html, /技能矩阵/);
+});
+
+test('404 有猫和回桌面的路', () => {
+  const html = readDist('404.html');
+  assert.match(html, /推下/);
+  assert.match(html, /href="\/"/);
+  assert.match(html, /data-cat404/);
+});

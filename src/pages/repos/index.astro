@@ -1,0 +1,30 @@
+---
+import Base from '../../layouts/Base.astro';
+import Card from '../../components/Card.astro';
+import SectionHead from '../../components/SectionHead.astro';
+import { REPOS } from '../../data/repos.mjs';
+---
+<Base title="拆盲盒 · 仓库" section="repos">
+  <main class="page">
+    <SectionHead emoji="gift" title="拆盲盒" label="仓库" colorName="瑠璃">
+      几个顺手造的小轮子，一个一个拆开看。点卡片去 GitHub。
+    </SectionHead>
+    <div class="grid">
+      {REPOS.map((r, i) => (
+        <Card href={r.url} color="var(--c-repos)" tilt={i % 2 ? 1.1 : -1.3}>
+          <h2>{r.name}</h2>
+          <p>{r.comment}</p>
+          <div class="meta"><span>★ {r.stars}</span><span>{r.language}</span></div>
+        </Card>
+      ))}
+    </div>
+  </main>
+</Base>
+
+<style>
+  .page { max-width: 1100px; margin: 0 auto; padding: 56px 32px 0; }
+  .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 34px 28px; align-items: start; }
+  h2 { font-size: 24px; font-family: var(--font-mono); letter-spacing: -0.02em; margin-bottom: 8px; }
+  p { color: #555; font-size: 15px; }
+  .meta { display: flex; gap: 14px; margin-top: 12px; font: 12px var(--font-mono); color: var(--mute); }
+</style>

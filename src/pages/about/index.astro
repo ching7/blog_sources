@@ -1,0 +1,43 @@
+---
+import Base from '../../layouts/Base.astro';
+import Draft from '../../components/Draft.astro';
+import { Content } from '../../data/about.md';
+---
+<Base title="关于我 · 作者" section="about">
+  <main class="page">
+    <a class="back" href="/">← 回到桌面</a>
+    <article class="namecard">
+      <span class="tape" aria-hidden="true"></span>
+      <h1>作者</h1>
+      <div class="prose"><Content /></div>
+      <section class="contact">
+        <h3>找我</h3>
+        <p>GitHub：<a href="https://github.com/ching7">github.com/ching7</a></p>
+        <p><Draft>邮箱 / 微信：等本人决定公开哪些</Draft></p>
+      </section>
+    </article>
+  </main>
+</Base>
+
+<style>
+  .page { max-width: 860px; margin: 0 auto; padding: 56px 32px 0; }
+  .back { font-size: 14px; color: var(--mute); }
+  .namecard {
+    position: relative; margin-top: 24px; background: var(--card);
+    border: 2.5px solid var(--ink); border-radius: 14px 18px 12px 20px / 18px 12px 20px 14px;
+    box-shadow: 6px 7px 0 var(--c); padding: 44px 48px 36px;
+  }
+  .tape { position: absolute; top: -12px; left: 48px; width: 90px; height: 24px; background: var(--c); opacity: 0.6; transform: rotate(-3deg); }
+  h1 { font-size: 40px; margin-bottom: 12px; }
+  .prose { font-size: 16px; line-height: 1.85; color: #333; }
+  .prose :global(h3) { font-size: 22px; margin: 28px 0 10px; color: var(--c); }
+  .prose :global(p), .prose :global(ul), .prose :global(table) { margin: 10px 0; }
+  .prose :global(ul) { padding-left: 1.4em; }
+  .prose :global(details) { border: 1.5px solid var(--line); border-radius: 10px; padding: 10px 14px; margin: 10px 0; background: #fcfaf4; }
+  .prose :global(summary) { cursor: pointer; }
+  .prose :global(table) { border-collapse: collapse; width: 100%; font-size: 14px; display: block; overflow-x: auto; }
+  .prose :global(th), .prose :global(td) { border: 1px solid var(--line); padding: 6px 10px; text-align: left; }
+  .contact { margin-top: 28px; border-top: 1px dashed var(--line); padding-top: 16px; }
+  .contact h3 { font-size: 20px; color: var(--c); margin-bottom: 6px; }
+  @media (max-width: 720px) { .namecard { padding: 32px 20px 28px; } }
+</style>

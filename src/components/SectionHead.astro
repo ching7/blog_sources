@@ -1,0 +1,30 @@
+---
+import { emojiSrc } from '../data/emoji.mjs';
+
+interface Props {
+  emoji: string;
+  title: string;
+  label: string;
+  colorName: string;
+}
+const { emoji, title, label, colorName } = Astro.props;
+---
+<header class="section-head">
+  <a class="back" href="/">← 回到桌面</a>
+  <div class="row">
+    <img src={emojiSrc(emoji)} alt="" width="72" height="72" />
+    <h1>{title}</h1>
+    <span class="tag"><i></i>{label} · {colorName}</span>
+  </div>
+  <p class="lead"><slot /></p>
+</header>
+
+<style>
+  .back { font-size: 14px; color: var(--mute); }
+  .row { display: flex; align-items: center; gap: 16px; margin-top: 18px; flex-wrap: wrap; }
+  img { width: 72px; height: 72px; }
+  h1 { font-size: 44px; }
+  .tag { display: inline-flex; align-items: center; gap: 6px; font: 12px var(--font-mono); color: var(--mute); }
+  .tag i { width: 10px; height: 10px; border-radius: 50%; background: var(--c); border: 1px solid var(--ink); }
+  .lead { color: #555; font-size: 17px; margin: 10px 0 40px; max-width: 640px; }
+</style>

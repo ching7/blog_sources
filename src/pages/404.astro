@@ -1,0 +1,103 @@
+---
+import Base from '../layouts/Base.astro';
+import { emojiSrc } from '../data/emoji.mjs';
+---
+<Base title="这页掉下去了">
+  <main class="lost" data-cat404 data-weary={emojiSrc('catWeary')} data-boom={emojiSrc('collision')}>
+    <h1>这一页被猫<u>推下</u>桌子了。</h1>
+    <p class="sub" data-say>你要找的东西不在桌上。要不……捡起来试试？</p>
+
+    <div class="scene">
+      <div class="desk-edge">
+        <img class="cat" src={emojiSrc('catSmirk')} alt="一只得意的猫" width="120" height="120" data-cat />
+      </div>
+      <button type="button" class="paper" data-paper aria-label="把这页捡回桌上">
+        <span class="tape" aria-hidden="true"></span>
+        <b>404</b>
+        <small>点我，捡回桌上</small>
+      </button>
+    </div>
+
+    <p class="ways">
+      <a href="/">回到桌面</a>
+      <a href="/notes/">去考古现场翻翻</a>
+      <span class="count" data-count></span>
+    </p>
+  </main>
+</Base>
+
+<style>
+  .lost { max-width: 760px; margin: 0 auto; padding: calc(32px + 5vh) 32px 0; text-align: center; }
+  h1 { font-size: 40px; }
+  u { text-decoration: none; background: linear-gradient(transparent 58%, var(--hl) 58%); }
+  .sub { color: var(--mute); margin-top: 8px; min-height: 1.6em; }
+  .scene { position: relative; height: 370px; margin-top: 24px; }
+  .desk-edge { position: absolute; left: 10%; right: 10%; top: 96px; border-top: 4px solid var(--ink); }
+  .desk-edge::after { content: ''; position: absolute; right: 0; top: -4px; width: 4px; height: 160px; background: var(--ink); }
+  .cat { position: absolute; right: 18%; top: -120px; width: 120px; height: 120px; transition: transform 0.15s; }
+  .cat.swat { transform: rotate(-18deg) translateX(-12px); }
+  .paper {
+    --x: 0px; --y: 0px; --r: -24deg;
+    position: absolute; left: 50%; top: 210px; width: 190px; margin-left: -95px; padding: 22px 0 16px;
+    background: var(--card); border: 2.5px solid var(--ink); border-radius: 14px 18px 12px 20px / 18px 12px 20px 14px;
+    box-shadow: 5px 6px 0 var(--c-log); font: inherit; color: var(--ink); cursor: pointer;
+    transform: translate(var(--x), var(--y)) rotate(var(--r));
+    transition: transform 0.55s cubic-bezier(0.3, 1.4, 0.5, 1);
+  }
+  .paper:hover, .paper:focus-visible { --r: -18deg; }
+  .paper.up { --y: -148px; --r: 2deg; transition-duration: 0.45s; }
+  .paper.fall { transition: transform 0.5s cubic-bezier(0.5, 0, 0.9, 0.6); }
+  .paper b { display: block; font: 700 44px var(--font-mono); letter-spacing: 0.05em; }
+  .paper small { color: var(--mute); font-size: 13px; }
+  .tape { position: absolute; top: -12px; left: 50%; width: 64px; height: 20px; margin-left: -32px; background: var(--c-log); opacity: 0.55; transform: rotate(-4deg); }
+  .ways { display: flex; justify-content: center; align-items: center; gap: 24px; margin-top: 12px; }
+  .count { font: 12px var(--font-mono); color: var(--mute); }
+  .boom { position: absolute; width: 72px; height: 72px; pointer-events: none; }
+  @media (max-width: 720px) {
+    h1 { font-size: 28px; }
+    .cat { right: 6%; }
+  }
+</style>
+
+<script>
+  const root = document.querySelector<HTMLElement>('[data-cat404]')!;
+  const paper = root.querySelector<HTMLButtonElement>('[data-paper]')!;
+  const cat = root.querySelector<HTMLImageElement>('[data-cat]')!;
+  const say = root.querySelector('[data-say]')!;
+  const count = root.querySelector('[data-count]')!;
+  const LINES = ['猫：喵。（又推了下去）', '猫：你捡一次我推一次。', '猫：……行吧，你赢了。'];
+  let tries = 0;
+  let busy = false;
+
+  paper.addEventListener('click', () => {
+    if (busy) return;
+    if (tries >= 3) { location.href = '/'; return; }
+    busy = true;
+    tries++;
+    count.textContent = `捡回来 ${tries} 次`;
+    paper.classList.remove('fall');
+    paper.classList.add('up');
+    paper.querySelector('small')!.textContent = tries >= 3 ? '再点一下，回桌面' : '放好了……吗？';
+    if (tries >= 3) {
+      cat.src = root.dataset.weary!;
+      say.textContent = LINES[2];
+      busy = false;
+      return;
+    }
+    setTimeout(() => {
+      cat.classList.add('swat');
+      const boom = Object.assign(document.createElement('img'), { src: root.dataset.boom, alt: '', className: 'boom' });
+      Object.assign(boom.style, { left: `${paper.offsetLeft + 60}px`, top: `${paper.offsetTop - 170}px` });
+      paper.parentElement!.append(boom);
+      setTimeout(() => {
+        cat.classList.remove('swat');
+        paper.classList.remove('up');
+        paper.classList.add('fall');
+        say.textContent = LINES[tries - 1];
+        paper.querySelector('small')!.textContent = '再捡一次？';
+        busy = false;
+      }, 220);
+      setTimeout(() => boom.remove(), 900);
+    }, 750);
+  });
+</script>

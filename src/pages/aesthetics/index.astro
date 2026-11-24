@@ -1,0 +1,58 @@
+---
+import Base from '../../layouts/Base.astro';
+import Card from '../../components/Card.astro';
+import Draft from '../../components/Draft.astro';
+import SectionHead from '../../components/SectionHead.astro';
+import { PALETTE } from '../../lib/accent.mjs';
+
+// 来自收藏夹「设计」目录里的公开站点；「为什么喜欢」是起草的，等本人改。
+const FINDS = [
+  { name: 'NIPPON COLORS', url: 'https://nipponcolors.com/', why: '点一个色名，整页换成那个颜色。这张桌子的配色就是从这儿偷的。' },
+  { name: 'WebGL Fluid Simulation', url: 'https://paveldogreat.github.io/WebGL-Fluid-Simulation/', why: '鼠标一划就是一摊彩墨，能玩十分钟。' },
+  { name: 'Ian Fisher 的云', url: 'https://www.ianfisherart.com/', why: '一个人画了很多年的云，每一朵都不一样。' },
+  { name: 'Gallerix 在线画廊', url: 'https://gallerix.asia/', why: '古典画的仓库，适合摸鱼时逛。' },
+  { name: 'Open Peeps', url: 'https://www.openpeeps.com/', why: '手绘小人可以随便拼，线条有温度。' },
+  { name: 'unDraw', url: 'https://undraw.co/illustrations', why: '干净的插画，颜色可以改成自己的。' },
+  { name: 'Bongo Cat', url: 'https://bongo.cat/', why: '敲键盘猫就打鼓。首页那只猫的灵感来源。' },
+  { name: 'TOPYS', url: 'https://www.topys.cn/', why: '看别人的创意，提醒自己别只会画架构图。' },
+];
+---
+<Base title="偷来的颜色 · 审美" section="aesthetics">
+  <main class="page">
+    <SectionHead emoji="rainbow" title="偷来的颜色" label="审美" colorName="鴇">
+      从别人那儿顺来的颜色、画和字体。
+    </SectionHead>
+
+    <h2>常去的地方</h2>
+    <div class="grid">
+      {FINDS.map((f, i) => (
+        <Card href={f.url} color="var(--c-aesthetics)" tilt={i % 2 ? 1.2 : -1.2}>
+          <h3>{f.name}</h3>
+          <p><Draft>{f.why}</Draft></p>
+        </Card>
+      ))}
+    </div>
+
+    <h2>这张桌子是怎么拼的</h2>
+    <div class="how">
+      <p>颜色用的是日本传统色。每个展区一个：仓库是瑠璃，审美是鴇，探索是若竹，笔记是白鼠，关于我是藍。首页的色点和笔筒可以换荧光笔的颜色，一共八支：</p>
+      <ul class="swatches">
+        {PALETTE.map((c) => <li><i style={`background:${c.hex}`}></i>{c.name}<code>{c.hex}</code></li>)}
+      </ul>
+      <p>字体是霞鹜文楷，会动的表情来自 Google Noto Emoji。卡片的歪、胶带和偏移投影都是 CSS 画的，没有用图片。</p>
+    </div>
+  </main>
+</Base>
+
+<style>
+  .page { max-width: 1100px; margin: 0 auto; padding: 56px 32px 0; }
+  h2 { font-size: 26px; margin: 8px 0 24px; }
+  .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 30px 26px; align-items: start; margin-bottom: 56px; }
+  h3 { font-size: 20px; margin-bottom: 6px; }
+  p { color: #555; font-size: 15px; }
+  .how { max-width: 720px; display: grid; gap: 14px; font-size: 16px; }
+  .swatches { list-style: none; display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 8px 16px; }
+  .swatches li { display: flex; align-items: center; gap: 8px; }
+  .swatches i { width: 18px; height: 18px; border-radius: 50%; border: 1.5px solid var(--ink); }
+  code { font: 11px var(--font-mono); color: var(--mute); }
+</style>

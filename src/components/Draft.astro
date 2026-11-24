@@ -1,0 +1,9 @@
+---
+// 包住 builder 起草、还没经本人确认的文案；check:drafts 会拦住带它的页面上线。
+---
+<span class="draft" data-draft><slot /><sup>待确认</sup></span>
+
+<style>
+  .draft { background: repeating-linear-gradient(-45deg, transparent 0 6px, rgba(243, 83, 54, 0.08) 6px 12px); }
+  sup { font: 10px var(--font-mono); color: #F35336; margin-left: 3px; }
+</style>
