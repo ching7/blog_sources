@@ -42,6 +42,18 @@ jobs:
       - name: Check drafts
         run: npm run check:drafts
 
+      # 项目不存在时先创建（只在第一次生效）
+      - name: Ensure Pages project
+        uses: cloudflare/wrangler-action@v3
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          command: pages project create cf-personal-site --production-branch=main
+        continue-on-error: true
+
       - name: Deploy to Cloudflare Pages
         uses: cloudflare/wrangler-action@v3
         env:
@@ -50,4 +62,4 @@ jobs:
         with:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-          command: pages deploy dist --project-name=cyn-blog
+          command: pages deploy dist --project-name=cf-personal-site --branch=main
