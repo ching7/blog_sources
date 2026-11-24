@@ -442,7 +442,7 @@ fastdfs.tracker_servers = 192.168.101.64:22122
 
             //下载文件
             byte[] fileBytes = client.download_file1("group1/M00/00/00/wKjRgF3PSxiAHuHtAAFl33KnvNs253.jpg");
-            File file = new File("D:/user.jpg");
+            File file = new File("D:/demo.jpg");
             FileOutputStream  fileOutputStream = new FileOutputStream(file);
             fileOutputStream.write(fileBytes);
             fileOutputStream.close();

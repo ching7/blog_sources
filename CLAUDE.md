@@ -22,7 +22,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 ## Rules
 
 - 不引 UI 框架、CSS 框架、组件库；新增依赖要写理由。
-- 首页不出现名字；两种首页的操作位统一：右上猫、左下关于我、右下换色 + 切换按钮（`HomeControls`）。
+- 全站不出现名字、公司等个人信息（dist 测试守着）；两种首页的操作位统一：右上猫、左下关于我、右下换色 + 切换按钮（`HomeControls`）。
 - 两种首页在 1280×720 下不能滚动（`test:fold` 守着）。
 - 文案：仓库点评、About 原文照搬 GitHub README；起草的用 `<Draft>`，CI 会拦。
 - 资源全部自托管，不引外部 CDN。

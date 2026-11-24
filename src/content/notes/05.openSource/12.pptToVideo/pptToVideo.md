@@ -49,11 +49,11 @@ java -jar PptToVideoTool.jar [参数]
 
 ## 5 所需环境说明
 
-* `TTS`: 某厂商`tts`包
+* `TTS`: 第三方 `tts` 包
 * `FFmpeg`: `version-3.4.2`
 
 ## 6 运行配置
 
 * `ConstantParam`类中调整`TTSFILEPATH`字段为实际安装目录
-* 某厂商的`TTS`和`FFmpeg`目前都支持在windows上安装，测试时可以用windows版本
+* 所用的 `TTS`和`FFmpeg`目前都支持在windows上安装，测试时可以用windows版本
 * 本工程在`Liunx`服务器上验证通过，`windows`尚未验证

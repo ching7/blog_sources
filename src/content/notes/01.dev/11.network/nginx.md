@@ -157,7 +157,7 @@ netstat -tupln | grep ngnix
 
 ### Demo1
 
-预期效果：打开浏览器，在浏览器地址栏输入地址 www.user.com ，跳转到 liunx 系统 tomcat 主页
+预期效果：打开浏览器，在浏览器地址栏输入地址 www.example.com ，跳转到 liunx 系统 tomcat 主页
 面中
 
 * 配置启动tomcat
@@ -166,7 +166,7 @@ netstat -tupln | grep ngnix
 
 * 配置域名映射ip
   * 进入windows的 系统盘/windows/system32/drivers/etc
-  * 编辑hosts，新增`192.168.209.128 www.user.com`
+  * 编辑hosts，新增`192.168.209.128 www.example.com`
 
 * 配置nginx.conf
 
@@ -180,7 +180,7 @@ netstat -tupln | grep ngnix
           }
   ~~~
 
-* 访问www.user.com:80 可以访问到tomcat页面
+* 访问www.example.com:80 可以访问到tomcat页面
 
 ### Demo2
 

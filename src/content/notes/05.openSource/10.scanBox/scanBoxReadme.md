@@ -99,7 +99,7 @@ uploadFile (scanImageList) {
 			// 上传url
       const uploadUrl = 'https://test.com/fileUpload'
 	    // 图片水印url
-			let waterLogoUrl = 'https://gitee.com/user/gitee_graph_bed/raw/master/img/80.jpg'
+			let waterLogoUrl = 'https://example.com/logo.jpg'
       beforeUpload(uploadScanImageList, acptInfo, isWater, waterMsg, waterLogoUrl, uploadUrl).then(res => {
 				console.log('单个采集项上传完成')
         // todo 每个采集项上传进度
@@ -144,7 +144,7 @@ scanList = [{
 				'tipInfo':'test',//当前档案采集提示信息
         'isChange': false,// 当前采集项是否发生变化
         'pageInfo': [{
-					'filePath': "https://gitee.com/user/gitee_graph_bed/raw/master/img/80.jpg",
+					'filePath': "https://example.com/logo.jpg",
 					'pageNo': 1,
 				}],// 当前采集项每一页信息
         'pageNum': 9999,//当前采集项可以采集的页数

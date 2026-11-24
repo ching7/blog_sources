@@ -94,3 +94,12 @@ test('页面带「减弱动态效果时换静态表情」的脚本', () => {
   for (const f of ['index.html', 'desk/index.html', 'about/index.html', '404.html'])
     assert.match(readDist(f), /data-still-emoji/, f);
 });
+
+test('全站不出现名字、公司等个人信息', () => {
+  const PRIVATE = /作者|作者|user|author|user|某厂商|company|example|某公司|framework|[已删除]|[已删除]/i;
+  for (const f of listDist().filter((f) => f.endsWith('.html'))) {
+    const m = readDist(f).match(PRIVATE);
+    assert.equal(m, null, `${f}: ${m?.[0]}`);
+  }
+  assert.doesNotMatch(readDist('about/index.html'), /公司/);
+});

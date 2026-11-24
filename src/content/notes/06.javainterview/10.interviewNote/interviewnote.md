@@ -407,7 +407,7 @@ public class TestStaticLoadSort {
 <exclusions>
 	<exclusion>
 		<groupId>com.example.framework</groupId>
-		<artifactId>framework-starter-rpc-mvc-registry</artifactId>
+		<artifactId>framework-starter-rpc-registry</artifactId>
 	</exclusion>
 </exclusions>
 ~~~

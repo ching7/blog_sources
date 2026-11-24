@@ -156,7 +156,7 @@ yarn docs:dev # 或者：npm run docs:dev
 
 ~~~js
 module.exports = {
-  title: 'author の blog',
+  title: 'my blog',
   description: '学习最好的时间就是现在',
   // 注入到当前页面的 HTML <head> 中的标签
   head: [
