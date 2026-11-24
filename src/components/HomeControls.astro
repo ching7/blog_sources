@@ -1,0 +1,43 @@
+---
+// 两种首页共用的底栏：左下「关于我」，右下换色 + 模式切换。保证两版的位置与交互一致。
+import PencilCup from './PencilCup.astro';
+import { emojiSrc } from '../data/emoji.mjs';
+
+interface Props {
+  mode: 'simple' | 'desk';
+}
+const { mode } = Astro.props;
+const sw = mode === 'simple'
+  ? { href: '/desk/', text: '弄乱桌面', emoji: 'upsideDown' }
+  : { href: '/', text: '整理桌面', emoji: 'broom' };
+---
+<footer class:list={['controls', mode]}>
+  <div class="left">
+    <a href="/about/">关于我 →</a>
+    <span class="credit">表情来自 Google Noto Emoji（CC BY 4.0）</span>
+  </div>
+  <div class="right">
+    <PencilCup variant={mode === 'simple' ? 'dots' : 'cup'} />
+    <a class="mode-switch" href={sw.href}>{sw.text}<img src={emojiSrc(sw.emoji)} alt="" width="20" height="20" /></a>
+  </div>
+</footer>
+
+<style>
+  .controls { display: flex; align-items: flex-end; justify-content: space-between; gap: 16px; font-size: 14px; color: var(--mute); }
+  .left { display: flex; flex-direction: column; gap: 2px; }
+  .left a { color: var(--mute); }
+  .credit { font-size: 10px; opacity: 0.8; }
+  .right { display: flex; align-items: flex-end; gap: 16px; }
+  .simple .right { align-items: center; }
+  .mode-switch {
+    display: inline-flex; align-items: center; gap: 6px; height: 30px; padding: 0 12px 0 14px;
+    border: 1.5px dashed var(--ink); border-radius: 15px; background: var(--card); color: var(--ink);
+    font-size: 13px; text-decoration: none; white-space: nowrap; transition: all 0.2s;
+  }
+  .mode-switch:hover, .mode-switch:focus-visible { border-style: solid; background: var(--ink); color: var(--card); }
+  .mode-switch img { width: 20px; height: 20px; }
+  @media (max-width: 720px) {
+    .controls { flex-direction: column-reverse; align-items: stretch; }
+    .right { justify-content: space-between; }
+  }
+</style>

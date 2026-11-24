@@ -23,9 +23,10 @@ const data = GREETINGS.map((g) => ({ src: emojiSrc(g.emoji), parts: splitGreetin
     font: inherit; color: inherit; text-align: left; cursor: pointer;
   }
   .text { font-weight: 400; line-height: 1.35; }
-  u { text-decoration: none; background: linear-gradient(transparent 60%, var(--hl) 60%); transition: background 0.4s; }
+  /* 换句时 <u> 由脚本生成，拿不到作用域属性，所以用 :global */
+  .text :global(u) { text-decoration: none; background: linear-gradient(transparent 60%, var(--hl) 60%); transition: background 0.4s; }
   .sm img { width: 48px; height: 48px; }
-  .sm .text { font-size: 34px; }
+  .sm .text { font-size: 30px; }
   .lg img { width: 64px; height: 64px; }
   .lg .text { font-size: 40px; }
   .greeting:hover img { transform: rotate(-8deg) scale(1.08); }

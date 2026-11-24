@@ -10,7 +10,8 @@
     "test:dist": "node --test tests/dist.test.mjs",
     "test": "npm run test:unit && npm run build && npm run test:dist",
     "fetch:github": "node scripts/fetch-github.mjs",
-    "fetch:linuxdo": "node scripts/fetch-linuxdo.mjs"
+    "fetch:linuxdo": "node scripts/fetch-linuxdo.mjs",
+    "test:fold": "node scripts/run-fold.mjs"
   },
   "dependencies": {
     "astro": "^7.4.13",

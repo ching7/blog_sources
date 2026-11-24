@@ -32,3 +32,27 @@ test('旧搜索/归档有重定向', () => {
   for (const p of ['/search/ /notes/ 301', '/archives/ /notes/ 301', '/categories/* /notes/ 301', '/tags/* /notes/ 301'])
     assert.ok(r.includes(p), p);
 });
+
+test('首页：无名字、有欢迎语、四件物件、打卡本、猫、切换按钮', () => {
+  const html = readDist('index.html');
+  assert.doesNotMatch(html, /作者/);
+  assert.match(html, /嗯？你也走到/); // GREETINGS[0] 服务端渲染
+  for (const h of ['/repos/', '/aesthetics/', '/explore/', '/notes/']) assert.match(html, new RegExp(`href="${h}"`));
+  assert.match(html, /最近有没有偷懒/);
+  assert.match(html, /更新于 \d{4}-\d{2}-\d{2}/);
+  assert.match(html, /戳我/);
+  assert.match(html, /href="\/about\/"/);
+  assert.match(html, /<a[^>]*class="[^"]*\bmode-switch\b[^"]*"[^>]*href="\/desk\/"|<a[^>]*href="\/desk\/"[^>]*class="[^"]*\bmode-switch\b/);
+});
+
+test('热闹版存在、无名字、能回到简约', () => {
+  const html = readDist('desk/index.html');
+  assert.doesNotMatch(html, /作者/);
+  assert.match(html, /<a[^>]*class="[^"]*\bmode-switch\b[^"]*"[^>]*href="\/"|<a[^>]*href="\/"[^>]*class="[^"]*\bmode-switch\b/);
+  assert.match(html, /最近有没有偷懒/);
+  assert.match(html, /戳我/);
+});
+
+test('首页图片只引用自托管资源', () => {
+  for (const f of ['index.html', 'desk/index.html']) assert.doesNotMatch(readDist(f), /<img[^>]+src="https?:\/\//, f);
+});

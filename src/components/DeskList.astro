@@ -1,0 +1,42 @@
+---
+// 简约版首页的物件清单。
+import { DESK } from '../data/desk.mjs';
+import { emojiSrc } from '../data/emoji.mjs';
+
+interface Props {
+  notes: number;
+}
+const { notes } = Astro.props;
+---
+<nav class="list" aria-label="展区">
+  {DESK.map((d) => (
+    <a class="row" href={d.href} style={`--c: ${d.color}`}>
+      <i aria-hidden="true"></i>
+      <span class="body">
+        <span class="title">{d.title}</span>
+        <span class="desc">{d.short.replace('{N}', String(notes))}</span>
+      </span>
+      <small>{d.sectionLabel}</small>
+      <img class="pop" src={emojiSrc(d.emoji)} alt="" width="64" height="64" loading="lazy" />
+    </a>
+  ))}
+</nav>
+
+<style>
+  .list { border-top: 1px solid var(--line); }
+  .row {
+    position: relative; display: grid; grid-template-columns: 14px 1fr auto; align-items: baseline; gap: 18px;
+    padding: clamp(8px, 1.5vh, 20px) 4px; border-bottom: 1px solid var(--line);
+    color: inherit; text-decoration: none; transition: padding 0.25s;
+  }
+  i { width: 8px; height: 8px; border-radius: 50%; background: var(--c); align-self: center; }
+  .body { display: flex; flex-direction: column; }
+  .title { font-size: 22px; align-self: flex-start; }
+  .desc { font-size: 14px; color: var(--mute); margin-top: 2px; }
+  small { font: 11px var(--font-mono); color: var(--mute); letter-spacing: 0.08em; }
+  .pop { position: absolute; right: -84px; top: 50%; width: 64px; height: 64px; margin-top: -32px; opacity: 0; transform: translateX(-10px); transition: all 0.25s; pointer-events: none; }
+  .row:hover, .row:focus-visible { padding-left: 14px; }
+  .row:hover .title, .row:focus-visible .title { background: linear-gradient(transparent 62%, color-mix(in srgb, var(--c) 45%, transparent) 62%); }
+  .row:hover .pop, .row:focus-visible .pop { opacity: 1; transform: none; }
+  @media (max-width: 900px) { .pop { display: none; } }
+</style>

@@ -1,10 +1,38 @@
 ---
 import Base from '../layouts/Base.astro';
+import Greeting from '../components/Greeting.astro';
+import Cat from '../components/Cat.astro';
+import DeskList from '../components/DeskList.astro';
 import ActivityLog from '../components/ActivityLog.astro';
+import HomeControls from '../components/HomeControls.astro';
+import { noteCount } from '../lib/note-count';
+
+const notes = await noteCount();
 ---
-<Base title="一张乱桌子">
-  <main style="padding:80px 64px;display:grid;gap:60px;max-width:760px">
+<Base title="一张桌子" footer={false}>
+  <main class="simple">
+    <div class="top">
+      <Greeting size="sm" />
+      <Cat size="sm" />
+    </div>
+    <div class="gap"></div>
+    <DeskList notes={notes} />
+    <div class="gap"></div>
     <ActivityLog variant="strip" />
-    <div style="max-width:420px"><ActivityLog variant="card" /></div>
+    <div class="push"></div>
+    <HomeControls mode="simple" />
   </main>
 </Base>
+
+<style>
+  /* 简约版：纸面不要点阵 */
+  :global(body) { background-image: none; background-color: #f6f1e7; }
+  .simple { max-width: 760px; margin: 0 auto; padding: calc(24px + 4vh) 32px 2.5vh; min-height: 100vh; display: flex; flex-direction: column; }
+  .top { display: flex; align-items: center; justify-content: space-between; gap: 16px; }
+  .gap { height: 3.5vh; flex: none; }
+  .push { flex: 1 0 2vh; }
+  @media (max-width: 720px) {
+    .simple { padding: 32px 18px 24px; }
+    .top { flex-direction: column; align-items: flex-start; }
+  }
+</style>

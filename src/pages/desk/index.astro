@@ -1,0 +1,58 @@
+---
+import Base from '../../layouts/Base.astro';
+import Greeting from '../../components/Greeting.astro';
+import Cat from '../../components/Cat.astro';
+import Card from '../../components/Card.astro';
+import Tag from '../../components/Tag.astro';
+import ActivityLog from '../../components/ActivityLog.astro';
+import HomeControls from '../../components/HomeControls.astro';
+import { DESK } from '../../data/desk.mjs';
+import { emojiSrc } from '../../data/emoji.mjs';
+import { noteCount } from '../../lib/note-count';
+
+const notes = await noteCount();
+const tilts = [-1.6, 1.3, -1.2, 1.5];
+---
+<Base title="一张乱桌子" footer={false}>
+  <main class="desk-page">
+    <div class="top">
+      <Greeting size="lg" />
+      <Cat size="lg" />
+    </div>
+    <div class="desk">
+      {DESK.map((d, i) => (
+        <Card href={d.href} color={d.color} tilt={tilts[i]} class={i % 2 ? 'low' : ''}>
+          <img class="emo" src={emojiSrc(d.emoji)} alt="" width="76" height="76" />
+          <h3>{d.title}</h3>
+          <p>{d.blurb.replace('{N}', String(notes))}</p>
+          <Tag label={d.sectionLabel} colorName={d.colorName} color={d.color} />
+        </Card>
+      ))}
+      <ActivityLog variant="card" />
+    </div>
+    <div class="push"></div>
+    <HomeControls mode="desk" />
+  </main>
+</Base>
+
+<style>
+  .desk-page { max-width: 1260px; margin: 0 auto; padding: calc(24px + 3vh) 56px 2vh; min-height: 100vh; display: flex; flex-direction: column; }
+  .top { display: flex; align-items: center; justify-content: space-between; gap: 24px; }
+  .desk { margin-top: 5vh; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)) minmax(0, 2fr); gap: 26px; align-items: start; }
+  .desk :global(.low) { margin-top: 14px; }
+  .emo { display: block; width: 76px; height: 76px; margin: -30px 0 4px -6px; transition: transform 0.3s; }
+  .desk :global(a.card:hover) .emo { transform: scale(1.15) rotate(-6deg); }
+  h3 { font-size: 24px; margin: 4px 0 6px; }
+  p { font-size: 15px; color: #555; line-height: 1.6; margin-bottom: 10px; }
+  .push { flex: 1 0 2vh; }
+  @media (max-width: 1100px) {
+    .desk { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .desk :global(.activity-card) { grid-column: 1 / -1; }
+  }
+  @media (max-width: 720px) {
+    .desk-page { padding: 32px 18px 24px; }
+    .top { flex-direction: column; align-items: flex-start; }
+    .desk { grid-template-columns: minmax(0, 1fr); gap: 30px; }
+    .desk :global(.low) { margin-top: 0; }
+  }
+</style>
