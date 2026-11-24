@@ -2,13 +2,16 @@
 import 'lxgw-wenkai-webfont/lxgwwenkai-regular.css';
 import '../styles/tokens.css';
 import '../styles/base.css';
+import SiteFooter from '../components/SiteFooter.astro';
 
 interface Props {
   title: string;
   description?: string;
   section?: 'repos' | 'aesthetics' | 'explore' | 'notes' | 'about' | 'home';
+  /** 首页自带底栏（首屏原则），传 false 关掉通用页脚 */
+  footer?: boolean;
 }
-const { title, description = '一张乱桌子，摆着一些好玩的东西。', section = 'home' } = Astro.props;
+const { title, description = '一张乱桌子，摆着一些好玩的东西。', section = 'home', footer = true } = Astro.props;
 const color = section === 'home' ? 'var(--hl)' : `var(--c-${section})`;
 ---
 <!doctype html>
@@ -22,5 +25,10 @@ const color = section === 'home' ? 'var(--hl)' : `var(--c-${section})`;
   </head>
   <body data-section={section} style={`--c: ${color}`}>
     <slot />
+    {footer && <div class="footer-wrap"><SiteFooter /></div>}
   </body>
 </html>
+
+<style>
+  .footer-wrap { max-width: 1100px; margin: 0 auto; padding: 0 32px; }
+</style>

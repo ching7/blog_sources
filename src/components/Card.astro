@@ -1,0 +1,53 @@
+---
+interface Props {
+  href?: string;
+  color: string;
+  tilt?: number;
+  class?: string;
+}
+const { href, color, tilt, class: className = '' } = Astro.props;
+const Tag = href ? 'a' : 'div';
+---
+<Tag
+  class:list={['card', className]}
+  href={href}
+  style={`--c: ${color};${tilt !== undefined ? ` --tilt: ${tilt}deg;` : ''}`}
+>
+  <span class="tape" aria-hidden="true"></span>
+  <slot />
+</Tag>
+
+<style>
+  .card {
+    --tilt: -1.6deg;
+    display: block;
+    position: relative;
+    background: var(--card);
+    color: var(--ink);
+    text-decoration: none;
+    padding: 20px 18px 14px;
+    border: 2.5px solid var(--ink);
+    border-radius: 14px 18px 12px 20px / 18px 12px 20px 14px;
+    box-shadow: 5px 6px 0 var(--c);
+    transform: rotate(var(--tilt));
+    transition: transform 0.25s, box-shadow 0.25s;
+  }
+  :global(:nth-child(even) > .card),
+  .card:nth-child(even) { --tilt: 1.3deg; }
+  a.card:hover,
+  a.card:focus-visible {
+    transform: rotate(0) translateY(-8px) scale(1.04);
+    box-shadow: 8px 10px 0 var(--c);
+  }
+  .tape {
+    position: absolute;
+    top: -12px;
+    left: 50%;
+    width: 70px;
+    height: 22px;
+    margin-left: -35px;
+    background: var(--c);
+    opacity: 0.55;
+    transform: rotate(-4deg);
+  }
+</style>

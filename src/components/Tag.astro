@@ -1,0 +1,14 @@
+---
+interface Props {
+  label: string;
+  colorName: string;
+  color: string;
+}
+const { label, colorName, color } = Astro.props;
+---
+<span class="tag" style={`--c: ${color}`}><i aria-hidden="true"></i>{label} · {colorName}</span>
+
+<style>
+  .tag { display: inline-flex; align-items: center; gap: 6px; font: 11px var(--font-mono); color: #999; }
+  i { width: 9px; height: 9px; border-radius: 50%; background: var(--c); border: 1px solid var(--ink); }
+</style>

@@ -1,0 +1,33 @@
+---
+// 荧光笔高亮：无 JS 时用 CSS 渐变兜底，有 JS 时进入视口用 rough-notation 画一次。
+---
+<span class="hl" data-hl><slot /></span>
+
+<style>
+  .hl { background: linear-gradient(transparent 58%, var(--hl) 58%); transition: background 0.4s; }
+  .hl.drawn { background: none; }
+</style>
+
+<script>
+  import { annotate } from 'rough-notation';
+
+  await document.fonts.ready; // 字体换上后再量尺寸，否则荧光笔画歪
+  const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const io = new IntersectionObserver((entries) => {
+    for (const e of entries) {
+      if (!e.isIntersecting) continue;
+      io.unobserve(e.target);
+      const el = e.target as HTMLElement;
+      const color = getComputedStyle(el).getPropertyValue('--hl').trim() || '#FFB11B';
+      const a = annotate(el, { type: 'highlight', color, animate: !reduce, animationDuration: 800, multiline: true });
+      el.classList.add('drawn');
+      a.show();
+      // 换色时重画
+      new MutationObserver(() => {
+        const c = getComputedStyle(el).getPropertyValue('--hl').trim();
+        if (c && c !== a.color) { a.color = c; a.hide(); a.show(); }
+      }).observe(document.documentElement, { attributes: true, attributeFilter: ['style'] });
+    }
+  });
+  document.querySelectorAll<HTMLElement>('[data-hl]').forEach((el) => io.observe(el));
+</script>
