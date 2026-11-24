@@ -9,5 +9,5 @@
 
 ## 在线地址
 
-https://cyn-blog.pages.dev/
+https://southocean.home64.de/ （备用：https://cyn-blog.pages.dev/）
 

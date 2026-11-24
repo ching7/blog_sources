@@ -31,4 +31,4 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 - `.github/workflows/deploy.yml`：push main / 每日 cron / 手动；部署 `dist/` 到 Pages 项目 `cyn-blog`（secrets `CLOUDFLARE_API_TOKEN` + `CLOUDFLARE_ACCOUNT_ID`）。
 - GitHub remote 是 `github`；gitee 的 `origin` 不跑 Actions。
-- 自定义域名定下后改 `astro.config.mjs` 的 `site`。
+- 主域名 `southocean.home64.de`（zone 托管在 Cloudflare，NS 由 ipv64 委派），绑在 Pages 项目 `cyn-blog` 上；`astro.config.mjs` 的 `site` 与之一致。
