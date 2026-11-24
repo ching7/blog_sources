@@ -6,15 +6,18 @@ interface Props {
 }
 const { size } = Astro.props;
 ---
-<button type="button" class:list={['cat', size]} data-cat data-grin={emojiSrc('catGrin')} aria-label="戳一下猫">
-  <span class="bubble" data-say>戳我，或者敲敲键盘</span>
-  <img src={emojiSrc('cat')} alt="" width="88" height="88" data-cat-img />
-</button>
+<div class:list={['cat', size]}>
+  <span class="bubble" data-say aria-live="polite">戳我，或者敲敲键盘</span>
+  <button type="button" class="hit" data-cat data-grin={emojiSrc('catGrin')} aria-label="戳一下猫">
+    <img src={emojiSrc('cat')} alt="" width="88" height="88" data-cat-img />
+  </button>
+</div>
 
 <style>
-  .cat { display: flex; align-items: center; gap: 8px; background: none; border: 0; padding: 0; font: inherit; color: inherit; cursor: pointer; user-select: none; }
+  .cat { display: flex; align-items: center; gap: 8px; user-select: none; }
+  .hit { background: none; border: 0; padding: 0; cursor: pointer; display: flex; }
   .cat img { transition: transform 0.09s; flex: none; }
-  .cat:hover img, .cat:focus-visible img { transform: scale(1.08); }
+  .hit:hover img, .hit:focus-visible img { transform: scale(1.08); }
   .sm img { width: 56px; height: 56px; }
   .lg img { width: 88px; height: 88px; }
   .bubble { white-space: nowrap; background: var(--card); color: var(--ink); }
@@ -30,7 +33,7 @@ const { size } = Astro.props;
     n++;
     for (const cat of cats) {
       const img = cat.querySelector<HTMLImageElement>('[data-cat-img]')!;
-      const say = cat.querySelector('[data-say]')!;
+      const say = cat.parentElement!.querySelector('[data-say]')!;
       if (!matchMedia('(prefers-reduced-motion: reduce)').matches) {
         img.style.transform = `rotate(${n % 2 ? 10 : -10}deg)`;
         setTimeout(() => (img.style.transform = ''), 90);

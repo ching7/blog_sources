@@ -32,3 +32,13 @@ export function summarizeLinuxdo(summary, user, fetchedAt) {
 export function staleDate(a, b) {
   return a < b ? a : b;
 }
+
+/** 至少 300 天才算解析成功：GitHub 页面半改版时宁可沿用旧数据，也不写入残缺的一小段。 */
+export function shouldWrite(days) {
+  return days.length >= 300;
+}
+
+/** 北京时间（UTC+8）的日期 YYYY-MM-DD：CI 在北京时间 02:00 跑，用 UTC 会显示成前一天。 */
+export function beijingDate(now = new Date()) {
+  return new Date(now.getTime() + 8 * 3600 * 1000).toISOString().slice(0, 10);
+}

@@ -80,6 +80,7 @@ import { emojiSrc } from '../data/emoji.mjs';
     paper.querySelector('small')!.textContent = tries >= 3 ? '再点一下，回桌面' : '放好了……吗？';
     if (tries >= 3) {
       cat.src = root.dataset.weary!;
+      cat.alt = '一只认输的猫';
       say.textContent = LINES[2];
       busy = false;
       return;

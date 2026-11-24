@@ -103,3 +103,27 @@ test('全站不出现名字、公司等个人信息', () => {
   }
   assert.doesNotMatch(readDist('about/index.html'), /公司/);
 });
+
+test('猫的气泡在按钮外，并会被读屏播报', () => {
+  for (const f of ['index.html', 'desk/index.html']) {
+    const html = readDist(f);
+    assert.match(html, /<[^>]+aria-live="polite"[^>]*data-say|data-say[^>]*aria-live="polite"/, f);
+    assert.doesNotMatch(html, /<button[^>]*data-cat[^>]*>(?:(?!<\/button>)[\s\S])*data-say/, f);
+  }
+});
+
+test('换色按钮有 aria-pressed', () => {
+  const html = readDist('index.html');
+  const dots = html.match(/<button[^>]*data-hex[^>]*>/g) ?? [];
+  assert.equal(dots.length, 8);
+  for (const d of dots) assert.match(d, /aria-pressed="(true|false)"/, d);
+});
+
+test('笔记里没有任何外链图片', () => {
+  for (const f of listDist().filter((f) => f.startsWith('posts/') && f.endsWith('.html')))
+    assert.doesNotMatch(readDist(f), /<img[^>]+src="https?:\/\//, f);
+});
+
+test('热力图按提交等级分色', () => {
+  assert.match(readDist('index.html'), /<b[^>]*class="[^"]*\bl[1-4]\b/);
+});

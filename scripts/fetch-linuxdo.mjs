@@ -6,7 +6,7 @@ import { writeFileSync, readFileSync, existsSync } from 'node:fs';
 import { execFileSync, spawn } from 'node:child_process';
 import { resolve } from 'node:path';
 import { chromium } from 'playwright';
-import { summarizeLinuxdo } from '../src/lib/activity.mjs';
+import { summarizeLinuxdo, beijingDate } from '../src/lib/activity.mjs';
 import { gitPlan } from './linuxdo-git.mjs';
 
 const USER = 'ching7';
@@ -47,7 +47,7 @@ try {
     if (i === 5 && !summary) console.log('还没拿到数据：如果 Chrome 停在验证页，请手动点一下');
   }
   if (!summary || !user) throw new Error('3 分钟内没能通过 linux.do 的验证');
-  data = summarizeLinuxdo(summary, user, new Date().toISOString());
+  data = summarizeLinuxdo(summary, user, beijingDate());
 } finally {
   await browser.close().catch(() => {});
   chrome.kill();

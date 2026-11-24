@@ -13,14 +13,14 @@ const heights = [86, 100, 72, 94, 80, 90, 76, 68];
     <div>
       <div class="pens">
         {PALETTE.map((c, i) => (
-          <button type="button" class="pen" data-hex={c.hex} data-name={c.name} title={`换成${c.name}`} style={`background:${c.hex};height:${heights[i] * 0.72}px`}></button>
+          <button type="button" class="pen" data-hex={c.hex} data-name={c.name} title={`换成${c.name}`} aria-label={`荧光笔换成${c.name}`} aria-pressed={i === 0 ? 'true' : 'false'} style={`background:${c.hex};height:${heights[i] * 0.72}px`}></button>
         ))}
       </div>
       <div class="cupbody" data-label>{PALETTE[0].name} · {PALETTE[0].hex}</div>
     </div>
   ) : (
-    PALETTE.map((c) => (
-      <button type="button" class="dot" data-hex={c.hex} data-name={c.name} title={`换成${c.name}`} style={`background:${c.hex}`}></button>
+    PALETTE.map((c, i) => (
+      <button type="button" class="dot" data-hex={c.hex} data-name={c.name} title={`换成${c.name}`} aria-label={`荧光笔换成${c.name}`} aria-pressed={i === 0 ? 'true' : 'false'} style={`background:${c.hex}`}></button>
     ))
   )}
 </div>
@@ -28,7 +28,10 @@ const heights = [86, 100, 72, 94, 80, 90, 76, 68];
 <style>
   .palette button { border: 0; padding: 0; cursor: pointer; }
   .dots { display: flex; gap: 6px; align-items: center; }
-  .dot { width: 12px; height: 12px; border-radius: 50%; outline: 1px solid rgba(0, 0, 0, 0.15); transition: transform 0.2s; }
+  .dot { position: relative; width: 12px; height: 12px; border-radius: 50%; outline: 1px solid rgba(0, 0, 0, 0.15); transition: transform 0.2s; }
+  /* 点击区域扩到 28px，色点本身保持 12px */
+  .dot::after { content: ''; position: absolute; inset: -8px; }
+  .dot[aria-pressed='true'] { outline: 2px solid var(--ink); outline-offset: 2px; }
   .dot:hover, .dot:focus-visible { transform: scale(1.35); }
   .pens { display: flex; gap: 5px; align-items: flex-end; height: 72px; padding: 0 12px; }
   .pen { width: 16px; border: 2px solid var(--ink) !important; border-bottom: 0 !important; border-radius: 8px 8px 0 0; transition: transform 0.2s; }
@@ -48,6 +51,7 @@ const heights = [86, 100, 72, 94, 80, 90, 76, 68];
       const b = (e.target as HTMLElement).closest<HTMLButtonElement>('button[data-hex]');
       if (!b) return;
       document.documentElement.style.setProperty('--hl', b.dataset.hex!);
+      for (const o of box.querySelectorAll('button[data-hex]')) o.setAttribute('aria-pressed', String(o === b));
       if (label) label.textContent = `${b.dataset.name} · ${b.dataset.hex}`;
       if (matchMedia('(prefers-reduced-motion: reduce)').matches) return;
       const r = b.getBoundingClientRect();

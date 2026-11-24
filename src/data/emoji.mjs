@@ -1,4 +1,4 @@
-// Google Noto Animated Emoji（CC BY 4.0），自托管在 public/emoji/<码点>.webp（256px）。
+// Google Noto Animated Emoji（CC BY 4.0），自托管在 public/emoji/<码点>.webp（192px 跳帧压缩，另有 .still.webp 单帧静态版）。
 // 只收录 2026-11-24 确认有动态版的码点；新增前先确认 fonts.gstatic.com/s/e/notoemoji/latest/<码点>/512.webp 存在。
 export const EMOJI = {
   gift: '1f381',

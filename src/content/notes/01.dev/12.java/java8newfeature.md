@@ -8,7 +8,7 @@ draft: false
 ---
 # JAVA8 新特性
 
-[![java](https://img.shields.io/badge/JAVA-1.8+-green.svg)](##Lambda)
+[![java](/images/01.dev/12.java/java-badge.svg)](##Lambda)
 
 ❕❗❗❕ 所有的demo可见 [GITHUB](https://github.com/ching7/javaBaseStudy.git)
 

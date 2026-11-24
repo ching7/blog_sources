@@ -40,3 +40,16 @@ test('打卡本的「更新于」取较旧的那个日期', async () => {
   assert.equal(staleDate('2026-11-30', '2026-11-24'), '2026-11-24');
   assert.equal(staleDate('2026-10-01', '2026-11-24'), '2026-10-01');
 });
+
+test('解析出的天数太少（页面半改版）不写入', async () => {
+  const { shouldWrite } = await import('../../src/lib/activity.mjs');
+  assert.equal(shouldWrite(Array(7).fill({})), false);
+  assert.equal(shouldWrite(Array(299).fill({})), false);
+  assert.equal(shouldWrite(Array(365).fill({})), true);
+});
+
+test('更新日期按北京时间', async () => {
+  const { beijingDate } = await import('../../src/lib/activity.mjs');
+  assert.equal(beijingDate(new Date('2026-11-23T18:00:00Z')), '2026-11-24');
+  assert.equal(beijingDate(new Date('2026-11-23T15:59:00Z')), '2026-11-23');
+});

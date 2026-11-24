@@ -20,7 +20,7 @@ const active = github.days.filter((d) => d.level > 0).length;
     <img class="emo" src={emojiSrc('fire')} alt="" width="76" height="76" />
     <h3>最近有没有偷懒</h3>
     <div class="grid-wrap"><div class="grid" role="img" aria-label={`GitHub 近一年 ${active} 天有提交`}>
-      {cells.map((d) => <b class:list={[d && d.level > 0 && 'on', !d && 'pad']} title={d ? d.date : undefined}></b>)}
+      {cells.map((d) => <b class:list={[d && d.level > 0 && ['on', `l${d.level}`], !d && 'pad']} title={d ? d.date : undefined}></b>)}
     </div></div>
     <p class="stats">
       <span>linux.do 泡了 <mark>{linuxdo.days}</mark> 天</span>
@@ -35,7 +35,7 @@ const active = github.days.filter((d) => d.level > 0).length;
   <section class="strip">
     <h3>最近有没有偷懒</h3>
     <div class="grid-wrap"><div class="grid" role="img" aria-label={`GitHub 近一年 ${active} 天有提交`}>
-      {cells.map((d) => <b class:list={[d && d.level > 0 && 'on', !d && 'pad']} title={d ? d.date : undefined}></b>)}
+      {cells.map((d) => <b class:list={[d && d.level > 0 && ['on', `l${d.level}`], !d && 'pad']} title={d ? d.date : undefined}></b>)}
     </div></div>
     <p class="line">
       linux.do 泡了 <em>{linuxdo.days}</em> 天 · 读了 <em>{linuxdo.hours}</em> 小时 · 刷过 <em>{linuxdo.postsRead}</em> 帖 · 信任等级 <em>{linuxdo.trustLevel}</em> · 更新于 {updatedAt}
@@ -52,6 +52,10 @@ const active = github.days.filter((d) => d.level > 0).length;
   .grid b { border-radius: 1px; background: #e8e0cf; }
   .grid b.pad { background: none; }
   .grid b.on { background: var(--hl); }
+  /* 按提交等级深浅：1 级最浅，4 级是满色 */
+  .grid b.l1 { background: color-mix(in srgb, var(--hl) 40%, #e8e0cf); }
+  .grid b.l2 { background: color-mix(in srgb, var(--hl) 65%, #e8e0cf); }
+  .grid b.l3 { background: color-mix(in srgb, var(--hl) 85%, #e8e0cf); }
   /* card */
   :global(.activity-card) h3 { font-size: 22px; margin: 4px 0 8px; }
   .emo { display: block; width: 76px; height: 76px; margin: -30px 0 4px -6px; }
